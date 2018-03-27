@@ -35,11 +35,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author anpi0316
- *         Date: 04.03.2018
- *         Time: 14:44
- */
 @Controller
 public class TestController {
 
@@ -64,7 +59,7 @@ public class TestController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @ResponseBody
-    public UserViewModel getUsersAsJson(@RequestBody UserViewModel userViewModel) {
+    public UserViewModel getUsersAsJson(@RequestBody UserViewModel userViewModel)    {
         return userViewModel;
     }
 
