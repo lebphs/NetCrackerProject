@@ -14,6 +14,6 @@
     <title></title>
   </head>
   <body>
-    <c:redirect url = "/users-view"/>
+    <c:redirect url = "/admin-page"/>
   </body>
 </html>

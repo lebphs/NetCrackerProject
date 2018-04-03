@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,9 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary">
-    <img class="mb-4" src="/resources/logo.png" alt="" width="120" height="40">
+    <%--<img class="mb-4" src="/resources/logo.png" alt="" width="120" height="40">--%>
 </nav>
+<script src="resources/js/custom/adminPage.js"></script>
 <div class="container-fluid">
     <br>
     <div class="row">
@@ -133,7 +135,7 @@
                     <input type="text" class="form-control" id="surname" placeholder="Surname">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Name">
+                    <input type="text" class="form-control jsInputName" id="name" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="availableFaculty">
@@ -150,13 +152,13 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="group" placeholder="Group number">
+                    <input type="text" class="form-control jsInputGroup" id="group" placeholder="Group number">
                 </div>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <label class="radio-inline">
-                                <input type="radio" name="isBudget" value="true" checked> Budget
+                                <input type="radio" name="isBudget" id="isBudget" value="true" checked> Budget
                             </label>
                         </div>
                         <div class="col-md-6">
@@ -169,7 +171,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="averageScore" placeholder="Average score">
                 </div>
-                <button type="button" class="btn btn-success" id="createNewStudent">Create</button>
+                <button type="button" class="btn btn-danger jsSendData" data-dismiss="modal" id="createNewStudent">Create</button>
             </form>
         </div>
     </div>
@@ -281,7 +283,7 @@
         <th scope="col">Btn "Show info"</th>
     </tr>
     </thead>
-    <tbody class="tableWithAllStudents">
+    <tbody class="tableWithAllStudents jsAdded">
         <c:if test="${not empty students}">
             <c:forEach items="${students}" var="students">
                 <tr>
@@ -328,6 +330,27 @@
         }
     });
 </script>
+
+<div>
+    <h3>Printing data using js & ajax</h3>
+    <div class="jsDataUsingAjaxStudent">
+    </div>
+</div>
+<br>
+<br>
+Sending Data on server:
+<%--<div class="form-inline">--%>
+    <%--<label class="sr-only" for="inlineFormInputId">Id</label>--%>
+    <%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputGroup" id="inlineFormInputId" placeholder="001">--%>
+    <%--<label class="sr-only" for="inlineFormInputName">Name</label>--%>
+    <%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">--%>
+
+    <%--<button  class="btn btn-primary mb-2 jsSendData">Send data</button>--%>
+<%--</div>--%>
+
+<br>
+<div class="jsAddedStudent">
+</div>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
