@@ -132,10 +132,10 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="surname" placeholder="Surname">
+                    <input type="text" class="form-control" id="surnameStudent" placeholder="Surname">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control jsInputName" id="name" placeholder="Name">
+                    <input type="text" class="form-control " id="nameStudent" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="availableFaculty">
@@ -152,7 +152,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control jsInputGroup" id="group" placeholder="Group number">
+                    <input type="text" class="form-control" id="group" placeholder="Group number">
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -169,9 +169,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="averageScore" placeholder="Average score">
+                    <input type="text" class="form-control" id="scoreAverage" placeholder="Average score">
                 </div>
-                <button type="button" class="btn btn-danger jsSendData" data-dismiss="modal" id="createNewStudent">Create</button>
+                <button type="button" class="btn btn-success jsSendData" data-dismiss="modal" id="createNewStudent">Create</button>
             </form>
         </div>
     </div>
@@ -283,7 +283,7 @@
         <th scope="col">Btn "Show info"</th>
     </tr>
     </thead>
-    <tbody class="tableWithAllStudents jsAdded">
+    <tbody class="tableWithAllStudents" id="table">
         <c:if test="${not empty students}">
             <c:forEach items="${students}" var="students">
                 <tr>
@@ -330,27 +330,6 @@
         }
     });
 </script>
-
-<div>
-    <h3>Printing data using js & ajax</h3>
-    <div class="jsDataUsingAjaxStudent">
-    </div>
-</div>
-<br>
-<br>
-Sending Data on server:
-<%--<div class="form-inline">--%>
-    <%--<label class="sr-only" for="inlineFormInputId">Id</label>--%>
-    <%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputGroup" id="inlineFormInputId" placeholder="001">--%>
-    <%--<label class="sr-only" for="inlineFormInputName">Name</label>--%>
-    <%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">--%>
-
-    <%--<button  class="btn btn-primary mb-2 jsSendData">Send data</button>--%>
-<%--</div>--%>
-
-<br>
-<div class="jsAddedStudent">
-</div>
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

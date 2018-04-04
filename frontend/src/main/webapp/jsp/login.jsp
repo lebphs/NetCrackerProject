@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<%--<link href="/resources/css/libs/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
+	<%--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>--%>
+        <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
 	<link rel="stylesheet" href="/resources/css/general.css">
 </head>
-<jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+
 <script src="resources/js/custom/login.js"></script>
 <body class="center">
 <div class="container">
@@ -71,36 +72,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div>
-		<h3>Printing data using model and view</h3>
-		<div class="jsDataUsingModelAndView">
-			<c:if test="${not empty users}">
-				<c:forEach items="${users}" var="users">
-					${users.id} | ${users.name} <br>
-				</c:forEach>
-			</c:if>
-		</div>
-	</div>
-	<div>
-		<h3>Printing data using js & ajax</h3>
-		<div class="jsDataUsingAjax">
-		</div>
-	</div>
-	<br>
-	<br>
-	Sending Data on server:
-	<div class="form-inline">
-		<label class="sr-only" for="inlineFormInputId">Id</label>
-		<input type="text" class="form-control mb-2 mr-sm-2 jsInputId" id="inlineFormInputId" placeholder="001">
-		<label class="sr-only" for="inlineFormInputName">Name</label>
-		<input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">
-
-		<button  class="btn btn-primary mb-2 jsSendData">Send data</button>
-	</div>
-
-	<br>
-	<div class="jsAddedUser">
 	</div>
 </div>
 </body>
