@@ -4,37 +4,38 @@
 <head>
     <meta charset="utf-8">
     <title>Administrator</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">--%>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
+
 <body>
+
 <nav class="navbar navbar-dark bg-primary">
-    <%--<img class="mb-4" src="/resources/logo.png" alt="" width="120" height="40">--%>
+    <img class="mb-4" src="/resources/logo.png" alt="" width="120" height="40">
 </nav>
-<script src="resources/js/custom/adminPage.js"></script>
+
+
 <div class="container-fluid">
-    <br>
     <div class="row">
         <div class="col-md-2">
-            <input type="button" class="btn btn-primary" value="Show all request" onClick='location.href="requestAllPage.jsp"'/>
+            <input type="button" class="btn btn-lg btn-primary" value="Show all request" onClick='location.href="requestAllPage.jsp"'/>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addrequest">Add request</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#addrequest">Add request</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createstudent">Create student</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createstudent">Create student</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
         </div>
     </div>
 </div>
@@ -55,7 +56,7 @@
                     <div class=" mb-3">
                         <div class="form-group">
                             <!-- <label for="companyName">Company name</label> -->
-                            <input type="text" class="form-control" id="namecompany" placeholder="Enter name of company"><br>
+                            <input type="text" class="form-control" id="nameCompanySentReqeuest" placeholder="Enter name of company"><br>
                         </div>
                     </div>
                     <div class="row">
@@ -83,10 +84,8 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <!-- <label for="availableFacul">available faculties</label> -->
-                            <!-- <input type="text" class="form-control" id="dateTo"> -->
                             <div class="form-group">
-                                <select class="form-control" id="availableFaculties">
+                                <select class="form-control" id="availableFacultyForRequest">
                                     <option>FTK</option>
                                     <option>FITU</option>
                                     <option>FRE</option>
@@ -102,7 +101,7 @@
                         <div class="form-group">
                             <!-- <label for="availableSpecialties">available specialties</label> -->
                             <!-- <input type="text" class="form-control" id="availableSpecialties" placeholder="available specialties"> -->
-                            <select class="form-control" id="availableSpecialties">
+                            <select class="form-control" id="availableSpecialtyForRequest">
                             </select>
                         </div>
                     </div>
@@ -189,7 +188,6 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="availableStudent">Search available students</label>
@@ -199,7 +197,6 @@
                                     <label>Search available demands</label>
                                     <input class="typehead" type="text" class="form-control" id="availableDemands" required><br>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-success ">Create</button>
@@ -207,7 +204,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!--Modal Create specialty-->
@@ -266,7 +262,7 @@
 </div>
 </div><br>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
         <th >Check</th>
@@ -283,15 +279,15 @@
         <th scope="col">Btn "Show info"</th>
     </tr>
     </thead>
-    <tbody class="tableWithAllStudents" id="table">
+    <tbody class="tableWithAllStudents">
         <c:if test="${not empty students}">
             <c:forEach items="${students}" var="students">
                 <tr>
                     <td><input type="checkbox"></td>
                     <td>${students.surname}</td>
                     <td>${students.name}</td>
-                    <td>${students.faculty}</td>
-                    <td>${students.specialty}</td>
+                    <td>${students.specialityId.faculty.name}</td>
+                    <td>${students.specialityId.name}</td>
                     <td>${students.group}</td>
                     <td>${students.isBudget}</td>
                     <td>${students.averageScore}</td>
@@ -307,7 +303,7 @@
 
 <div class="container-fluid">
     <br>
-    <div class="row" id="row" >
+    <div class="row" id="adminButton" >
         <div class="col-md-4" >
             <button type="button" class="btn btn-primary" id="delete" disabled>Delete </button>
         </div>
@@ -319,21 +315,44 @@
         </div>
     </div>
 </div>
+<div class="jsDataUsingModelAndView">
+    <c:if test="${not empty students}">
+        <c:forEach items="${students}" var="students">
+            ${students.id}| Srudent name/surnaem:  ${students.name} ${students.surname}| Student group : ${students.group}| student score  <br>
+        </c:forEach>
+    </c:if>
+</div>
+<%--<script>--%>
+    <%--$('input[type="checkbox"]').click(function(){--%>
+
+        <%--if( $(this).is(':checked') ) {--%>
+            <%--$("#delete").attr('disabled', false);--%>
+            <%--$("#assign").attr('disabled', false);--%>
+            <%--$("#realise").attr('disabled', false);--%>
+
+            <%--document.getElementById("delete").disabled;--%>
+        <%--}--%>
+    <%--});--%>
+<%--</script>--%>
 <script>
-    $('input[type="checkbox"]').click(function(){
-        if( $(this).is(':checked') ) {
-            $("#delete").attr('disabled', false);
-            $("#assign").attr('disabled', false);
-            $("#realise").attr('disabled', false);
-
-            document.getElementById("delete").disabled;
-        }
+    $(".tableWithAllStudents").on("click", "input[type=checkbox]", function(){
+        selectRowsInTable($(this));
+        $("#adminButton > div > button").prop('disabled', false);
     });
-</script>
 
-<!-- jQuery -->
+
+        function selectRowsInTable(checkbox) {
+
+            if(checkbox.prop('checked')){
+                checkbox.parents('tr').addClass("info");
+            } else {
+                checkbox.parents('tr').siblings().removeClass("info");
+            }
+        }
+
+</script>
+<script src="resources/js/custom/adminPage.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

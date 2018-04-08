@@ -21,10 +21,15 @@
  * United States of America
  * All rights reserved.
  */
-package com.netcracker.etalon.controllers;
+package by.netcracker.zhuk.controllers;
 
-import com.netcracker.etalon.models.UserViewModel;
+import by.netcracker.zhuk.entities.StudentEntity;
+import by.netcracker.zhuk.models.Student;
+import by.netcracker.zhuk.models.UserViewModel;
+import by.netcracker.zhuk.services.SpecialityService;
+import by.netcracker.zhuk.services.StudentService;
 import org.apache.commons.logging.impl.NoOpLog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,45 +40,41 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author anpi0316
+ *         Date: 04.03.2018
+ *         Time: 14:44
+ */
 @Controller
 public class TestController {
 
-    private static final String VIEW_NAME_LOGIN = "login";
-    private static final String MODEL_USERS = "users";
+    @Autowired()
+    private StudentService studentService;
 
 
-    @RequestMapping(value = "/users-view", method = RequestMethod.GET)
+    private static final String VIEW_NAME_LOGIN = "adminPage";
+    private static final String MODEL_USERS = "students";
+
+
+    @RequestMapping(value = "/admin-page", method = RequestMethod.GET)
     public ModelAndView getUsersAsModelWithView() {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(VIEW_NAME_LOGIN);
-        modelAndView.addObject(MODEL_USERS, getStubUsers());
+        modelAndView.addObject(MODEL_USERS, studentService.getAllStudents());//Todo create converters for view models
         return modelAndView;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
     @ResponseBody
-    public List<UserViewModel> getUsersAsJson() {
-        return getStubUsers();
+    public List<StudentEntity> getUsersAsJson() {
+        return studentService.getAllStudents();//Todo create converters for view models
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @RequestMapping(value = "/students", method = RequestMethod.POST)
     @ResponseBody
-    public UserViewModel getUsersAsJson(@RequestBody UserViewModel userViewModel)    {
-        return userViewModel;
-    }
-
-    private List<UserViewModel> getStubUsers() {
-        List<UserViewModel> userViewModels = new ArrayList<>();
-        UserViewModel userViewModelIvan  = new UserViewModel();
-        userViewModelIvan.setId("113");
-        userViewModelIvan.setName("Ivan");
-        UserViewModel userViewModelLeopold = new UserViewModel();
-        userViewModelLeopold.setId("114");
-        userViewModelLeopold.setName("Leopold");
-        userViewModels.add(userViewModelIvan);
-        userViewModels.add(userViewModelLeopold);
-        return userViewModels;
+    public Student getUsersAsJson(@RequestBody Student student) {
+        return student;
     }
 }
 /*

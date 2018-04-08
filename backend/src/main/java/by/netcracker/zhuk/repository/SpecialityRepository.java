@@ -21,15 +21,20 @@
  * United States of America
  * All rights reserved.
  */
-package com.netcracker.etalon.services;
+package by.netcracker.zhuk.repository;
+
+import by.netcracker.zhuk.entities.SpecialityEntity;
+import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * @author anpi0316
- *         Date: 04.03.2018
- *         Time: 14:26
+ *         Date: 27.03.2018
+ *         Time: 19:59
  */
-public class TestService {
-
+public interface SpecialityRepository extends CrudRepository<SpecialityEntity, Integer> {
+//    List<SpecialityEntity> findSpecialitiesByFaculty_Id(int facultyId);
 }
 /*
  WITHOUT LIMITING THE FOREGOING, COPYING, REPRODUCTION, REDISTRIBUTION,

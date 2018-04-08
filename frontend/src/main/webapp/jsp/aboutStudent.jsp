@@ -3,41 +3,96 @@
 <html>
 <head>
     <title>More information about student</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">--%>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <%--<link rel="stylesheet" href="/resources/css/general.css">--%>
 </head>
 <body>
+<br>
+
 <div class="container-fluid">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Last Name</td>
-            <td>First Name</td>
-            <td>Faculty</td>
-            <td>Speciality</td>
-            <td>Group</td>
-            <td>Is budget</td>
-            <td>Average score</td>
-            <td>Status</td>
-            <td>Name of company</td>
-            <td>Practice period</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-        </tr>
-        </tbody>
-    </table>
+    <div class="col-md-offset-1 col-md-5">
+    <div class="panel panel-primary">
+        <div class="panel-heading main-color-bg">
+            <h3 class="panel-title">User profile</h3>
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-striped table-hover">
+                <tr>
+                    <td scope="col">L.Name</td>
+                    <td>Zhuk</td>
+                </tr>
+                <tr>
+                    <td scope="col">F.Name</td>
+                    <td>Ivan</td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading main-color-bg">
+            <h3 class="panel-title">Practice</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                <th scope="col">Name of company</th>
+                <th scope="col">Practic period</th>
+                </thead>
+                <tr>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-5">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Group
+        </div>
+        <div class="panel-body">
+            <br>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <td scope="col">Faculty</td>
+                </tr>
+                <tr>
+                    <td scope="col">Specialty</td>
+                </tr>
+                <tr>
+                    <td scope="col">Group</td>
+                </tr>
+                <tr>
+                    <td scope="col">Is budget</td>
+                </tr>
+                <tr>
+                    <td scope="col">Average score</td>
+                </tr>
+                <tr>
+                    <td scope="col">Status</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
+</div>
+
 <div class="row">
-    <div class="col-md-2 ">
-        <button type="button" class="btn btn-primary">Assign</button>
+    <div class=" col-md-offset-4 col-md-2 ">
+        <button type="button" class="btn btn-primary btn-lg">Assign</button>
     </div>
     <div class="col-md-2">
-        <button type="button" class="btn btn-primary">Realise</button>
+        <button type="button" class="btn btn-primary btn-lg">Realise</button>
     </div>
 </div>
 </div>

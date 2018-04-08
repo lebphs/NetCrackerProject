@@ -1,4 +1,4 @@
-package com.netcracker.etalon.models;
+package by.netcracker.zhuk.models;
 
 public class UserViewModel {
 
