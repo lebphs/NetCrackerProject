@@ -86,12 +86,6 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <select class="form-control" id="availableFacultyForRequest">
-                                    <option>FTK</option>
-                                    <option>FITU</option>
-                                    <option>FRE</option>
-                                    <option>FKSIS</option>
-                                    <option>FIK</option>
-                                    <option>FINO</option>
                                 </select>
                             </div>
                         </div>
@@ -138,12 +132,6 @@
                 </div>
                 <div class="form-group">
                     <select class="form-control" id="availableFaculty">
-                        <option>FTK</option>
-                        <option>FITU</option>
-                        <option>FRE</option>
-                        <option>FKSIS</option>
-                        <option>FIK</option>
-                        <option>FINO</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -170,7 +158,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="scoreAverage" placeholder="Average score">
                 </div>
-                <button type="button" class="btn btn-success jsSendData" data-dismiss="modal" id="createNewStudent">Create</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" id="createNewStudent">Create</button>
             </form>
         </div>
     </div>
@@ -262,7 +250,7 @@
 </div>
 </div><br>
 
-<table class="table table-bordered table-hover">
+<table  data-pagination="true" data-search="true" data-toggle="table" class="jsStudentsTable">
     <thead>
     <tr>
         <th >Check</th>
@@ -315,12 +303,36 @@
         </div>
     </div>
 </div>
-<div class="jsDataUsingModelAndView">
-    <c:if test="${not empty students}">
-        <c:forEach items="${students}" var="students">
-            ${students.id}| Srudent name/surnaem:  ${students.name} ${students.surname}| Student group : ${students.group}| student score  <br>
-        </c:forEach>
-    </c:if>
+<%--<div>--%>
+    <%--<h3>Printing data using model and view</h3>--%>
+    <%--<div class="jsDataUsingModelAndView">--%>
+        <%--<c:if test="${not empty faculties}">--%>
+            <%--<c:forEach items="${fsculties}" var="faculties">--%>
+                <%--${faculties.id} | ${faculties.name} <br>--%>
+            <%--</c:forEach>--%>
+        <%--</c:if>--%>
+    <%--</div>--%>
+<%--</div>--%>
+<div>
+    <h3>Printing data using js & ajax</h3>
+    <div class="jsDataUsingAjaxFaculty">
+    </div>
+</div>
+
+<br>
+<br>
+Sending Data on server:
+<div class="form-inline">
+    <label class="sr-only" for="inlineFormInputId">Id</label>
+    <input type="text" class="form-control mb-2 mr-sm-2 jsInputId" id="inlineFormInputId" placeholder="001">
+    <label class="sr-only" for="inlineFormInputName">Name</label>
+    <input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">
+
+    <button  class="btn btn-primary mb-2 jsSendData">Send data</button>
+</div>
+
+<br>
+<div class="jsAddedFaculty">
 </div>
 <%--<script>--%>
     <%--$('input[type="checkbox"]').click(function(){--%>

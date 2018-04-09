@@ -69,37 +69,37 @@
 			</div>
 		</div>
 	</div>
-	<div>
-		<h3>Printing data using model and view</h3>
-		<div class="jsDataUsingModelAndView">
-			<c:if test="${not empty students}">
-				<c:forEach items="${students}" var="students">
-					${students.id}| Srudent name/surnaem:  ${students.name} ${students.surname}| Student group : ${students.group}| student score  <br>
-				</c:forEach>
-			</c:if>
-		</div>
-	</div>
-	<div>
-		<h3>Printing data using js & ajax</h3>
-		<div class="jsDataUsingAjax">
-		</div>
-	</div>
+	<%--<div>--%>
+		<%--<h3>Printing data using model and view</h3>--%>
+		<%--<div class="jsDataUsingModelAndView">--%>
+			<%--<c:if test="${not empty students}">--%>
+				<%--<c:forEach items="${students}" var="students">--%>
+					<%--${students.id}| Srudent name/surnaem:  ${students.name} ${students.surname}| Student group : ${students.group}| student score  <br>--%>
+				<%--</c:forEach>--%>
+			<%--</c:if>--%>
+		<%--</div>--%>
+	<%--</div>--%>
+	<%--<div>--%>
+		<%--<h3>Printing data using js & ajax</h3>--%>
+		<%--<div class="jsDataUsingAjax">--%>
+		<%--</div>--%>
+	<%--</div>--%>
 
-	<br>
-	<br>
-	Sending Data on server:
-	<div class="form-inline">
-		<label class="sr-only" for="inlineFormInputId">Id</label>
-		<input type="text" class="form-control mb-2 mr-sm-2 jsInputId" id="inlineFormInputId" placeholder="001">
-		<label class="sr-only" for="inlineFormInputName">Name</label>
-		<input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">
+	<%--<br>--%>
+	<%--<br>--%>
+	<%--Sending Data on server:--%>
+	<%--<div class="form-inline">--%>
+		<%--<label class="sr-only" for="inlineFormInputId">Id</label>--%>
+		<%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputId" id="inlineFormInputId" placeholder="001">--%>
+		<%--<label class="sr-only" for="inlineFormInputName">Name</label>--%>
+		<%--<input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">--%>
 
-		<button  class="btn btn-primary mb-2 jsSendData">Send data</button>
-	</div>
+		<%--<button  class="btn btn-primary mb-2 jsSendData">Send data</button>--%>
+	<%--</div>--%>
 
-	<br>
-	<div class="jsAddedUser">
-	</div>
+	<%--<br>--%>
+	<%--<div class="jsAddedUser">--%>
+	<%--</div>--%>
 	<script src="resources/js/custom/custom.js"></script>
 </body>
 </html>
