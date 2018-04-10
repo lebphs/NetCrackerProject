@@ -5,7 +5,7 @@ public class Student {
     private String surname;
     private String name;
     private String faculty;
-    private String specialty;
+    private Integer specialty;
     private int group;
     private String isBudget;
     private double averageScore;
@@ -44,11 +44,11 @@ public class Student {
         this.faculty = faculty;
     }
 
-    public String getSpecialty() {
+    public Integer getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
+    public void setSpecialty(Integer specialty) {
         this.specialty = specialty;
     }
 

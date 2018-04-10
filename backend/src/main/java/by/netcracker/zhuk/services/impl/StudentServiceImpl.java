@@ -14,10 +14,25 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
-    private StudentRepository studentsRepository;
+    private StudentRepository studentRepository;
 
     @Override
     public List<StudentEntity> getAllStudents() {
-        return (List<StudentEntity>) studentsRepository.findAll();
+        return (List<StudentEntity>) studentRepository.findAll();
+    }
+
+    @Override
+    public void addStudent(StudentEntity studentEntity) {
+        studentRepository.save(studentEntity);
+    }
+
+    @Override
+    public void delete(String studentId) {
+        studentRepository.delete(Integer.parseInt(studentId));
+    }
+
+    @Override
+    public StudentEntity findOne(String studentId) {
+        return studentRepository.findOne(Integer.parseInt(studentId));
     }
 }

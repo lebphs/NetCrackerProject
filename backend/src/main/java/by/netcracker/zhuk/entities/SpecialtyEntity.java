@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "specialties", schema = "data_base", catalog = "")
-public class SpecialityEntity {
+@Table(name = "specialties", schema = "practices", catalog = "")
+public class SpecialtyEntity {
     private int id;
     private String name;
     private FacultyEntity faculty;
@@ -34,7 +34,7 @@ public class SpecialityEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SpecialityEntity that = (SpecialityEntity) o;
+        SpecialtyEntity that = (SpecialtyEntity) o;
         return id == that.id &&
                 Objects.equals(name, that.name);
     }

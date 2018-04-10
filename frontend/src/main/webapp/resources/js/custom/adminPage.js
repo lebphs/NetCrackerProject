@@ -8,43 +8,95 @@ $(document).ready(function () {
     var $facultiesContainer = $(ELEMENTS.CONTAINER_DATA_USING_AJAX),
         $addedFacultyContainer = $(ELEMENTS.CONTAINER_ADDED_STUDENT);
 
-    var obj = {
-        id: $(ELEMENTS.INPUT_ID).val(),
-        name: $(ELEMENTS.INPUT_NAME).val()
-    };
-        // $.ajax({
-        //     url: 'faculties',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     contentType: "application/json",
-        //     mimeType: 'application/json',
-        //     data: JSON.stringify(obj),
-        //     error: function () {
-        //         alert("Error");
-        //     },
-        //     success: function (addedFaculty) {
-        //         $addedFacultyContainer.text(addedFaculty ? addedFaculty.id + " | " + addedFaculty.name : '');
-        //         // $('#table tr:last').after('<tr><td><input type="checkbox"></td><td>' + addedFaculty.surname + '</td><td>'+addedStudent.name+'</td><td>'+ addedStudent.faculty + '</td><td></td><td>'+ addedStudent.group+'</td><td>'+ addedStudent.isBudget+'</td><td>'+ addedStudent.score + '</td><td><a href="../jsp/aboutStudent.jsp" class="btn btn-info">Info</a></td></tr>');
-        //     }
-        // });
+    $(".jsPreloadCreateStudentWindow").click(function (event) {
+        getFacultiesList();
+        getSpecialtiesByFacultyId();
+    });
 
-    $.ajax({
-        url: 'faculties',
-        type: 'GET',
-        dataType: 'json',
-        contentType: "application/json",
-        mimeType: 'application/json',
-        data: '',
-        error:function(){
-            alert(Error);
-        },
-        success: function (faculties) {
-            faculties ? function () {
-                faculties.some(function (faculty) {
-                    $("#availableFaculty").append('<option>'+ faculty.name+ '</option>');
-                    $("#availableFacultyForRequest").append('<option>'+ faculty.name+ '</option>');
-                });
-            }() : false;
-        }
+    $(".availableFaculties").change(function () {
+        getSpecialtiesByFacultyId();
+    });
+    $(".jsAddStudent").click(function (event) {
+        event.stopPropagation();
+        var specialtyId = $(".availableSpecialties").find("option:selected").val();
+        //var facultyId = $(".availableFaculties").find("option:selected").val();
+        var obj = {
+            surname: $(".jsSurname").val(),
+            name: $(".jsName").val(),
+            specialtyId: specialtyId,
+            //facultyId: facultyId,
+            group: $(".jsGroup").val(),
+            isBudget: $('input[name=isBudget]:checked').val(),
+            scoreAverage: $(".jsAverageScore").val()
+        };
+
+
+
+
+
+        $.ajax({
+            url: 'create-students',
+            type: 'POST',
+            dataType: 'text',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function () {
+                //noty({ text: 'Студент '+obj.namestud+' '+obj.surname+' создан!'});
+                $("#createstudent").modal('toggle');
+            }
+
+        });
+    });
+
+
+    function getFacultiesList() {
+        $.ajax({
+            url: 'faculties',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            success: function (faculties) {
+                $(".availableSpecialties").empty();
+                faculties ? function () {
+                    faculties.some(function (faculty) {
+                        $(".availableFaculties").append('<option value=' + faculty.id + '>' + faculty.name + '</option>');
+                    });
+                }() : false;
+            }
+        });
+    }
+
+    function getSpecialtiesByFacultyId() {
+        var currentId = $(".jsFacultyId").find("option:selected").val();
+        $.ajax({
+            url: 'specialtiesList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id:currentId},
+            success: function (specialties) {
+                $(".availableSpecialties").empty();
+                specialties ? function () {
+                    specialties.some(function (specialty) {
+                        $(".availableSpecialties").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
+
+                    });
+                }() : false;
+            }
+        });
+    }
+    $(".jsDeleteStudent").click(function(){
+        var currentId = $(".tableWithAllStudents").find("input[name=checkboxStudent]:checked").val();
+        $.ajax({
+            url: 'delete-students',
+            type: 'GET',
+            dataType: 'text',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id:currentId}
+        });
     });
 });

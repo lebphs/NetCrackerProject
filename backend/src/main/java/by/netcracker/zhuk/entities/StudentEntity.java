@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "students", schema = "data_base", catalog = "")
+@Table(name = "students", schema = "practices", catalog = "")
 public class StudentEntity {
     private int id;
     private String surname;
     private String name;
     private Integer group;
-    private SpecialityEntity specialityId;
+    private SpecialtyEntity specialityId;
 
 
     private String isBudget;
@@ -36,7 +36,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "group")
+    @Column(name = "group_number")
     public Integer getGroup() {
         return group;
     }
@@ -74,11 +74,11 @@ public class StudentEntity {
     }
     @ManyToOne
     @JoinColumn(name = "specialty_id", referencedColumnName = "id")
-    public SpecialityEntity getSpecialityId() {
+    public SpecialtyEntity getSpecialityId() {
         return specialityId;
     }
 
-    public void setSpecialityId(SpecialityEntity specialityId) {
+    public void setSpecialityId(SpecialtyEntity specialityId) {
         this.specialityId = specialityId;
     }
 

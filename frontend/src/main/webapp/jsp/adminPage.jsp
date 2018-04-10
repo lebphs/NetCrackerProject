@@ -26,7 +26,7 @@
             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#addrequest">Add request</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createstudent">Create student</button>
+            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentWindow" data-toggle="modal" data-target="#createstudent" >Create student</button>
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
@@ -125,21 +125,21 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="surnameStudent" placeholder="Surname">
+                    <input type="text" class="form-control jsSurname" placeholder="Surname">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control " id="nameStudent" placeholder="Name">
+                    <input type="text" class="form-control jsName" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="availableFaculty">
+                    <select class="form-control availableFaculties jsFacultyId">
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="availableSpecialty">
+                    <select class="form-control availableSpecialties">
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="group" placeholder="Group number">
+                    <input type="text" class="form-control jsGroup" placeholder="Group number">
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -156,9 +156,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="scoreAverage" placeholder="Average score">
+                    <input type="text" class="form-control jsAverageScore" id="scoreAverage" placeholder="Average score">
                 </div>
-                <button type="button" class="btn btn-success" data-dismiss="modal" id="createNewStudent">Create</button>
+                <button type="button" class="btn btn-success jsAddStudent" data-dismiss="modal" id="createNewStudent">Create</button>
             </form>
         </div>
     </div>
@@ -271,7 +271,7 @@
         <c:if test="${not empty students}">
             <c:forEach items="${students}" var="students">
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input value = "${students.id}" type="checkbox" name="checkboxStudent"></td>
                     <td>${students.surname}</td>
                     <td>${students.name}</td>
                     <td>${students.specialityId.faculty.name}</td>
@@ -293,7 +293,7 @@
     <br>
     <div class="row" id="adminButton" >
         <div class="col-md-4" >
-            <button type="button" class="btn btn-primary" id="delete" disabled>Delete </button>
+            <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
         <div class="col-md-4">
             <button type="button" class="btn btn-primary" id="assign" disabled>Assign</button>

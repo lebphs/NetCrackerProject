@@ -3,7 +3,7 @@ package by.netcracker.zhuk.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_role", schema = "data_base", catalog = "")
+@Table(name = "user_role", schema = "practices", catalog = "")
 public class UserRoleEntity {
     private int id;
     private String name;
