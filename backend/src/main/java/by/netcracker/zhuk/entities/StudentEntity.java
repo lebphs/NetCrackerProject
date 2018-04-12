@@ -11,8 +11,6 @@ public class StudentEntity {
     private String name;
     private Integer group;
     private SpecialtyEntity specialityId;
-
-
     private String isBudget;
     private double averageScore;
 

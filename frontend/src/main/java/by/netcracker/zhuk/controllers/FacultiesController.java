@@ -1,7 +1,7 @@
 package by.netcracker.zhuk.controllers;
 
 import by.netcracker.zhuk.entities.FacultyEntity;
-import by.netcracker.zhuk.models.Faculty;
+import by.netcracker.zhuk.models.FacultyViewModel;
 import by.netcracker.zhuk.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +44,7 @@ public class FacultiesController {
 
     @RequestMapping(value = "/faculties", method = RequestMethod.POST)
     @ResponseBody
-    public Faculty getFaculties(@RequestBody Faculty faculty) {
-        return faculty;
+    public FacultyViewModel getFaculties(@RequestBody FacultyViewModel facultyViewModel) {
+        return facultyViewModel;
     }
 }

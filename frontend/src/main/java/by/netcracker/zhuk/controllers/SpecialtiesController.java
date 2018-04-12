@@ -2,7 +2,7 @@ package by.netcracker.zhuk.controllers;
 
 
 import by.netcracker.zhuk.entities.SpecialtyEntity;
-import by.netcracker.zhuk.models.Specialty;
+import by.netcracker.zhuk.models.SpecialtyViewModel;
 import by.netcracker.zhuk.services.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +25,8 @@ public class SpecialtiesController {
 
     @RequestMapping(value = "/specialties", method = RequestMethod.POST)
     @ResponseBody
-    public Specialty getSpecialty(@RequestBody Specialty specialty) {
-        return specialty;
+    public SpecialtyViewModel getSpecialty(@RequestBody SpecialtyViewModel specialtyViewModel) {
+        return specialtyViewModel;
     }
 
     @RequestMapping(value = "/specialtiesList", method = RequestMethod.GET)

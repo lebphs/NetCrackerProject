@@ -1,6 +1,6 @@
 package by.netcracker.zhuk.models;
 
-public class Faculty {
+public class FacultyViewModel {
     private int id;
     private String name;
 

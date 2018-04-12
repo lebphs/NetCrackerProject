@@ -1,16 +1,18 @@
 package by.netcracker.zhuk.models;
 
-public class Student {
+public class StudentViewModel {
     private int id;
     private String surname;
     private String name;
     private String faculty;
-    private Integer specialty;
+    private Integer facultyId;
+    private String specialty;
+    private Integer specialtyId;
     private int group;
     private String isBudget;
     private double averageScore;
 
-    public Student(){};
+    public StudentViewModel(){};
 
     public int getId() {
         return id;
@@ -43,13 +45,28 @@ public class Student {
     public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
+    public Integer getFacultyId() {
+        return facultyId;
+    }
 
-    public Integer getSpecialty() {
+    public void setFacultyId(Integer facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public String getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(Integer specialty) {
+    public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
     }
 
     public int getGroup() {

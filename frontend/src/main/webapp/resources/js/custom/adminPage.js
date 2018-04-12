@@ -96,7 +96,26 @@ $(document).ready(function () {
             dataType: 'text',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:currentId}
+            data: {id:currentId},
+            success:function () {
+                $( ".jsStudentsTable" ).bootstrapTable('getSelections');
+            }
         });
     });
+
+    $.ajax({
+        url: 'studentsForTable',
+        type: 'GET',
+        dataType: 'json',
+        contentType: "application/json",
+        mimeType: 'application/json',
+        data: '',
+        success: function (students) {
+            $(".jsStudentsTable").bootstrapTable('load', students);
+
+
+        }
+
+    });
+
 });
