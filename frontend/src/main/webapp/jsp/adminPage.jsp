@@ -15,8 +15,8 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary">
-    <img class="mb-4" src="/resources/logo.png" alt="" width="120" height="40">
-</nav>
+    <img class="mb-4" src="/resources/logo.png" alt="" width="110" height="50">
+</nav><br>
 
 
 <div class="container-fluid">
@@ -34,25 +34,23 @@
             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createspeialty">Create specialtyViewModel</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createfaculty">Create facultyViewModel</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
         </div>
     </div>
 </div>
 
-<!-- The Modal -->
 <div class="modal fade" id="addrequest">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!-- Modal Header -->
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title" align="center" >Add request</h2>
+                <h2 class="modal-title">Add request</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-            <!-- Modal body -->
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class=" mb-3">
@@ -121,8 +119,10 @@
     <div class="modal-dialog  modal-sm" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h2 class="modal-title" align="center">Create student</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
             <form>
@@ -172,8 +172,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title" align="center">Assign students</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
@@ -201,10 +203,10 @@
     <div class="modal-dialog  modal-sm" role="document">
     <div class="modal-content">
         <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel" align="center">Create specialty</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h2 class="modal-title" id="exampleModalLabel" align="center">Create specialtyViewModel</h2>
         </div>
         <div class="modal-body">
             <form>
@@ -233,10 +235,10 @@
     <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
         <div class="modal-header">
+            <h2 class="modal-title" align="center">Create faculty</h2>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h2 class="modal-title" align="center">Create facultyViewModel</h2>
         </div>
 
         <div class="modal-body">
@@ -250,68 +252,31 @@
         </div>
     </div>
 </div>
-</div><br>
-<table data-click-to-select="true"  data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]" data-search="true" data-toggle="table" class="jsStudentsTable">
+</div>
+<div class="container-fluid">
+    <table data-click-to-select="true"  data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]" data-search="true" data-toggle="table" class="jsStudentsTable">
 
-    <thead>
-    <tr>
-        <th data-field="Id" data-checkbox="true"></th>
-        <th data-field="surname">Last Name</th>
-        <th data-field="name">First Name</th>
-        <th data-field="faculty">Faculty</th>
-        <th data-field="specialty">Speciality</th>
-        <th data-field="group">Group</th>
-        <th data-field="isBudget">Is budget</th>
-        <th data-field="averageScore">
-            <div class="th-inner sortable">Average score</div>
-        </th>
-        <th data-field="status">Status<th>
-        <th data-field="nameCompany">Name of company</th>
-        <th data-field="practicePeriod">Practic period</th>
-        <th data-field="btnShowInfo">Btn "Show info"</th>
+        <thead>
+        <tr>
+            <th data-checkbox="true" class=""></th>
+            <th data-field="surname">Last Name</th>
+            <th data-field="name">First Name</th>
+            <th data-field="faculty">Faculty</th>
+            <th data-field="specialty">Speciality</th>
+            <th data-field="group">Group</th>
+            <th data-field="isBudget">Is budget</th>
+            <th data-field="averageScore">
+                <div class="th-inner sortable">Average score</div>
+            </th>
+            <th data-field="status">Status<th>
+            <th data-field="nameCompany">Name of company</th>
+            <th data-field="practicePeriod">Practic period</th>
+            <th data-field="btnShowInfo">Btn "Show info"</th>
 
-    </tr>
-    </thead>
-</table >
-
-<%--<table  data-pagination="true" data-search="true" data-toggle="table" class="jsStudentsTable">--%>
-    <%--<thead>--%>
-    <%--<tr>--%>
-        <%--<th >Check</th>--%>
-        <%--<th scope="col">L.Name</th>--%>
-        <%--<th scope="col">F.Name</th>--%>
-        <%--<th scope="col">FacultyViewModel</th>--%>
-        <%--<th scope="col">SpecialtyViewModel</th>--%>
-        <%--<th scope="col">Group</th>--%>
-        <%--<th scope="col">Is budget</th>--%>
-        <%--<th scope="col">Average score</th>--%>
-        <%--<th scope="col">Status</th>--%>
-        <%--<th scope="col">Name of company</th>--%>
-        <%--<th scope="col">Practic period</th>--%>
-        <%--<th scope="col">Btn "Show info"</th>--%>
-    <%--</tr>--%>
-    <%--</thead>--%>
-    <%--<tbody class="tableWithAllStudents">--%>
-        <%--<c:if test="${not empty students}">--%>
-            <%--<c:forEach items="${students}" var="students">--%>
-                <%--<tr>--%>
-                    <%--<td><input value = "${students.id}" type="checkbox" name="checkboxStudent"></td>--%>
-                    <%--<td>${students.surname}</td>--%>
-                    <%--<td>${students.name}</td>--%>
-                    <%--<td>${students.specialityId.facultyViewModel.name}</td>--%>
-                    <%--<td>${students.specialityId.name}</td>--%>
-                    <%--<td>${students.group}</td>--%>
-                    <%--<td>${students.isBudget}</td>--%>
-                    <%--<td>${students.averageScore}</td>--%>
-                    <%--<td></td>--%>
-                    <%--<td></td>--%>
-                    <%--<td></td>--%>
-                    <%--<td><a href="../jsp/aboutStudent.jsp" class="btn btn-info">Info</a></td>--%>
-                <%--</tr>--%>
-            <%--</c:forEach>--%>
-        <%--</c:if>--%>
-    <%--</tbody>--%>
-<%--</table>--%>
+        </tr>
+        </thead>
+    </table >
+</div>
 
 <div class="container-fluid">
     <br>
@@ -320,23 +285,14 @@
             <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary" id="assign" disabled>Assign</button>
+            <button type="button" class="btn btn-primary jsAssignStudent" id="assign" disabled>Assign</button>
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary" id="realise" disabled>Realise</button>
+            <button type="button" class="btn btn-primary jsRealiseStudent" id="realise" disabled>Realise</button>
         </div>
     </div>
 </div>
-<%--<div>--%>
-    <%--<h3>Printing data using model and view</h3>--%>
-    <%--<div class="jsDataUsingModelAndView">--%>
-        <%--<c:if test="${not empty faculties}">--%>
-            <%--<c:forEach items="${fsculties}" var="faculties">--%>
-                <%--${faculties.id} | ${faculties.name} <br>--%>
-            <%--</c:forEach>--%>
-        <%--</c:if>--%>
-    <%--</div>--%>
-<%--</div>--%>
+
 <div>
     <h3>Printing data using js & ajax</h3>
     <div class="jsDataUsingAjaxFaculty">
@@ -358,37 +314,5 @@ Sending Data on server:
 <br>
 <div class="jsAddedFaculty">
 </div>
-<%--<script>--%>
-    <%--$('input[type="checkbox"]').click(function(){--%>
-
-        <%--if( $(this).is(':checked') ) {--%>
-            <%--$("#delete").attr('disabled', false);--%>
-            <%--$("#assign").attr('disabled', false);--%>
-            <%--$("#realise").attr('disabled', false);--%>
-
-            <%--document.getElementById("delete").disabled;--%>
-        <%--}--%>
-    <%--});--%>
-<%--</script>--%>
-<script>
-    $(".tableWithAllStudents").on("click", "input[type=checkbox]", function(){
-        selectRowsInTable($(this));
-        $("#adminButton > div > button").prop('disabled', false);
-    });
-
-
-        function selectRowsInTable(checkbox) {
-
-            if(checkbox.prop('checked')){
-                checkbox.parents('tr').addClass("info");
-            } else {
-                checkbox.parents('tr').siblings().removeClass("info");
-            }
-        }
-
-</script>
-<%--<script src="resources/js/custom/adminPage.js"></script>--%>
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--%>
-<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>--%>
 </body>
 </html>

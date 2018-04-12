@@ -70,8 +70,14 @@ public class StudentsController {
     }
     @RequestMapping(value = "/delete-students", method = RequestMethod.GET)
     @ResponseBody
-    public void saveStudents(@RequestParam("id") String studentId) {
+    public void deleteStudents(@RequestParam("id") String studentId) {
         studentService.delete(studentId);
 
     }
+//    @RequestMapping(value = "/delete-students", method = RequestMethod.GET)
+//    @ResponseBody
+//    public void deleteStudents() {
+//        studentService.delete(studentId);
+//
+//    }
 }

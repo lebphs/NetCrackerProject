@@ -8,6 +8,23 @@ $(document).ready(function () {
     var $facultiesContainer = $(ELEMENTS.CONTAINER_DATA_USING_AJAX),
         $addedFacultyContainer = $(ELEMENTS.CONTAINER_ADDED_STUDENT);
 
+    $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
+        'check-all.bs.table uncheck-all.bs.table', function () {
+        // alert((".jsStudentsTable").bootstrapTable("getSelection").length);
+
+            $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
+       // var lenSelect = $(".jsStudentsTable").bootstrapTable("getSelection").length;
+       // if (lenSelect > 0) {
+       //     $(".jsDeleteStudent").attr('disabled', true);
+       //     $(".jsAssignStudent").attr('disabled', false);
+       //     $(".jsRealiseStudent").attr('disabled', false);
+       // } else{
+       //     $("#delete").attr('disabled', false);
+       //     $("#assign").attr('disabled', true);
+       //     $("#realise").attr('disabled', true);
+       // }
+    });
+
     $(".jsPreloadCreateStudentWindow").click(function (event) {
         getFacultiesList();
         getSpecialtiesByFacultyId();
@@ -29,9 +46,6 @@ $(document).ready(function () {
             isBudget: $('input[name=isBudget]:checked').val(),
             scoreAverage: $(".jsAverageScore").val()
         };
-
-
-
 
 
         $.ajax({
@@ -89,19 +103,29 @@ $(document).ready(function () {
         });
     }
     $(".jsDeleteStudent").click(function(){
-        var currentId = $(".tableWithAllStudents").find("input[name=checkboxStudent]:checked").val();
+        // alert($(".jsStudentsTable").bootstrapTable('getSelections').);
+        var ids = getIdSelections();
         $.ajax({
             url: 'delete-students',
             type: 'GET',
             dataType: 'text',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:currentId},
-            success:function () {
-                $( ".jsStudentsTable" ).bootstrapTable('getSelections');
-            }
+            data: {id:currentId}
         });
+        $(".jsStudentsTable").bootstrapTable('remove', {
+            field: 'id',
+            values: ids
+        });
+
+        $(".jsDeleteStudent").prop('disabled', true);
     });
+
+    function getIdSelections() {
+        return $.map($(".jsStudentsTable").bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
 
     $.ajax({
         url: 'studentsForTable',
@@ -112,8 +136,6 @@ $(document).ready(function () {
         data: '',
         success: function (students) {
             $(".jsStudentsTable").bootstrapTable('load', students);
-
-
         }
 
     });
