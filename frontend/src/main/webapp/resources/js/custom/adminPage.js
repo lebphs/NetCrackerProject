@@ -44,19 +44,21 @@ $(document).ready(function () {
             //facultyId: facultyId,
             group: $(".jsGroup").val(),
             isBudget: $('input[name=isBudget]:checked').val(),
-            scoreAverage: $(".jsAverageScore").val()
+            averageScore: $(".jsAverageScore").val()
         };
 
 
         $.ajax({
-            url: 'create-students',
+            url: 'create-student',
             type: 'POST',
-            dataType: 'text',
+            dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(obj),
-            success: function () {
+            success: function (addedStudent) {
+                alert(addedStudent);
                 //noty({ text: 'Студент '+obj.namestud+' '+obj.surname+' создан!'});
+                $( ".jsStudentsTable" ).bootstrapTable('append', addedStudent);
                 $("#createstudent").modal('toggle');
             }
 
@@ -105,13 +107,13 @@ $(document).ready(function () {
     $(".jsDeleteStudent").click(function(){
         // alert($(".jsStudentsTable").bootstrapTable('getSelections').);
         var ids = getIdSelections();
-        $.ajax({
+            $.ajax({
             url: 'delete-students',
-            type: 'GET',
-            dataType: 'text',
+            type: 'POST',
+            dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:currentId}
+            data: JSON.stringify(ids)
         });
         $(".jsStudentsTable").bootstrapTable('remove', {
             field: 'id',

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -55,29 +56,32 @@ public class StudentsController {
         return (List<StudentViewModel>) conversionService.convert(allstudents, studentEntityDescriptor, studentViewModelDescriptor);
     }
 
-    @RequestMapping(value = "/create-students", method = RequestMethod.POST)
+    @RequestMapping(value = "/create-student", method = RequestMethod.POST)
     @ResponseBody
-    public void saveStudents(@RequestBody StudentViewModel student) {
+    public List<StudentViewModel> saveStudents(@RequestBody StudentViewModel student) {
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setSurname(student.getSurname());
         studentEntity.setName(student.getName());
-        studentEntity.setSpecialityId(specialtyService.findById(1));
+        studentEntity.setSpecialityId(specialtyService.findById(student.getSpecialtyId()));
         studentEntity.setGroup(student.getGroup());
         studentEntity.setIsBudget(student.getIsBudget());
         studentEntity.setAverageScore(student.getAverageScore());
         studentService.addStudent(studentEntity);
 
-    }
-    @RequestMapping(value = "/delete-students", method = RequestMethod.GET)
-    @ResponseBody
-    public void deleteStudents(@RequestParam("id") String studentId) {
-        studentService.delete(studentId);
+        List<StudentEntity> allstudents = new ArrayList<StudentEntity>();
+        allstudents.add(studentEntity);
+        return (List<StudentViewModel>) conversionService.convert(allstudents, studentEntityDescriptor, studentViewModelDescriptor);
 
     }
-//    @RequestMapping(value = "/delete-students", method = RequestMethod.GET)
-//    @ResponseBody
-//    public void deleteStudents() {
-//        studentService.delete(studentId);
-//
-//    }
+
+    @RequestMapping(value = "/delete-students", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteStudents(@RequestBody String[] studentId) {
+//        System.out.println(studentId.toString());
+        for (String id: studentId) {
+            studentService.delete(id);
+        }
+
+
+    }
 }
