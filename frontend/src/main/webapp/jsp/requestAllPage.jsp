@@ -1,44 +1,70 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: anpi0316
+  Date: 15.03.2018
+  Time: 10:14
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>More information about student</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <title>Login page</title>
 </head>
-<body>
-<div class="container-fluid">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>Check-boxes</td>
-            <td>Company name</td>
-            <td>Dates</td>
-            <td>Status</td>
-            <td>Faculty</td>
-            <td>Speciality</td>
-            <td>min average score</td>
-            <td>Total quantity</td>
-            <td>Available quantity</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><input type="checkbox" class="form-check-input"/></td>
-        </tr>
-        </tbody>
-    </table>
+<jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+<script src="resources/js/custom/allrequest.js"></script>
+
+
+
+
+
+
+
+<%--<jsp:include page="/jsp/blocks/header.jsp"/>--%>
+<br>
+<!-- Кнопка, открывающее модальное окно -->
 </div>
 <div class="row">
-    <div class="col-md-2 ">
-        <button type="button" class="btn btn-primary">Assign student</button>
+    <div class="col-6 col-md-4">
+        <button type="submit"  class="btn btn-success btn-block jsDeleteRequest"><span class="glyphicon glyphicon-ok"></span> Add Request</button>
     </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-primary">Edit</button>
+    <div class="col-6 col-md-4">
+        <button type="submit" data-toggle="modal" data-target="#editStudent" disabled class="btn btn-success btn-block  jsEditStudent"><span class="glyphicon glyphicon-ok"></span> Edit</button>
     </div>
-    <div class="col-md-2">
-        <button type="button" class="btn btn-primary">Delete</button>
+    <div class="col-6 col-md-4">
+        <button type="submit" data-toggle="modal" data-target="#releasestudents" disabled class="btn btn-success btn-block jsAssignStudent"><span class="glyphicon glyphicon-ok"></span> Assign</button>
     </div>
 </div>
+<table
+        data-search="true" data-toggle="table"
+
+        data-pagination="true"
+        data-page-list="[5, 10, 25, 50, 100, ALL]"
+        data-page-size="5"
+        class="jsRequestsTable">
+
+    <thead>
+    <tr>
+
+        <th  data-checkbox="idRequest"></th>
+        <th data-field="company"> Name Company</th>
+        <th data-field="start_date_practice">Date Start</th>
+        <th data-field="finish_data_prictice">Date Finish</th>
+        <th data-field="minav">Min.Av.Score</th>
+        <th data-field="quantity">Quantity</th>
+
+
+    </tr>
+    </thead>
+
+</table >
+</div>
+<br>
+<div class="container-fluid">
+    <div class="row">
+
+    </div>
 </div>
 </body>
 </html>

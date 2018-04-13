@@ -22,22 +22,22 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
-            <input type="button" class="btn btn-lg btn-primary" value="Show all request" onClick='location.href="requestAllPage.jsp"'/>
+            <input type="button" class="btn btn-lg btn-primary" value="Show all request" onClick='location.href="request-page"'/>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#addrequest">Add request</button>
+            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal" data-target="#addrequest">Add request</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentWindow" data-toggle="modal" data-target="#createstudent" >Create student</button>
+            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal" data-target="#createstudent" >Create student</button>
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
+            <button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
+            <button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
         </div>
     </div>
 </div>
@@ -85,7 +85,7 @@
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <select class="form-control" id="availableFacultyForRequest">
+                                <select class="form-control availableFacultiesAddRequest jsFacultiesList">
                                 </select>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <!-- <label for="availableSpecialties">available specialties</label> -->
                             <!-- <input type="text" class="form-control" id="availableSpecialties" placeholder="available specialties"> -->
-                            <select class="form-control" id="availableSpecialtyForRequest">
+                            <select class="form-control availableSpecialtiesAddRequest">
                             </select>
                         </div>
                     </div>
@@ -133,11 +133,11 @@
                     <input type="text" class="form-control jsName" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <select class="form-control availableFaculties jsFacultyId">
+                    <select class="form-control availableFacultiesAddStudents jsFacultiesList">
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control availableSpecialties">
+                    <select class="form-control availableSpecialtiesAddStudents">
                     </select>
                 </div>
                 <div class="form-group">
@@ -211,19 +211,13 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="specialtyViewModel" placeholder="Name of specialtyViewModel" required>
+                    <input type="text" class="form-control nameSpecialty" placeholder="Name of specialty" required>
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="availblefaculty">
-                        <option>FTK</option>
-                        <option>FITU</option>
-                        <option>FRE</option>
-                        <option>FKSIS</option>
-                        <option>FIK</option>
-                        <option>FINO</option>
+                    <select class="form-control availableFacultiesForCreateSpecialty jsFacultiesList">
                     </select>
                 </div>
-                <button type="button" class="btn btn-success ">Create</button>
+                <button type="button" class="btn btn-success jsCreateSpecialty">Create</button>
             </form>
         </div>
     </div>
@@ -244,10 +238,10 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <label>Name of facultyViewModel</label><br>
-                    <input type="text" class="form-control" id="facultyViewModel" required><br>
+                    <label>Name of faculty</label><br>
+                    <input type="text" class="form-control nameFaculty" required><br>
                 </div>
-                <button type="button" class="btn btn-success ">Create</button>
+                <button type="button" class="btn btn-success jsCreateFaculty">Create</button>
             </form>
         </div>
     </div>
@@ -268,7 +262,7 @@
             <th data-field="averageScore">
                 <div class="th-inner sortable">Average score</div>
             </th>
-            <th data-field="status">Status<th>
+            <th data-field="studentStatus">Status<th>
             <th data-field="nameCompany">Name of company</th>
             <th data-field="practicePeriod">Practic period</th>
             <th data-field="btnShowInfo">Btn "Show info"</th>
@@ -291,28 +285,6 @@
             <button type="button" class="btn btn-primary jsRealiseStudent" id="realise" disabled>Realise</button>
         </div>
     </div>
-</div>
-
-<div>
-    <h3>Printing data using js & ajax</h3>
-    <div class="jsDataUsingAjaxFaculty">
-    </div>
-</div>
-
-<br>
-<br>
-Sending Data on server:
-<div class="form-inline">
-    <label class="sr-only" for="inlineFormInputId">Id</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 jsInputId" id="inlineFormInputId" placeholder="001">
-    <label class="sr-only" for="inlineFormInputName">Name</label>
-    <input type="text" class="form-control mb-2 mr-sm-2 jsInputName" id="inlineFormInputName" placeholder="Tom">
-
-    <button  class="btn btn-primary mb-2 jsSendData">Send data</button>
-</div>
-
-<br>
-<div class="jsAddedFaculty">
 </div>
 </body>
 </html>

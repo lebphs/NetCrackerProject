@@ -5,7 +5,7 @@
 //import java.util.Set;
 //
 //@Entity
-//@Table(name = "practices", schema = "data_base", catalog = "")
+//@Table(name = "practices", schema = "practices", catalog = "")
 //public class PracticeEntity {
 //    private int id;
 //    private String company;
@@ -150,7 +150,7 @@
 //    }
 //
 //    @ManyToOne
-//    @JoinColumn(name = "specialty_id", referencedColumnName = "id", insertable = false, updatable = false)
+//    @JoinColumn(name = "specialty_id", referencedColumnName = "id")
 //    public SpecialtyEntity getSpecialty() {
 //        return specialty;
 //    }
@@ -160,7 +160,7 @@
 //    }
 //
 //    @ManyToOne
-//    @JoinColumn(name = "user_head_id", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
+//    @JoinColumn(name = "user_head_id", referencedColumnName = "id")
 //    public UserEntity getUserByHeadOfPracticeId() {
 //        return userByHeadOfPracticeId;
 //    }
@@ -169,12 +169,12 @@
 //        this.userByHeadOfPracticeId = userByHeadOfPracticeId;
 //    }
 //
-////    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "practiceEntities")
-////    public Set<StudentEntity> getStudentEntities() {
-////        return studentEntities;
-////    }
-////
-////    public void setStudentEntities(Set<StudentEntity> studentEntities) {
-////        this.studentEntities = studentEntities;
-////    }
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "practiceEntities")
+//    public Set<StudentEntity> getStudentEntities() {
+//        return studentEntities;
+//    }
+//
+//    public void setStudentEntities(Set<StudentEntity> studentEntities) {
+//        this.studentEntities = studentEntities;
+//    }
 //}

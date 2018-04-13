@@ -9,4 +9,5 @@ public interface SpecialtyService {
 
     List<SpecialtyEntity> getSpecialtiesByFacultyId(String facultyId);
     SpecialtyEntity findById(Integer id);
+    void addSpecialty(SpecialtyEntity specialtyEntity);
 }

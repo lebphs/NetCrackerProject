@@ -37,6 +37,7 @@ public class StudentEntityToStudentViewModelConverter implements Converter<Stude
         studentViewModel.setGroup(studentEntity.getGroup());
         studentViewModel.setIsBudget(studentEntity.getIsBudget());
         studentViewModel.setAverageScore(studentEntity.getAverageScore());
+        studentViewModel.setStudentStatus(studentEntity.getStudentStatus());
 
 //        if (specialty != null) {
 //            studentViewModel.setSpecialty(String.valueOf(student.getId()));

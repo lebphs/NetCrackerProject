@@ -10,29 +10,29 @@ $(document).ready(function () {
 
     $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
-        // alert((".jsStudentsTable").bootstrapTable("getSelection").length);
-
             $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
-       // var lenSelect = $(".jsStudentsTable").bootstrapTable("getSelection").length;
-       // if (lenSelect > 0) {
-       //     $(".jsDeleteStudent").attr('disabled', true);
-       //     $(".jsAssignStudent").attr('disabled', false);
-       //     $(".jsRealiseStudent").attr('disabled', false);
-       // } else{
-       //     $("#delete").attr('disabled', false);
-       //     $("#assign").attr('disabled', true);
-       //     $("#realise").attr('disabled', true);
-       // }
     });
 
-    $(".jsPreloadCreateStudentWindow").click(function (event) {
+    $(".jsPreloadCreateStudentModal").click(function (event) {
         getFacultiesList();
-        getSpecialtiesByFacultyId();
+        getSpecialtiesByFacultyIdForAddStudents();
+    });
+    $(".jsPreloadCreateRequestModal").click(function (event) {
+        getFacultiesList();
+        getSpecialtiesByFacultyIdForAddRequest();
     });
 
-    $(".availableFaculties").change(function () {
-        getSpecialtiesByFacultyId();
+    $(".createSpecialty").click(function (event) {
+        getFacultiesList();
     });
+
+    $(".availableFacultiesAddStudents").change(function () {
+        getSpecialtiesByFacultyIdForAddStudents();
+    });
+    $(".availableFacultiesAddRequest").change(function (event) {
+        getSpecialtiesByFacultyIdForAddRequest()
+    });
+
     $(".jsAddStudent").click(function (event) {
         event.stopPropagation();
         var specialtyId = $(".availableSpecialties").find("option:selected").val();
@@ -44,7 +44,8 @@ $(document).ready(function () {
             //facultyId: facultyId,
             group: $(".jsGroup").val(),
             isBudget: $('input[name=isBudget]:checked').val(),
-            averageScore: $(".jsAverageScore").val()
+            averageScore: $(".jsAverageScore").val(),
+            studentStatus: $(".jsStudentStatus")
         };
 
 
@@ -74,18 +75,18 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             success: function (faculties) {
-                $(".availableSpecialties").empty();
+                $(".jsFacultiesList").empty();
                 faculties ? function () {
                     faculties.some(function (faculty) {
-                        $(".availableFaculties").append('<option value=' + faculty.id + '>' + faculty.name + '</option>');
+                        $(".jsFacultiesList").append('<option value=' + faculty.id + '>' + faculty.name + '</option>');
                     });
                 }() : false;
             }
         });
     }
 
-    function getSpecialtiesByFacultyId() {
-        var currentId = $(".jsFacultyId").find("option:selected").val();
+    function getSpecialtiesByFacultyIdForAddStudents() {
+        var currentId = $(".availableFacultiesAddStudents").find("option:selected").val();
         $.ajax({
             url: 'specialtiesList',
             type: 'GET',
@@ -94,10 +95,31 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: {id:currentId},
             success: function (specialties) {
-                $(".availableSpecialties").empty();
+                $(".availableSpecialtiesAddStudents").empty();
                 specialties ? function () {
                     specialties.some(function (specialty) {
-                        $(".availableSpecialties").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
+                        $(".availableSpecialtiesAddStudents").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
+
+                    });
+                }() : false;
+            }
+        });
+    }
+
+    function getSpecialtiesByFacultyIdForAddRequest() {
+        var currentId = $(".availableFacultiesAddRequest").find("option:selected").val();
+        $.ajax({
+            url: 'specialtiesList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id:currentId},
+            success: function (specialties) {
+                $(".availableSpecialtiesAddRequest").empty();
+                specialties ? function () {
+                    specialties.some(function (specialty) {
+                        $(".availableSpecialtiesAddRequest").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
 
                     });
                 }() : false;
@@ -141,5 +163,36 @@ $(document).ready(function () {
         }
 
     });
+
+    $(".jsCreateSpecialty").click(function () {
+        var obj = {
+            name: $(".nameSpecialty").val(),
+            facultyId :$(".availableFacultiesForCreateSpecialty").find("option:selected").val()
+        };
+        $.ajax({
+            url: 'create-specialties',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj)
+        })
+
+    });
+
+    $(".jsCreateFaculty").click(function () {
+        var obj = {
+            name: $(".nameFaculty").val()
+        };
+        $.ajax({
+            url: 'create-faculty',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj)
+        })
+
+    })
 
 });

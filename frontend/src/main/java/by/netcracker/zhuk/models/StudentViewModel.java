@@ -12,6 +12,9 @@ public class StudentViewModel {
     private String isBudget;
     private double averageScore;
 
+
+    private String studentStatus;
+
     public StudentViewModel(){};
 
     public int getId() {
@@ -91,5 +94,13 @@ public class StudentViewModel {
 
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
+    }
+
+    public String getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
     }
 }

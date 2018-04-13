@@ -53,6 +53,11 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public SpecialtyEntity findById(Integer id) {
         return specialtyRepository.findById(id);
     }
+
+    @Override
+    public void addSpecialty(SpecialtyEntity specialtyEntity) {
+        specialtyRepository.save(specialtyEntity);
+    }
 }
 /*
  WITHOUT LIMITING THE FOREGOING, COPYING, REPRODUCTION, REDISTRIBUTION,

@@ -14,6 +14,10 @@ public class StudentEntity {
     private String isBudget;
     private double averageScore;
 
+
+
+    private String studentStatus;
+
     @Id
     @Column(name = "id")
     public int getId() {
@@ -70,6 +74,16 @@ public class StudentEntity {
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
     }
+    @Basic
+    @Column(name = "student_status")
+    public String getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
+    }
+
     @ManyToOne
     @JoinColumn(name = "specialty_id", referencedColumnName = "id")
     public SpecialtyEntity getSpecialityId() {

@@ -1132,6 +1132,7 @@
     <column id="273" parent="235" name="is_budget">
       <Position>6</Position>
       <DataType>enum(&apos;true&apos;, &apos;false&apos;)|0e</DataType>
+      <NotNull>1</NotNull>
       <DefaultExpression>&apos;false&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1141,15 +1142,21 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="275" parent="235" name="id_specialty_idx">
+    <column id="275" parent="235" name="student_status">
+      <Position>8</Position>
+      <DataType>enum(&apos;Not allocated&apos;, &apos;Waiting for practice&apos;, &apos;On practice&apos;)|0e</DataType>
+      <DefaultExpression>&apos;Not allocated&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="276" parent="235" name="id_specialty_idx">
       <ColNames>specialty_id</ColNames>
     </index>
-    <key id="276" parent="235" name="PRIMARY">
+    <key id="277" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="277" parent="235" name="student_specialty_id">
+    <foreign-key id="278" parent="235" name="student_specialty_id">
       <ColNames>specialty_id</ColNames>
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>specialties</RefTableName>
@@ -1157,72 +1164,72 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="278" parent="236" name="id">
+    <column id="279" parent="236" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="279" parent="236" name="name">
+    <column id="280" parent="236" name="name">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="280" parent="236" name="PRIMARY">
+    <key id="281" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="281" parent="237" name="id">
+    <column id="282" parent="237" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="237" name="login">
+    <column id="283" parent="237" name="login">
       <Position>2</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="237" name="password">
+    <column id="284" parent="237" name="password">
       <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="237" name="user_role_id">
+    <column id="285" parent="237" name="user_role_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="237" name="student_id">
+    <column id="286" parent="237" name="student_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="286" parent="237" name="user_role_idx">
+    <index id="287" parent="237" name="user_role_idx">
       <ColNames>user_role_id</ColNames>
     </index>
-    <index id="287" parent="237" name="id_student_idx">
+    <index id="288" parent="237" name="id_student_idx">
       <ColNames>student_id</ColNames>
     </index>
-    <key id="288" parent="237" name="PRIMARY">
+    <key id="289" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="289" parent="237" name="user_role_id">
+    <foreign-key id="290" parent="237" name="user_role_id">
       <ColNames>user_role_id</ColNames>
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>user_role</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="290" parent="237" name="student_id">
+    <foreign-key id="291" parent="237" name="student_id">
       <ColNames>student_id</ColNames>
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>students</RefTableName>
