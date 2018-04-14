@@ -16,10 +16,13 @@
 
 <nav class="navbar navbar-dark bg-primary">
     <img class="mb-4" src="/resources/logo.png" alt="" width="110" height="50">
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#exCollapsing" aria-controls="exCollapsing" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 </nav><br>
 
 
-<div class="container-fluid">
+<div class="container-fluid collapsing" id="exCollapsing">
     <div class="row">
         <div class="col-md-2">
             <input type="button" class="btn btn-lg btn-primary" value="Show all request" onClick='location.href="request-page"'/>
@@ -56,21 +59,21 @@
                     <div class=" mb-3">
                         <div class="form-group">
                             <!-- <label for="companyName">Company name</label> -->
-                            <input type="text" class="form-control" id="nameCompanySentReqeuest" placeholder="Enter name of company"><br>
+                            <input type="text" class="form-control nameCompany" placeholder="Enter name of company"><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="dataFrom">data from</label>
-                                <input type="date" class="form-control" id="dataFrom" required>
+                                <input type="date" class="form-control startData" id="dataFrom" required>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="dateTo">data to</label>
-                                <input type="date" class="form-control" id="dateTo" required><br>
+                                <input type="date" class="form-control finishData" id="dateTo" required><br>
                             </div>
                         </div>
                     </div>
@@ -79,7 +82,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="quantity" placeholder="quantity" required>
+                                <input type="text" class="form-control totalQuantity" placeholder="quantity" required>
                             </div>
                         </div>
 
@@ -103,12 +106,12 @@
                     <div class="mb-0">
                         <div class="form-group">
                             <!-- <label for="minScore">min score</label> -->
-                            <input type="text" class="form-control" id="minScore" placeholder="min score">
+                            <input type="text" class="form-control minScore" placeholder="min score">
                             <div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success ">Create</button>
+                    <button type="button" class="btn btn-success jsCreateRequest">Create</button>
                 </div>
             </div>
         </div>

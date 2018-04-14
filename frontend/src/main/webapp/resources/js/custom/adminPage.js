@@ -175,7 +175,10 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: JSON.stringify(obj)
+            data: JSON.stringify(obj),
+            success: function (addedStudent) {
+                $(".jsCreateSpecialty").modal('toggle');
+            }
         })
 
     });
@@ -190,7 +193,35 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: JSON.stringify(obj)
+            data: JSON.stringify(obj),
+            success: function (addedStudent) {
+                $(".jsCreateFaculty").modal('toggle');
+            }
+        })
+
+    });
+
+    $(".jsCreateRequest").click(function () {
+        var obj = {
+            companyName: $(".nameCompany").val(),
+            dataStart: $(".startData").val(),
+            dataFinish: $(".finishData").val(),
+            // specialty: $(".availableSpecialtiesAddRequest").val(),
+            // faculty: $(".availableFacultiesAddRequest").val(),
+            specialtyId: $(".availableSpecialtiesAddRequest").find("option:selected").val(),
+            minAverageScore: $(".minScore").val(),
+            totalQuantity: $(".totalQuantity").val()
+        };
+        $.ajax({
+            url: 'create-request',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (addedRequest) {
+                $(".jsCreateRequest").modal('toggle');
+            }
         })
 
     })
