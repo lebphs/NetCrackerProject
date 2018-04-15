@@ -212,6 +212,7 @@ $(document).ready(function () {
             minAverageScore: $(".minScore").val(),
             totalQuantity: $(".totalQuantity").val()
         };
+
         $.ajax({
             url: 'create-request',
             type: 'POST',
@@ -219,11 +220,11 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(obj),
-            success: function (addedRequest) {
+            success: function (request) {
+                $(".jsRequestsTable").bootstrapTable('append', request);
                 $(".jsCreateRequest").modal('toggle');
             }
         })
-
     })
 
 });

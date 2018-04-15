@@ -11,8 +11,6 @@ public class StudentViewModel {
     private int group;
     private String isBudget;
     private double averageScore;
-
-
     private String studentStatus;
 
     public StudentViewModel(){};

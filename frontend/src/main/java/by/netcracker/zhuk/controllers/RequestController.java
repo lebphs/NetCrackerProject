@@ -54,13 +54,20 @@ public class RequestController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/requestForTable", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RequestViewModel> getAllStudents() {
+        List<RequestEntity> allrequest = requestService.findAllRequests();
+        return (List<RequestViewModel>) conversionService.convert(allrequest, requestEntityDescriptor, requestViewModelDescriptor);
+    }
+
     @RequestMapping(value = "/create-request", method = RequestMethod.POST)
     @ResponseBody
     public List<RequestViewModel> saveStudents(@RequestBody RequestViewModel request) {
         RequestEntity requestEntity = new RequestEntity();
         requestEntity.setCompanyName(request.getCompanyName());
-        requestEntity.setStartDate(Date.valueOf(request.getDataStart()));
-        requestEntity.setFinishDate(Date.valueOf(request.getDataFinish()));
+        requestEntity.setStartDate(Date.valueOf(request.getStartDate()));
+        requestEntity.setFinishDate(Date.valueOf(request.getFinishDate()));
         requestEntity.setSpecialty(specialtyService.findById(request.getSpecialtyId()));
         requestEntity.setTotalQuantity(request.getTotalQuantity());
         requestEntity.setMinAverageScore(request.getMinAverageScore());

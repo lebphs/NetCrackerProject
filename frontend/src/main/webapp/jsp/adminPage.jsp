@@ -251,21 +251,23 @@
 </div>
 </div>
 <div class="container-fluid">
-    <table data-click-to-select="true"  data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]" data-search="true" data-toggle="table" class="jsStudentsTable">
+    <table data-click-to-select="true"
+           data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]"
+           data-search="true" data-toggle="table" class="jsStudentsTable">
 
         <thead>
         <tr>
-            <th data-checkbox="true" class=""></th>
-            <th data-field="surname">Last Name</th>
-            <th data-field="name">First Name</th>
-            <th data-field="faculty">Faculty</th>
-            <th data-field="specialty">Speciality</th>
-            <th data-field="group">Group</th>
+            <th data-checkbox="true" ></th>
+            <th data-field="surname" data-sortable="true">Last Name</th>
+            <th data-field="name" data-sortable="true">First Name</th>
+            <th data-field="faculty" data-sortable="true">Faculty</th>
+            <th data-field="specialty" data-sortable="true">Speciality</th>
+            <th data-field="group" data-sortable="true">Group</th>
             <th data-field="isBudget">Is budget</th>
-            <th data-field="averageScore">
-                <div class="th-inner sortable">Average score</div>
+            <th data-field="averageScore" data-sortable="true">
+                <div class="th-inner sortable" >Average score</div>
             </th>
-            <th data-field="studentStatus">Status<th>
+            <th data-field="studentStatus" >Status<th>
             <th data-field="nameCompany">Name of company</th>
             <th data-field="practicePeriod">Practic period</th>
             <th data-field="btnShowInfo">Btn "Show info"</th>

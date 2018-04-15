@@ -3,8 +3,8 @@ package by.netcracker.zhuk.models;
 public class RequestViewModel {
     private int id;
     private String companyName;
-    private String dataStart;
-    private String dataFinish;
+    private String startDate;
+    private String finishDate;
     private String specialty;
     private Integer specialtyId;
     private String faculty;
@@ -34,20 +34,20 @@ public class RequestViewModel {
         this.companyName = companyName;
     }
 
-    public String getDataStart() {
-        return dataStart;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDataStart(String dataStart) {
-        this.dataStart = dataStart;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getDataFinish() {
-        return dataFinish;
+    public String getFinishDate() {
+        return finishDate;
     }
 
-    public void setDataFinish(String dataFinish) {
-        this.dataFinish = dataFinish;
+    public void setFinishDate(String finishDate) {
+        this.finishDate = finishDate;
     }
 
     public String getSpecialty() {
@@ -106,5 +106,11 @@ public class RequestViewModel {
         this.userId = userId;
     }
 
+    public Integer getFacultyId() {
+        return facultyId;
+    }
 
+    public void setFacultyId(Integer facultyId) {
+        this.facultyId = facultyId;
+    }
 }

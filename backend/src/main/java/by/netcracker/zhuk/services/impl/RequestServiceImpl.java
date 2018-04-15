@@ -21,6 +21,11 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.save(requestEntity);
     }
 
+    @Override
+    public List<RequestEntity> findAllRequests() {
+        return (List<RequestEntity>) requestRepository.findAll();
+    }
+
 //    @Override
 //    public List<PracticeEntity> getAllPractice() {
 //        return null;

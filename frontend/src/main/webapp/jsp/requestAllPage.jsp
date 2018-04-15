@@ -1,19 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: anpi0316
-  Date: 15.03.2018
-  Time: 10:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Login page</title>
 </head>
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
-<script src="resources/js/custom/allrequest.js"></script>
+<script src="resources/js/custom/requestPage.js"></script>
 
 
 
@@ -38,27 +31,23 @@
 </div>
 <table
         data-search="true" data-toggle="table"
-
         data-pagination="true"
         data-page-list="[5, 10, 25, 50, 100, ALL]"
         data-page-size="5"
         class="jsRequestsTable">
-
     <thead>
     <tr>
-
-        <th  data-checkbox="idRequest"></th>
-        <th data-field="company"> Name Company</th>
-        <th data-field="start_date_practice">Date Start</th>
-        <th data-field="finish_data_prictice">Date Finish</th>
-        <th data-field="minav">Min.Av.Score</th>
-        <th data-field="quantity">Quantity</th>
-
-
+        <th data-checkbox="true"></th>
+        <th data-field="companyName" data-sortable="true"> Name Company</th>
+        <th data-field="startDate" data-sortable="true">Date Start</th>
+        <th data-field="finishDate" data-sortable="true">Date Finish</th>
+        <th data-field="faculty" data-sortable="true">Faculty</th>
+        <th data-field="specialty" data-sortable="true">Specialty</th>
+        <th data-field="minAverageScore" data-sortable="true">min.Average Score</th>
+        <th data-field="totalQuantity" data-sortable="true">total quantity</th>
     </tr>
     </thead>
-
-</table >
+</table>
 </div>
 <br>
 <div class="container-fluid">
