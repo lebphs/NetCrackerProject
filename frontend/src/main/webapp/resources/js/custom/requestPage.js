@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $.ajax({
-        url: 'requestForTable',
+        url: 'requests',
         type: 'GET',
         dataType: 'json',
         contentType: "application/json",

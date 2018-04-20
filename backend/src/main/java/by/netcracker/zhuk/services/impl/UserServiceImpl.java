@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+//отправляется запрос админу на регистрацию и админ распределяет роли
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {

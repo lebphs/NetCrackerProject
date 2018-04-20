@@ -7,28 +7,15 @@
 </head>
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
 <script src="resources/js/custom/requestPage.js"></script>
+<script src="resources/bootstrap-typeahead.js"></script>
 
 
 
 
 
 
-
-<%--<jsp:include page="/jsp/blocks/header.jsp"/>--%>
-<br>
-<!-- Кнопка, открывающее модальное окно -->
 </div>
-<div class="row">
-    <div class="col-6 col-md-4">
-        <button type="submit"  class="btn btn-success btn-block jsDeleteRequest"><span class="glyphicon glyphicon-ok"></span> Add Request</button>
-    </div>
-    <div class="col-6 col-md-4">
-        <button type="submit" data-toggle="modal" data-target="#editStudent" disabled class="btn btn-success btn-block  jsEditStudent"><span class="glyphicon glyphicon-ok"></span> Edit</button>
-    </div>
-    <div class="col-6 col-md-4">
-        <button type="submit" data-toggle="modal" data-target="#releasestudents" disabled class="btn btn-success btn-block jsAssignStudent"><span class="glyphicon glyphicon-ok"></span> Assign</button>
-    </div>
-</div>
+
 <table
         data-search="true" data-toggle="table"
         data-pagination="true"
@@ -52,7 +39,15 @@
 <br>
 <div class="container-fluid">
     <div class="row">
-
+        <div class="col-6 col-md-4">
+            <button type="submit"  class="btn btn-success btn-block jsDeleteRequest"><span class="glyphicon glyphicon-ok"></span> Add Request</button>
+        </div>
+        <div class="col-6 col-md-4">
+            <button type="submit" data-toggle="modal" data-target="#editStudent" disabled class="btn btn-success btn-block  jsEditStudent"><span class="glyphicon glyphicon-ok"></span> Edit</button>
+        </div>
+        <div class="col-6 col-md-4">
+            <button type="submit" data-toggle="modal" data-target="#releasestudents" disabled class="btn btn-success btn-block jsAssignStudent"><span class="glyphicon glyphicon-ok"></span> Assign</button>
+        </div>
     </div>
 </div>
 </body>

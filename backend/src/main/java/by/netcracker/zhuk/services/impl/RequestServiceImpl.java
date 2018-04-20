@@ -36,8 +36,8 @@ public class RequestServiceImpl implements RequestService {
 //
 //    }
 //
-//    @Override
-//    public PracticeEntity getPracticeById(String practiceId) {
-//        return null;
-//    }
+    @Override
+    public RequestEntity getRequestById(String requestId) {
+        return requestRepository.findById(Integer.parseInt(requestId));
+    }
 }

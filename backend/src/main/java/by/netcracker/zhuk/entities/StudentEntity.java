@@ -2,6 +2,7 @@ package by.netcracker.zhuk.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "students", schema = "practices", catalog = "")
@@ -13,7 +14,7 @@ public class StudentEntity {
     private SpecialtyEntity specialityId;
     private String isBudget;
     private double averageScore;
-
+    private Set<RequestEntity> requestEntities;
 
 
     private String studentStatus;
@@ -107,5 +108,17 @@ public class StudentEntity {
     public int hashCode() {
 
         return Objects.hash(id, group);
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(name = "request_has_students",
+            joinColumns = { @JoinColumn(name = "students_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "requests_id", referencedColumnName = "id") })
+    public Set<RequestEntity> getRequestEntities() {
+        return requestEntities;
+    }
+
+    public void setRequestEntities(Set<RequestEntity> requestEntities) {
+        this.requestEntities = requestEntities;
     }
 }

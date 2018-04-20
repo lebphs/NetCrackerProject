@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface RequestRepository extends CrudRepository<RequestEntity, Integer> {
-//    List<PracticeEntity> findByUserHeadId(int headOfPracticeId);
+    RequestEntity findById(Integer id);
 }

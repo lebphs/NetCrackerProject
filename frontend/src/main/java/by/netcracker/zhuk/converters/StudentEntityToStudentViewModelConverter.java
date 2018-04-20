@@ -17,7 +17,7 @@ public class StudentEntityToStudentViewModelConverter implements Converter<Stude
 
     @Override
     public StudentViewModel convert(StudentEntity studentEntity)  {
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        //List<GrantedAuthority> authorities = new ArrayList<>();
         //authorities.add(new SimpleGrantedAuthority(userEntity.getRole()));
         StudentViewModel studentViewModel = new StudentViewModel();
 

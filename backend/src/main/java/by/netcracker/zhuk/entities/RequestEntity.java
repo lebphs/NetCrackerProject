@@ -18,7 +18,7 @@ public class RequestEntity {
     private Integer userId;
     private SpecialtyEntity specialty;
     //private UserEntity user;
-//    private Set<StudentEntity> studentEntities;
+    private Set<StudentEntity> studentEntities;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -170,12 +170,12 @@ public class RequestEntity {
 //        this.user = user;
 //    }
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "practiceEntities")
-//    public Set<StudentEntity> getStudentEntities() {
-//        return studentEntities;
-//    }
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "requestEntities")
+    public Set<StudentEntity> getStudentEntities() {
+        return studentEntities;
+    }
 
-//    public void setStudentEntities(Set<StudentEntity> studentEntities) {
-//        this.studentEntities = studentEntities;
-//    }
+    public void setStudentEntities(Set<StudentEntity> studentEntities) {
+        this.studentEntities = studentEntities;
+    }
 }

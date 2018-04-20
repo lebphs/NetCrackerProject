@@ -11,6 +11,9 @@
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
 
 <script src="resources/js/custom/adminPage.js"></script>
+<script src="resources/js/libs/bootstrap-typeahead.js"></script>
+<script src="resources/js/libs/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="resources/css/libs/bootstrap-multiselect.css" type="text/css"/>
 
 <body>
 
@@ -34,7 +37,7 @@
             <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal" data-target="#createstudent" >Create student</button>
         </div>
         <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#assignstudents">Assign students</button>
+            <button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal" data-target="#assignstudents">Assign students</button>
         </div>
         <div class="col-md-2">
             <button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
@@ -65,15 +68,15 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="dataFrom">data from</label>
-                                <input type="date" class="form-control startData" id="dataFrom" required>
+                                <label for="dateFrom">data from</label>
+                                <input type="date" class="form-control startDate" id="dateFrom" required>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="dateTo">data to</label>
-                                <input type="date" class="form-control finishData" id="dateTo" required><br>
+                                <input type="date" class="form-control finishDate" id="dateTo" required><br>
                             </div>
                         </div>
                     </div>
@@ -185,16 +188,20 @@
                     <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="availableStudent">Search available students</label>
-                                    <input class="typehead" type="text" class="form-control" id="availableStudent" required>
+                                    <label>Search available students</label>
+                                    <select class="jsStudentMultiselect" multiple="multiple">
+                                    </select>
+                                    <%--<select class="form-control jsAssingStudentRequest" type="text" id="availableStudent" required></select>--%>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label>Search available demands</label>
-                                    <input class="typehead" type="text" class="form-control" id="availableDemands" required><br>
+                                    <select class="form-control jsRequestList"></select>
+                                    <%--<select class="form-control " id="availableDemands" required></select><br>--%>
                                 </div>
                         </div>
+
                     </div>
-                    <button type="button" class="btn btn-success ">Create</button>
+                    <button type="button" class="btn btn-success jsAssignStudent">Create</button>
                 </form>
             </div>
         </div>
@@ -264,14 +271,10 @@
             <th data-field="specialty" data-sortable="true">Speciality</th>
             <th data-field="group" data-sortable="true">Group</th>
             <th data-field="isBudget">Is budget</th>
-            <th data-field="averageScore" data-sortable="true">
-                <div class="th-inner sortable" >Average score</div>
-            </th>
+            <th data-field="averageScore" data-sortable="true">Average score</th>
             <th data-field="studentStatus" >Status<th>
-            <th data-field="nameCompany">Name of company</th>
-            <th data-field="practicePeriod">Practic period</th>
-            <th data-field="btnShowInfo">Btn "Show info"</th>
-
+            <%--<th data-field="nameCompany">Name of company</th>--%>
+            <%--<th data-field="practicePeriod">Practic period</th>--%>
         </tr>
         </thead>
     </table >
@@ -280,16 +283,20 @@
 <div class="container-fluid">
     <br>
     <div class="row" id="adminButton" >
-        <div class="col-md-4" >
+        <div class="col-md-3" >
             <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
-        <div class="col-md-4">
-            <button type="button" class="btn btn-primary jsAssignStudent" id="assign" disabled>Assign</button>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary jsAssignStudentBtn" id="assign" disabled>Assign</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <button type="button" class="btn btn-primary jsRealiseStudent" id="realise" disabled>Realise</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary jsShowInfoStudent" id="info" disabled>Show Info</button>
         </div>
     </div>
 </div>
+
 </body>
 </html>

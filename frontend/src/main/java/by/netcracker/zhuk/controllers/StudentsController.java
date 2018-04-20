@@ -1,8 +1,11 @@
 package by.netcracker.zhuk.controllers;
 
+import by.netcracker.zhuk.entities.RequestEntity;
 import by.netcracker.zhuk.entities.SpecialtyEntity;
 import by.netcracker.zhuk.entities.StudentEntity;
+import by.netcracker.zhuk.models.StudentRequestViewModel;
 import by.netcracker.zhuk.models.StudentViewModel;
+import by.netcracker.zhuk.services.RequestService;
 import by.netcracker.zhuk.services.SpecialtyService;
 import by.netcracker.zhuk.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class StudentsController {
 
     @Autowired
     SpecialtyService specialtyService;
+
+    @Autowired
+    private RequestService requestService;
 
     @Autowired
     private ConversionService conversionService;
@@ -56,6 +62,22 @@ public class StudentsController {
         return (List<StudentViewModel>) conversionService.convert(allstudents, studentEntityDescriptor, studentViewModelDescriptor);
     }
 
+    @RequestMapping(value = "/studentsForMultiselect", method = RequestMethod.GET)
+    @ResponseBody
+    public List<StudentViewModel> getStudentsMultiselect(@RequestParam("id") String idRequest) {
+        RequestEntity requestEntity = requestService.getRequestById(idRequest);
+        List<StudentEntity> allstudents = studentService.findAllStudents();
+        List<StudentEntity> studentMultiselect = new ArrayList<StudentEntity>();
+        for (StudentEntity student: allstudents) {
+            System.out.println(student.getSpecialityId().getId() + " " + requestEntity.getSpecialty().getId());
+            if(student.getSpecialityId().getId() == requestEntity.getSpecialty().getId()) {
+                if (student.getAverageScore() >= requestEntity.getMinAverageScore()) {
+                    studentMultiselect.add(student);
+                }
+            }
+        }
+        return (List<StudentViewModel>) conversionService.convert(studentMultiselect, studentEntityDescriptor, studentViewModelDescriptor);
+    }
     @RequestMapping(value = "/create-student", method = RequestMethod.POST)
     @ResponseBody
     public List<StudentViewModel> saveStudents(@RequestBody StudentViewModel student) {
@@ -81,7 +103,27 @@ public class StudentsController {
         for (String id: studentId) {
             studentService.delete(id);
         }
-
-
     }
+
+    @RequestMapping(value = "/assign-students", method = RequestMethod.POST)
+    @ResponseBody
+    public List<StudentViewModel> assignStudents(@RequestBody StudentRequestViewModel req) {
+        System.out.println(req.getIdRequest() + " ");
+        RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
+        int quantity = requestEntity.getTotalQuantity();
+
+        for (String id: req.getIdStudents()) {
+            StudentEntity studentEntity = studentService.findOne(id);
+            studentEntity.setStudentStatus("Waiting for practice");
+            studentEntity.getRequestEntities().add(requestEntity);
+            studentService.addStudent(studentEntity);
+            //requestEntity.getStudentEntities().add(studentEntity);
+        }
+        requestEntity.setTotalQuantity(quantity - req.getIdStudents().size());
+        requestService.addRequest(requestEntity);
+
+        List<StudentEntity> allStudents = studentService.findAllStudents();
+        return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
 }
