@@ -126,4 +126,25 @@ public class StudentsController {
         return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
     }
 
+    @RequestMapping(value = "/realise-students", method = RequestMethod.POST)
+    @ResponseBody
+    public List<StudentViewModel> realiseStudents(@RequestBody StudentRequestViewModel req) {
+        System.out.println(req.getIdRequest() + " " + req.getIdStudents());
+        RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
+        int quantity = requestEntity.getTotalQuantity();
+
+        for (String id: req.getIdStudents()) {
+            StudentEntity studentEntity = studentService.findOne(id);
+            studentEntity.setStudentStatus("Not allocated");
+            studentEntity.getRequestEntities().remove(requestEntity);
+            studentService.addStudent(studentEntity);
+            //requestEntity.getStudentEntities().add(studentEntity);
+        }
+        requestEntity.setTotalQuantity(quantity + req.getIdStudents().size());
+        requestService.addRequest(requestEntity);
+
+        List<StudentEntity> allStudents = studentService.findAllStudents();
+        return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
 }

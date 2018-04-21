@@ -114,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-success jsCreateRequest">Create</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsCreateRequest">Create</button>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control jsAverageScore" id="scoreAverage" placeholder="Average score">
                 </div>
-                <button type="button" class="btn btn-success jsAddStudent" data-dismiss="modal" id="createNewStudent">Create</button>
+                <button type="button" data-dismiss="modal" class="btn btn-success jsAddStudent" id="createNewStudent">Create</button>
             </form>
         </div>
     </div>
@@ -201,7 +201,7 @@
                         </div>
 
                     </div>
-                    <button type="button" class="btn btn-success jsAssignStudent">Create</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsAssignStudent">Create</button>
                 </form>
             </div>
         </div>
@@ -227,7 +227,7 @@
                     <select class="form-control availableFacultiesForCreateSpecialty jsFacultiesList">
                     </select>
                 </div>
-                <button type="button" class="btn btn-success jsCreateSpecialty">Create</button>
+                <button type="button" data-dismiss="modal" class="btn btn-success jsCreateSpecialty">Create</button>
             </form>
         </div>
     </div>
@@ -251,7 +251,7 @@
                     <label>Name of faculty</label><br>
                     <input type="text" class="form-control nameFaculty" required><br>
                 </div>
-                <button type="button" class="btn btn-success jsCreateFaculty">Create</button>
+                <button type="button" data-dismiss="modal" class="btn btn-success jsCreateFaculty">Create</button>
             </form>
         </div>
     </div>
@@ -272,12 +272,39 @@
             <th data-field="group" data-sortable="true">Group</th>
             <th data-field="isBudget">Is budget</th>
             <th data-field="averageScore" data-sortable="true">Average score</th>
-            <th data-field="studentStatus" >Status<th>
+            <th data-field="id" data-formatter="formatter" class="text-center">About practice</th>
             <%--<th data-field="nameCompany">Name of company</th>--%>
             <%--<th data-field="practicePeriod">Practic period</th>--%>
         </tr>
         </thead>
     </table >
+</div>
+
+
+<div class="modal fade" id="aboutStudentPractice" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" align="center">Students practice</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="notAllocated">This student is not divided into practice</p>
+                <table class="table table-bordered jsTableStudentPractice">
+                    <thead>
+                        <tr >
+                            <td>Name of company</td>
+                            <td>Status</td>
+                            <td>Practice period</td>
+                        </tr>
+                    </thead>
+                        <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="assignOneStudent" role="dialog">
@@ -294,27 +321,45 @@
                     <label>Search available demands</label>
                     <select class="form-control jsRequestList"></select>
                 </div>
-                    <button type="button" class="btn btn-success jsAssignOneStudent">Create</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsAssignOneStudent">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="realiseOneStudent" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" align="center">Realise students</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Search available demands</label>
+                    <select class="form-control jsRequestList"></select>
+                </div>
+                <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
             </div>
         </div>
     </div>
 </div>
 
 
+
 <div class="container-fluid">
     <br>
     <div class="row" id="adminButton" >
-        <div class="col-md-3" >
+        <div class="col-md-4" >
             <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <button type="button" class="btn btn-primary jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
         </div>
-        <div class="col-md-3">
-            <button type="button" class="btn btn-primary jsRealiseStudent" id="realise" disabled>Realise</button>
-        </div>
-        <div class="col-md-3">
-            <button type="button" class="btn btn-primary jsShowInfoStudent" id="info" disabled>Show Info</button>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary jsRealiseStudentBtn" data-toggle="modal" data-target="#realiseOneStudent" id="realise" disabled>Realise</button>
         </div>
     </div>
 </div>

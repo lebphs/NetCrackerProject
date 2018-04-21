@@ -12,7 +12,7 @@ $(document).ready(function () {
         'check-all.bs.table uncheck-all.bs.table', function () {
             $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
             $(".jsAssignStudentBtn" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
-            $(".jsRealiseStudent" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+            $(".jsRealiseStudentBtn" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
             $(".jsShowInfoStudent" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
     });
 
@@ -57,6 +57,11 @@ $(document).ready(function () {
         getRequestFitDescription(idStudent);
     });
 
+    $(".jsRealiseStudentBtn").click(function () {
+        var idStudent = getIdSelections();
+        getRequestFitDescription(idStudent);
+    });
+
     $(".createSpecialty").click(function (event) {
         getFacultiesList();
     });
@@ -73,7 +78,6 @@ $(document).ready(function () {
                 idRequest:$(".jsRequestList").find("option:selected").val()
         };
 
-        alert(obj.idStudents + " " + obj.idRequest);
         $.ajax({
             url: 'assign-students',
             type: 'POST',
@@ -83,8 +87,24 @@ $(document).ready(function () {
             data: JSON.stringify(obj),
             success: function (students) {
                 $(".jsStudentsTable").bootstrapTable('load', students);
-                //$(".jsRequestList").
-                $(".jsAssignStudent").modal('toggle');
+            }
+        });
+    });
+
+    $(".jsRealiseOneStudent").click(function () {
+        var obj = {idStudents:getIdSelections(),
+            idRequest:$(".jsRequestList").find("option:selected").val()
+        };
+
+        $.ajax({
+            url: 'realise-students',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (students) {
+                $(".jsStudentsTable").bootstrapTable('load', students);
             }
         });
     });
@@ -126,8 +146,6 @@ $(document).ready(function () {
             data: JSON.stringify(obj),
             success: function (students) {
                 $(".jsStudentsTable").bootstrapTable('load', students);
-                //$(".jsRequestList").
-                $(".jsAssignStudent").modal('toggle');
             }
         });
     });
@@ -154,7 +172,6 @@ $(document).ready(function () {
     }
 
     function getRequestFitDescription(idStudent){
-        alert(idStudent);
         $.ajax({
             url: 'requestsForDropdown',
             type: 'GET',
@@ -210,14 +227,8 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(obj),
-            error: function(){
-              alert("errr");
-            },
             success: function (addedStudent) {
-                alert(addedStudent);
-                //noty({ text: 'Студент '+obj.namestud+' '+obj.surname+' создан!'});
                 $( ".jsStudentsTable" ).bootstrapTable('append', addedStudent);
-                $("#createstudent").modal('toggle');
             }
 
         });
@@ -304,7 +315,6 @@ $(document).ready(function () {
         });
     }
     $(".jsDeleteStudent").click(function(){
-        // alert($(".jsStudentsTable").bootstrapTable('getSelections').);
         var ids = getIdSelections();
             $.ajax({
             url: 'delete-students',
@@ -396,15 +406,47 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(obj),
-            error: function(){
-              alert("error");
-            },
             success: function (request) {
-                alert(request.dataStart);
                 $(".jsRequestsTable").bootstrapTable('append', request);
-                $(".jsPreloadCreateStudentModal").modal('toggle');
             }
         })
 
     });
+
+    $(".jsStudentsTable").on("click", ".jsPreloadStudentPractice", function () {
+        var sId = $(this).attr("data-id");
+        var studentPracticeWindow = $("#aboutStudentPractice");
+        $.ajax({
+            url: 'personalStudentPracticeList',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {studentId : sId},
+            success: function (personalPracticeList) {
+                if (!!personalPracticeList.length) {
+                    $(".jsTableStudentPractice").find("tbody").html("");
+                    studentPracticeWindow.find(".notAllocated").hide();
+                    studentPracticeWindow.find(".jsTableStudentPractice").show();
+                    personalPracticeList ? function () {
+                        personalPracticeList.some(function (practice) {
+                                $(".jsTableStudentPractice").find("tbody").append('<tr><td>' + practice.companyName +
+                                    '</td><td>'  + practice.studentStatus + '</td><td>' + practice.startDate + ' - ' +
+                                    practice.finishDate + '</td></tr>');
+
+                        });
+                    }() : false;
+                } else {
+                    studentPracticeWindow.find(".notAllocated").show();
+                    studentPracticeWindow.find(".jsTableStudentPractice").hide();
+                }
+            }
+        });
+    })
+
+
 });
+
+function formatter(value) {
+    return '<a data-toggle="modal"  data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-warning jsPreloadStudentPractice">Practice</a>';
+}

@@ -11,6 +11,8 @@ public class RequestViewModel {
     private Integer facultyId;
     private double minAverageScore;
     private int totalQuantity;
+    private String studentStatus;
+    private String practiceStatus;
     private String user;
     private Integer userId;
 
@@ -113,4 +115,21 @@ public class RequestViewModel {
     public void setFacultyId(Integer facultyId) {
         this.facultyId = facultyId;
     }
+
+    public String getStudentStatus() {
+        return studentStatus;
+    }
+
+    public void setStudentStatus(String studentStatus) {
+        this.studentStatus = studentStatus;
+    }
+
+    public String getPracticeStatus() {
+        return practiceStatus;
+    }
+
+    public void setPracticeStatus(String practiceStatus) {
+        this.practiceStatus = practiceStatus;
+    }
 }
+
