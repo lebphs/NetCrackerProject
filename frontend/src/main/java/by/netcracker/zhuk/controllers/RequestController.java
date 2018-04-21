@@ -93,6 +93,25 @@ public class RequestController {
         return (List<RequestViewModel>) conversionService.convert(allrequest, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
+    @RequestMapping(value = "/requestsForDropdown", method = RequestMethod.GET)
+    @ResponseBody
+    public List<StudentViewModel> getRequestDropdown(@RequestParam("id") String idStudent) {
+        StudentEntity studentEntity = studentService.findOne(idStudent);
+        List<RequestEntity> allRequest = requestService.findAllRequests();
+        List<RequestEntity> requestDropdown = new ArrayList<RequestEntity>();
+
+
+        for (RequestEntity request: allRequest) {
+            //System.out.println(student.getSpecialityId().getId() + " " + requestEntity.getSpecialty().getId());
+            if(studentEntity.getSpecialityId().getId() == request.getSpecialty().getId()) {
+                if (studentEntity.getAverageScore() >= request.getMinAverageScore()) {
+                    requestDropdown.add(request);
+                }
+            }
+        }
+        return (List<StudentViewModel>) conversionService.convert(requestDropdown, requestEntityDescriptor, requestViewModelDescriptor);
+    }
+
 //    @RequestMapping(value = "/assignStudents", method = RequestMethod.POST)
 //    @ResponseBody
 //    public RequestEntity getRequest(@RequestParam(required=false, name="id") String requestId) {

@@ -52,6 +52,11 @@ $(document).ready(function () {
         getSpecialtiesByFacultyIdForAddRequest();
     });
 
+    $(".jsAssignStudentBtn").click(function () {
+        var idStudent = getIdSelections();
+        getRequestFitDescription(idStudent);
+    });
+
     $(".createSpecialty").click(function (event) {
         getFacultiesList();
     });
@@ -61,6 +66,27 @@ $(document).ready(function () {
     });
     $(".availableFacultiesAddRequest").change(function (event) {
         getSpecialtiesByFacultyIdForAddRequest()
+    });
+
+    $(".jsAssignOneStudent").click(function () {
+        var obj = {idStudents:getIdSelections(),
+                idRequest:$(".jsRequestList").find("option:selected").val()
+        };
+
+        alert(obj.idStudents + " " + obj.idRequest);
+        $.ajax({
+            url: 'assign-students',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (students) {
+                $(".jsStudentsTable").bootstrapTable('load', students);
+                //$(".jsRequestList").
+                $(".jsAssignStudent").modal('toggle');
+            }
+        });
     });
 
     $(".jsRequestList").change(function () {
@@ -105,6 +131,8 @@ $(document).ready(function () {
             }
         });
     });
+
+
     function getStudentFitDescription(idRequest){
         $.ajax({
             url: 'studentsForMultiselect',
@@ -119,6 +147,26 @@ $(document).ready(function () {
                     students.some(function (student) {
                         $(".jsStudentMultiselect").append('<option value=' + student.id + '>' + student.surname +' ' + student.name  +'</option>');
                         $(".jsStudentMultiselect").multiselect('rebuild');
+                    });
+                }() : false;
+            }
+        });
+    }
+
+    function getRequestFitDescription(idStudent){
+        alert(idStudent);
+        $.ajax({
+            url: 'requestsForDropdown',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id: idStudent.toString()},
+            success: function (requests) {
+                $(".jsRequestList").empty();
+                requests ? function () {
+                    requests.some(function (request) {
+                        $(".jsRequestList").append('<option value=' + request.id + '>' + request.companyName +' ' + request.totalQuantity  +'</option>');
                     });
                 }() : false;
             }
@@ -359,35 +407,4 @@ $(document).ready(function () {
         })
 
     });
-
-    // $('#availableStudent').typeahead({
-    //     ajax: {
-    //         url: 'studentsForTable',
-    //         method: 'get',
-    //         triggerLength: 1
-    //     },
-    //     onSelect: displayResult
-    // });
-    // $('.jsStudentMultiselect').multiselect({
-    //     // nonSelectedText: 'Select Framework',
-    //     // enableFiltering: true,
-    //     // enableCaseInsensitiveFiltering: true
-    // });
-
-
-
-    // $('#availableStudents').typeahead({
-    //     ajax: 'studentsForTable',
-    //     displayField: 'surname',
-    //     onSelect: displayResult
-    // });
-    // $('#availableRequests').typeahead({
-    //     ajax: 'requestForTable',
-    //     displayField: 'companyName',
-    //     valueField: 'id',
-    //     onSelect: displayResult
-    // });
-
-
-
 });

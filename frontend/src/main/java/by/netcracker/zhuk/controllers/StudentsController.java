@@ -108,7 +108,7 @@ public class StudentsController {
     @RequestMapping(value = "/assign-students", method = RequestMethod.POST)
     @ResponseBody
     public List<StudentViewModel> assignStudents(@RequestBody StudentRequestViewModel req) {
-        System.out.println(req.getIdRequest() + " ");
+        System.out.println(req.getIdRequest() + " " + req.getIdStudents());
         RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
         int quantity = requestEntity.getTotalQuantity();
 

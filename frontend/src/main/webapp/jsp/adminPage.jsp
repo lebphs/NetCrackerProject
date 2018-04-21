@@ -280,6 +280,27 @@
     </table >
 </div>
 
+<div class="modal fade" id="assignOneStudent" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" align="center">Assign students</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Search available demands</label>
+                    <select class="form-control jsRequestList"></select>
+                </div>
+                    <button type="button" class="btn btn-success jsAssignOneStudent">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="container-fluid">
     <br>
     <div class="row" id="adminButton" >
@@ -287,7 +308,7 @@
             <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-primary jsAssignStudentBtn" id="assign" disabled>Assign</button>
+            <button type="button" class="btn btn-primary jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
         </div>
         <div class="col-md-3">
             <button type="button" class="btn btn-primary jsRealiseStudent" id="realise" disabled>Realise</button>
