@@ -8,6 +8,6 @@ public interface RequestService {
     //RequestEntity findById(string id);
     void addRequest(RequestEntity requestEntity);
     List<RequestEntity> findAllRequests();
-    //void delete(String studentId);
+    void delete(String studentId);
     RequestEntity getRequestById(String requestId);
 }

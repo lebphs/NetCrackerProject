@@ -28,6 +28,7 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
         requestViewModel.setCompanyName(requestEntity.getCompanyName());
         requestViewModel.setStartDate(requestEntity.getStartDate().toString());
         requestViewModel.setFinishDate(requestEntity.getFinishDate().toString());
+        requestViewModel.setPracticePeriod(requestViewModel.getStartDate() + " - " + requestViewModel.getFinishDate());
 
 
         SpecialtyEntity specialty = requestEntity.getSpecialty();
@@ -42,9 +43,11 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
 //            requestViewModel.setIsBudget(requestEntity.getIsBudget());
         requestViewModel.setMinAverageScore(requestEntity.getMinAverageScore());
         requestViewModel.setTotalQuantity(requestEntity.getTotalQuantity());
-
+        System.out.println(requestEntity.getTotalQuantity() -requestEntity.getStudentEntities().size());
+        System.out.println(requestEntity.getStudentEntities().size());
+        requestViewModel.setAvailableQuantity(requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size());
         requestViewModel.setStudentStatus(compareDate(requestViewModel.getStartDate(), requestViewModel.getFinishDate()));
-        //requestViewModel.setPracticeStatus(compateQuantity(requestViewModel.getTotalQuantity()));
+        requestViewModel.setPracticeStatus(compareQuantity(requestViewModel.getAvailableQuantity()));
 
         return requestViewModel;
     }
@@ -72,7 +75,6 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(start + " " + finish);
         if (current.before(start) && current.before(finish)){
             return WAITING_FOR_PRACTICE;
         } else if (current.after(start) && current.before(finish)){

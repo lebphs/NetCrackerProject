@@ -69,8 +69,7 @@ public class StudentsController {
         List<StudentEntity> allstudents = studentService.findAllStudents();
         List<StudentEntity> studentMultiselect = new ArrayList<StudentEntity>();
         for (StudentEntity student: allstudents) {
-            System.out.println(student.getSpecialityId().getId() + " " + requestEntity.getSpecialty().getId());
-            if(student.getSpecialityId().getId() == requestEntity.getSpecialty().getId()) {
+            if((student.getSpecialityId()).equals(requestEntity.getSpecialty())) {
                 if (student.getAverageScore() >= requestEntity.getMinAverageScore()) {
                     studentMultiselect.add(student);
                 }
@@ -108,19 +107,19 @@ public class StudentsController {
     @RequestMapping(value = "/assign-students", method = RequestMethod.POST)
     @ResponseBody
     public List<StudentViewModel> assignStudents(@RequestBody StudentRequestViewModel req) {
-        System.out.println(req.getIdRequest() + " " + req.getIdStudents());
         RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
         int quantity = requestEntity.getTotalQuantity();
 
-        for (String id: req.getIdStudents()) {
-            StudentEntity studentEntity = studentService.findOne(id);
-            studentEntity.setStudentStatus("Waiting for practice");
-            studentEntity.getRequestEntities().add(requestEntity);
-            studentService.addStudent(studentEntity);
-            //requestEntity.getStudentEntities().add(studentEntity);
-        }
-        requestEntity.setTotalQuantity(quantity - req.getIdStudents().size());
+        if (quantity - requestEntity.getStudentEntities().size() > 0){
+            for (String id : req.getIdStudents()) {
+                StudentEntity studentEntity = studentService.findOne(id);
+                studentEntity.setStudentStatus("Waiting for practice");
+                studentEntity.getRequestEntities().add(requestEntity);
+                studentService.addStudent(studentEntity);
+                //requestEntity.getStudentEntities().add(studentEntity);
+            }
         requestService.addRequest(requestEntity);
+        }
 
         List<StudentEntity> allStudents = studentService.findAllStudents();
         return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
@@ -140,7 +139,6 @@ public class StudentsController {
             studentService.addStudent(studentEntity);
             //requestEntity.getStudentEntities().add(studentEntity);
         }
-        requestEntity.setTotalQuantity(quantity + req.getIdStudents().size());
         requestService.addRequest(requestEntity);
 
         List<StudentEntity> allStudents = studentService.findAllStudents();

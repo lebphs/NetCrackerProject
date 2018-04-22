@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class RequestController {
@@ -43,6 +41,9 @@ public class RequestController {
 
     private  final TypeDescriptor requestEntityDescriptor1 = TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(RequestEntity.class));
     private  final TypeDescriptor requestViewModelDescriptor1 = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestViewModel.class));
+
+    private  final TypeDescriptor studentEntityDescriptor = TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(StudentEntity.class));
+    private  final TypeDescriptor studentViewModelDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentViewModel.class));
 
     private static final String VIEW_NAME_LOGIN = "requestAllPage";
     private static final String MODEL_USERS = "students";
@@ -77,6 +78,7 @@ public class RequestController {
 
         requestEntity.setTotalQuantity(request.getTotalQuantity());
         requestEntity.setMinAverageScore(request.getMinAverageScore());
+        requestEntity.setStudentEntities(new HashSet<>());
         //requestEntity.setUser(userService.findUserById(1));
 
         requestService.addRequest(requestEntity);
@@ -94,16 +96,24 @@ public class RequestController {
         return (List<RequestViewModel>) conversionService.convert(allrequest, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
-    @RequestMapping(value = "/requestsForDropdown", method = RequestMethod.GET)
+    @RequestMapping(value = "/requestsForDropdownRealise", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getRequestDropdown(@RequestParam("id") String idStudent) {
         StudentEntity studentEntity = studentService.findOne(idStudent);
-        List<RequestEntity> allRequest = requestService.findAllRequests();
-        List<RequestEntity> requestDropdown = new ArrayList<RequestEntity>();
+        Set<RequestEntity> requestDropdown  = studentEntity.getRequestEntities();
+        return (List<StudentViewModel>) conversionService.convert(requestDropdown, requestEntityDescriptor1, requestViewModelDescriptor1);
+    }
 
+    @RequestMapping(value = "/requestsForDropdownAssign", method = RequestMethod.GET)
+    @ResponseBody
+    public List<StudentViewModel> getRequestDropdownAssign(@RequestParam("id") String idStudent) {
+        StudentEntity studentEntity = studentService.findOne(idStudent);
+        List<RequestEntity> allRequest = requestService.findAllRequests();
+        List<RequestEntity> requestDropdown  = new ArrayList<RequestEntity>();
 
         for (RequestEntity request: allRequest) {
-            if(studentEntity.getSpecialityId().getId() == request.getSpecialty().getId()) {
+            if(studentEntity.getSpecialityId().getId() == request.getSpecialty().getId() &&
+                    request.getTotalQuantity() - request.getStudentEntities().size() > 0) {
                 if (studentEntity.getAverageScore() >= request.getMinAverageScore()) {
                     requestDropdown.add(request);
                 }
@@ -112,12 +122,36 @@ public class RequestController {
         return (List<StudentViewModel>) conversionService.convert(requestDropdown, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
+    @RequestMapping(value = "/personalPracticeStudentList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<StudentViewModel> getPersonalPracticeStudentList(@RequestParam String practiceId){
+        RequestEntity requestEntity = requestService.getRequestById(practiceId);
+        Set<StudentEntity> studentEntities = requestEntity.getStudentEntities();
+        return (List<StudentViewModel>) conversionService.convert(studentEntities, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
     @RequestMapping(value = "/personalStudentPracticeList", method = RequestMethod.GET)
     @ResponseBody
     public List<RequestViewModel> getPersonalStudentPracticeList(@RequestParam String studentId){
         StudentEntity studentsEntity = studentService.findOne(studentId);
         Set<RequestEntity> requestEntities = studentsEntity.getRequestEntities();
         return (List<RequestViewModel>) conversionService.convert(requestEntities, requestEntityDescriptor1, requestViewModelDescriptor1);
+    }
+
+    @RequestMapping(value = "/delete-requests", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteStudents(@RequestBody String[] requestsId) {
+        Set<StudentEntity> students;
+
+        for (String id: requestsId) {
+            RequestEntity requestEntity = requestService.getRequestById(id);
+            students = requestEntity.getStudentEntities();
+            for (StudentEntity student:students) {
+                student.getRequestEntities().remove(requestEntity);
+                studentService.addStudent(student);
+            }
+            requestService.delete(id);
+        }
     }
 
 //    @RequestMapping(value = "/assignStudents", method = RequestMethod.POST)

@@ -1,13 +1,5 @@
 $(document).ready(function () {
 
-    var ELEMENTS = {
-        CONTAINER_DATA_USING_AJAX: '.jsDataUsingAjaxFaculty',
-        CONTAINER_ADDED_STUDENT: '.jsAddedFaculty'
-    };
-
-    var $facultiesContainer = $(ELEMENTS.CONTAINER_DATA_USING_AJAX),
-        $addedFacultyContainer = $(ELEMENTS.CONTAINER_ADDED_STUDENT);
-
     $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
             $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
@@ -21,32 +13,6 @@ $(document).ready(function () {
         getSpecialtiesByFacultyIdForAddStudents();
     });
 
-    // $(".jsShowInfoStudent").click(function (event) {
-    //     var ids = getIdSelections();
-    //
-    //     $.ajax({
-    //         url: 'studentById',
-    //         type: 'GET',
-    //         dataType: 'json',
-    //         contentType: "application/json",
-    //         mimeType: 'application/json',
-    //         data: {id: idRequest},
-    //         success: function (requests) {
-    //             $(".jsStudentMultiselect").change(function () {
-    //                 var countSelect = $(".jsStudentMultiselect").find("option:selected").length;
-    //
-    //                 if(countSelect > requests.totalQuantity){
-    //                     $(".jsAssignStudent").prop('disabled', true);
-    //                 }
-    //                 else{
-    //                     $(".jsAssignStudent").prop('disabled', false);
-    //                 }
-    //             })
-    //         }
-    //     });
-    //
-    // });
-
     $(".jsPreloadCreateRequestModal").click(function (event) {
         getFacultiesList();
         getSpecialtiesByFacultyIdForAddRequest();
@@ -54,12 +20,12 @@ $(document).ready(function () {
 
     $(".jsAssignStudentBtn").click(function () {
         var idStudent = getIdSelections();
-        getRequestFitDescription(idStudent);
+        getRequestFitDescriptionForAssign(idStudent);
     });
 
     $(".jsRealiseStudentBtn").click(function () {
         var idStudent = getIdSelections();
-        getRequestFitDescription(idStudent);
+        getRequestFitDescriptionForRealise(idStudent);
     });
 
     $(".createSpecialty").click(function (event) {
@@ -75,7 +41,7 @@ $(document).ready(function () {
 
     $(".jsAssignOneStudent").click(function () {
         var obj = {idStudents:getIdSelections(),
-                idRequest:$(".jsRequestList").find("option:selected").val()
+                idRequest:$(".jsRequestAssign").find("option:selected").val()
         };
 
         $.ajax({
@@ -93,7 +59,7 @@ $(document).ready(function () {
 
     $(".jsRealiseOneStudent").click(function () {
         var obj = {idStudents:getIdSelections(),
-            idRequest:$(".jsRequestList").find("option:selected").val()
+            idRequest:$(".jsRequestRealise").find("option:selected").val()
         };
 
         $.ajax({
@@ -109,8 +75,8 @@ $(document).ready(function () {
         });
     });
 
-    $(".jsRequestList").change(function () {
-        var idRequest = $(".jsRequestList").find("option:selected").val();
+    $(".jsRequestAssignModal").change(function () {
+        var idRequest = $(".jsRequestAssignModal").find("option:selected").val();
         getStudentFitDescription(idRequest);
         $.ajax({
             url: 'requestById',
@@ -135,7 +101,7 @@ $(document).ready(function () {
     });
 
     $(".jsAssignStudent").click(function () {
-        var obj ={idRequest : $(".jsRequestList").find("option:selected").val(),
+        var obj ={idRequest : $(".jsRequestAssignModal").find("option:selected").val(),
                   idStudents : $(".jsStudentMultiselect").val()};
         $.ajax({
             url: 'assign-students',
@@ -171,19 +137,38 @@ $(document).ready(function () {
         });
     }
 
-    function getRequestFitDescription(idStudent){
+    function getRequestFitDescriptionForAssign(idStudent){
         $.ajax({
-            url: 'requestsForDropdown',
+            url: 'requestsForDropdownAssign',
             type: 'GET',
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
             data: {id: idStudent.toString()},
             success: function (requests) {
-                $(".jsRequestList").empty();
+                $(".jsRequestAssign").empty();
                 requests ? function () {
                     requests.some(function (request) {
-                        $(".jsRequestList").append('<option value=' + request.id + '>' + request.companyName +' ' + request.totalQuantity  +'</option>');
+                        $(".jsRequestAssign").append('<option value=' + request.id + '>' + request.companyName +' ' + request.availableQuantity  +'</option>');
+                    });
+                }() : false;
+            }
+        });
+    }
+
+    function getRequestFitDescriptionForRealise(idStudent){
+        $.ajax({
+            url: 'requestsForDropdownRealise',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id: idStudent.toString()},
+            success: function (requests) {
+                $(".jsRequestRealise").empty();
+                requests ? function () {
+                    requests.some(function (request) {
+                        $(".jsRequestRealise").append('<option value=' + request.id + '>' + request.companyName +' ' + request.availableQuantity  +'</option>');
                     });
                 }() : false;
             }
@@ -194,7 +179,7 @@ $(document).ready(function () {
 
     $(".jsAssingStudentsRequests").click(function () {
         getRequestList();
-        var idRequest = $(".jsRequestList").find("option:selected").val();
+        var idRequest = $(".jsRequestAssignModal").find("option:selected").val();
         getStudentFitDescription(idRequest);
 
     });
@@ -266,7 +251,7 @@ $(document).ready(function () {
                 $(".jsRequestList").empty();
                 requests ? function () {
                     requests.some(function (request) {
-                        $(".jsRequestList").append('<option value='+request.id+'>' + request.companyName + ' ' + request.totalQuantity + '</option>');
+                        $(".jsRequestList").append('<option value='+request.id+'>' + request.companyName + ' ' + request.availableQuantity + '</option>');
                     });
                 }() : false;
             }

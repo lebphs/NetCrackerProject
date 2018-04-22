@@ -5,12 +5,14 @@ public class RequestViewModel {
     private String companyName;
     private String startDate;
     private String finishDate;
+    private String practicePeriod;
     private String specialty;
     private Integer specialtyId;
     private String faculty;
     private Integer facultyId;
     private double minAverageScore;
     private int totalQuantity;
+    private int availableQuantity;
     private String studentStatus;
     private String practiceStatus;
     private String user;
@@ -52,6 +54,14 @@ public class RequestViewModel {
         this.finishDate = finishDate;
     }
 
+    public String getPracticePeriod() {
+        return practicePeriod;
+    }
+
+    public void setPracticePeriod(String practicePeriod) {
+        this.practicePeriod = practicePeriod;
+    }
+
     public String getSpecialty() {
         return specialty;
     }
@@ -90,6 +100,14 @@ public class RequestViewModel {
 
     public void setTotalQuantity(int totalQuantity) {
         this.totalQuantity = totalQuantity;
+    }
+
+    public int getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
     }
 
     public String getUser() {

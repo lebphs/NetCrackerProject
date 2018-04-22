@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label>Search available demands</label>
-                                    <select class="form-control jsRequestList"></select>
+                                    <select class="form-control jsRequestList jsRequestAssignModal"></select>
                                     <%--<select class="form-control " id="availableDemands" required></select><br>--%>
                                 </div>
                         </div>
@@ -319,7 +319,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Search available demands</label>
-                    <select class="form-control jsRequestList"></select>
+                    <select class="form-control jsRequestList jsRequestAssign"></select>
                 </div>
                     <button type="button" data-dismiss="modal" class="btn btn-success jsAssignOneStudent">Create</button>
             </div>
@@ -339,7 +339,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Search available demands</label>
-                    <select class="form-control jsRequestList"></select>
+                    <select class="form-control jsRequestList jsRequestRealise"></select>
                 </div>
                 <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
             </div>

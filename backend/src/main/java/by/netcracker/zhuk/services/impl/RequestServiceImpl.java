@@ -31,11 +31,11 @@ public class RequestServiceImpl implements RequestService {
 //        return null;
 //    }
 //
-//    @Override
-//    public void delete(String studentId) {
-//
-//    }
-//
+    @Override
+    public void delete(String studentId) {
+        requestRepository.delete(Integer.parseInt(studentId));
+    }
+
     @Override
     public RequestEntity getRequestById(String requestId) {
         return requestRepository.findById(Integer.parseInt(requestId));
