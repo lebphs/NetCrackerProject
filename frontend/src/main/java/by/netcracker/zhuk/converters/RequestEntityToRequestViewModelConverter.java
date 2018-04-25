@@ -43,8 +43,6 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
 //            requestViewModel.setIsBudget(requestEntity.getIsBudget());
         requestViewModel.setMinAverageScore(requestEntity.getMinAverageScore());
         requestViewModel.setTotalQuantity(requestEntity.getTotalQuantity());
-        System.out.println(requestEntity.getTotalQuantity() -requestEntity.getStudentEntities().size());
-        System.out.println(requestEntity.getStudentEntities().size());
         requestViewModel.setAvailableQuantity(requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size());
         requestViewModel.setStudentStatus(compareDate(requestViewModel.getStartDate(), requestViewModel.getFinishDate()));
         requestViewModel.setPracticeStatus(compareQuantity(requestViewModel.getAvailableQuantity()));

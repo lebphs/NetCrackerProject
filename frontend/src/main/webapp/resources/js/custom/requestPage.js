@@ -74,5 +74,5 @@ $(document).ready(function () {
     })
 });
 function students(value) {
-    return '<a data-toggle="modal"  data-id="'+value+'" data-target="#studentsInPractice" class="btn btn-warning jsStudentsInPractice">Practice</a>';
+    return '<a data-toggle="modal"  data-id="'+value+'" data-target="#studentsInPractice" class="btn btn-primary jsStudentsInPractice">Practice</a>';
 }

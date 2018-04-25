@@ -2,10 +2,10 @@ $(document).ready(function () {
 
     $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
-            $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
-            $(".jsAssignStudentBtn" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
-            $(".jsRealiseStudentBtn" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
-            $(".jsShowInfoStudent" ).prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
+        $(".jsAssignStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsRealiseStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsShowInfoStudent").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
     });
 
     $(".jsPreloadCreateStudentModal").click(function (event) {
@@ -40,8 +40,9 @@ $(document).ready(function () {
     });
 
     $(".jsAssignOneStudent").click(function () {
-        var obj = {idStudents:getIdSelections(),
-                idRequest:$(".jsRequestAssign").find("option:selected").val()
+        var obj = {
+            idStudents: getIdSelections(),
+            idRequest: $(".jsRequestAssign").find("option:selected").val()
         };
 
         $.ajax({
@@ -58,8 +59,9 @@ $(document).ready(function () {
     });
 
     $(".jsRealiseOneStudent").click(function () {
-        var obj = {idStudents:getIdSelections(),
-            idRequest:$(".jsRequestRealise").find("option:selected").val()
+        var obj = {
+            idStudents: getIdSelections(),
+            idRequest: $(".jsRequestRealise").find("option:selected").val()
         };
 
         $.ajax({
@@ -89,10 +91,10 @@ $(document).ready(function () {
                 $(".jsStudentMultiselect").change(function () {
                     var countSelect = $(".jsStudentMultiselect").find("option:selected").length;
 
-                    if(countSelect > requests.totalQuantity){
+                    if (countSelect > requests.totalQuantity) {
                         $(".jsAssignStudent").prop('disabled', true);
                     }
-                    else{
+                    else {
                         $(".jsAssignStudent").prop('disabled', false);
                     }
                 })
@@ -101,8 +103,10 @@ $(document).ready(function () {
     });
 
     $(".jsAssignStudent").click(function () {
-        var obj ={idRequest : $(".jsRequestAssignModal").find("option:selected").val(),
-                  idStudents : $(".jsStudentMultiselect").val()};
+        var obj = {
+            idRequest: $(".jsRequestAssignModal").find("option:selected").val(),
+            idStudents: $(".jsStudentMultiselect").val()
+        };
         $.ajax({
             url: 'assign-students',
             type: 'POST',
@@ -117,19 +121,19 @@ $(document).ready(function () {
     });
 
 
-    function getStudentFitDescription(idRequest){
+    function getStudentFitDescription(idRequest) {
         $.ajax({
             url: 'studentsForMultiselect',
             type: 'GET',
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:idRequest},
+            data: {id: idRequest},
             success: function (students) {
                 $(".jsStudentMultiselect").empty();
                 students ? function () {
                     students.some(function (student) {
-                        $(".jsStudentMultiselect").append('<option value=' + student.id + '>' + student.surname +' ' + student.name  +'</option>');
+                        $(".jsStudentMultiselect").append('<option value=' + student.id + '>' + student.surname + ' ' + student.name + '</option>');
                         $(".jsStudentMultiselect").multiselect('rebuild');
                     });
                 }() : false;
@@ -137,7 +141,7 @@ $(document).ready(function () {
         });
     }
 
-    function getRequestFitDescriptionForAssign(idStudent){
+    function getRequestFitDescriptionForAssign(idStudent) {
         $.ajax({
             url: 'requestsForDropdownAssign',
             type: 'GET',
@@ -149,14 +153,14 @@ $(document).ready(function () {
                 $(".jsRequestAssign").empty();
                 requests ? function () {
                     requests.some(function (request) {
-                        $(".jsRequestAssign").append('<option value=' + request.id + '>' + request.companyName +' ' + request.availableQuantity  +'</option>');
+                        $(".jsRequestAssign").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
                     });
                 }() : false;
             }
         });
     }
 
-    function getRequestFitDescriptionForRealise(idStudent){
+    function getRequestFitDescriptionForRealise(idStudent) {
         $.ajax({
             url: 'requestsForDropdownRealise',
             type: 'GET',
@@ -168,13 +172,12 @@ $(document).ready(function () {
                 $(".jsRequestRealise").empty();
                 requests ? function () {
                     requests.some(function (request) {
-                        $(".jsRequestRealise").append('<option value=' + request.id + '>' + request.companyName +' ' + request.availableQuantity  +'</option>');
+                        $(".jsRequestRealise").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
                     });
                 }() : false;
             }
         });
     }
-
 
 
     $(".jsAssingStudentsRequests").click(function () {
@@ -213,7 +216,7 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: JSON.stringify(obj),
             success: function (addedStudent) {
-                $( ".jsStudentsTable" ).bootstrapTable('append', addedStudent);
+                $(".jsStudentsTable").bootstrapTable('append', addedStudent);
             }
 
         });
@@ -235,13 +238,14 @@ $(document).ready(function () {
                         $(".jsFacultiesList").append('<option value=' + faculty.id + '>' + faculty.name + '</option>');
                     });
                 }() : false;
+                //$(".jsFacultiesList").prop("selectedIndex", -1);
             }
         });
     }
 
     function getRequestList() {
         $.ajax({
-            async:false,
+            async: false,
             url: 'requests',
             type: 'GET',
             dataType: 'json',
@@ -251,7 +255,7 @@ $(document).ready(function () {
                 $(".jsRequestList").empty();
                 requests ? function () {
                     requests.some(function (request) {
-                        $(".jsRequestList").append('<option value='+request.id+'>' + request.companyName + ' ' + request.availableQuantity + '</option>');
+                        $(".jsRequestList").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
                     });
                 }() : false;
             }
@@ -266,12 +270,12 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:currentId},
+            data: {id: currentId},
             success: function (specialties) {
                 $(".availableSpecialtiesAddStudents").empty();
                 specialties ? function () {
                     specialties.some(function (specialty) {
-                        $(".availableSpecialtiesAddStudents").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
+                        $(".availableSpecialtiesAddStudents").append('<option value=' + specialty.id + '>' + specialty.name + '</option>');
 
                     });
                 }() : false;
@@ -287,21 +291,22 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {id:currentId},
+            data: {id: currentId},
             success: function (specialties) {
                 $(".availableSpecialtiesAddRequest").empty();
                 specialties ? function () {
                     specialties.some(function (specialty) {
-                        $(".availableSpecialtiesAddRequest").append('<option value='+ specialty.id +'>' + specialty.name + '</option>');
+                        $(".availableSpecialtiesAddRequest").append('<option value=' + specialty.id + '>' + specialty.name + '</option>');
 
                     });
                 }() : false;
             }
         });
     }
-    $(".jsDeleteStudent").click(function(){
+
+    $(".jsDeleteStudent").click(function () {
         var ids = getIdSelections();
-            $.ajax({
+        $.ajax({
             url: 'delete-students',
             type: 'POST',
             dataType: 'json',
@@ -340,7 +345,7 @@ $(document).ready(function () {
     $(".jsCreateSpecialty").click(function () {
         var obj = {
             name: $(".nameSpecialty").val(),
-            facultyId :$(".availableFacultiesForCreateSpecialty").find("option:selected").val()
+            facultyId: $(".availableFacultiesForCreateSpecialty").find("option:selected").val()
         };
         $.ajax({
             url: 'create-specialties',
@@ -401,13 +406,14 @@ $(document).ready(function () {
     $(".jsStudentsTable").on("click", ".jsPreloadStudentPractice", function () {
         var sId = $(this).attr("data-id");
         var studentPracticeWindow = $("#aboutStudentPractice");
+
         $.ajax({
             url: 'personalStudentPracticeList',
             type: 'GET',
             dataType: 'json',
             contentType: "application/json",
             mimeType: 'application/json',
-            data: {studentId : sId},
+            data: {studentId: sId},
             success: function (personalPracticeList) {
                 if (!!personalPracticeList.length) {
                     $(".jsTableStudentPractice").find("tbody").html("");
@@ -415,9 +421,9 @@ $(document).ready(function () {
                     studentPracticeWindow.find(".jsTableStudentPractice").show();
                     personalPracticeList ? function () {
                         personalPracticeList.some(function (practice) {
-                                $(".jsTableStudentPractice").find("tbody").append('<tr><td>' + practice.companyName +
-                                    '</td><td>'  + practice.studentStatus + '</td><td>' + practice.startDate + ' - ' +
-                                    practice.finishDate + '</td></tr>');
+                            $(".jsTableStudentPractice").find("tbody").append('<tr><td>' + practice.companyName +
+                                '</td><td>' + practice.studentStatus + '</td><td>' + practice.startDate + ' - ' +
+                                practice.finishDate + '</td></tr>');
 
                         });
                     }() : false;
@@ -427,11 +433,12 @@ $(document).ready(function () {
                 }
             }
         });
-    })
-
-
+    });
 });
-
+    function infoStudent(value) {
+        return '<a onClick=\'location.href="student-page?studentId='+value+'"\' class="btn btn-primary jsPreloadInfoAboutStudent" >info</a>';
+    }
 function formatter(value) {
-    return '<a data-toggle="modal"  data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-warning jsPreloadStudentPractice">Practice</a>';
+    return '<a  data-toggle="modal" data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-primary jsPreloadStudentPractice">Practice</a>';
 }
+

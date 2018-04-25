@@ -66,7 +66,7 @@ public class UserEntity {
 //    }
 
     @Basic
-    @Column(name = "username")
+    @Column(name = "login")
     public String getUsername() {
         return username;
     }

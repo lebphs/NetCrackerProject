@@ -20,10 +20,10 @@ public class UserServiceImpl implements UserService {
 
 //    private static final UserRoleEntity USER_ROLE_STUDENT = UserRole.toString(); //do create enum with roles
 //
-//    @Override
-//    public List<UserEntity> findUserByUserName(String name) {
-//        return userRepository.findByUsername(name);
-//    }
+    @Override
+    public List<UserEntity> findUserByUserName(String name) {
+        return userRepository.findByUsername(name);
+    }
 
     @Override
     public UserEntity findUserById(String userId) {

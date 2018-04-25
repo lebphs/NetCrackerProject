@@ -61,21 +61,21 @@
                 <div class="container-fluid">
                     <div class=" mb-3">
                         <div class="form-group">
-                            <!-- <label for="companyName">Company name</label> -->
-                            <input type="text" class="form-control nameCompany" placeholder="Enter name of company"><br>
+                            <label for="companyName">Company name</label>
+                            <input type="text" id="companyName" class="form-control nameCompany" placeholder="Enter name of company"><br>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="dateFrom">data from</label>
-                                <input type="date" class="form-control startDate" id="dateFrom" required>
+                                <label for="datefrom">Data from</label>
+                                <input type="date" id="datefrom" class="tcal_en form-control startDate" required>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="dateTo">data to</label>
+                                <label for="dateTo">Data to</label>
                                 <input type="date" class="form-control finishDate" id="dateTo" required><br>
                             </div>
                         </div>
@@ -85,13 +85,15 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <input type="text" class="form-control totalQuantity" placeholder="quantity" required>
+                                <label for="quantity">Total quantity</label>
+                                <input type="text" id="quantity" class="form-control totalQuantity" placeholder="quantity" required>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <select class="form-control availableFacultiesAddRequest jsFacultiesList">
+                                <label for="faculty">Available faculties</label>
+                                <select id="faculty" class="form-control availableFacultiesAddRequest jsFacultiesList">
                                 </select>
                             </div>
                         </div>
@@ -99,17 +101,16 @@
 
                     <div class="mb-3">
                         <div class="form-group">
-                            <!-- <label for="availableSpecialties">available specialties</label> -->
-                            <!-- <input type="text" class="form-control" id="availableSpecialties" placeholder="available specialties"> -->
-                            <select class="form-control availableSpecialtiesAddRequest">
+                            <label for="specialties">Available specialties</label>
+                            <select id="specialties" class="form-control availableSpecialtiesAddRequest">
                             </select>
                         </div>
                     </div>
 
                     <div class="mb-0">
                         <div class="form-group">
-                            <!-- <label for="minScore">min score</label> -->
-                            <input type="text" class="form-control minScore" placeholder="min score">
+                            <label for="minScore">Min. average score</label>
+                            <input id="minScore" type="text" class="form-control minScore" placeholder="min score">
                             <div>
                             </div>
                         </div>
@@ -272,9 +273,9 @@
             <th data-field="group" data-sortable="true">Group</th>
             <th data-field="isBudget">Is budget</th>
             <th data-field="averageScore" data-sortable="true">Average score</th>
-            <th data-field="id" data-formatter="formatter" class="text-center">About practice</th>
-            <%--<th data-field="nameCompany">Name of company</th>--%>
-            <%--<th data-field="practicePeriod">Practic period</th>--%>
+            <th data-field="studentStatus">Status</th>
+            <th data-field="id" data-formatter="formatter" class="text-center">About practices</th>
+            <th data-field="id" data-formatter="infoStudent" class="text-center">About student</th>
         </tr>
         </thead>
     </table >

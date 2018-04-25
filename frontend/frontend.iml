@@ -6,6 +6,7 @@
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/web-spring-context.xml</file>
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/web-converters-context.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/web-security-context.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -70,5 +71,6 @@
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
   </component>
 </module>

@@ -34,7 +34,7 @@
             <input type="checkbox" class="form-check-input" id="checkBox1">
         </th>
         <th>
-            <input type="button" value="Info" onClick='location.href="aboutStudent.jsp"'/>
+            <input type="button" value="Info" onClick='location.href="student-page.jsp"'/>
         </th>
     </tr>
     <tr>
