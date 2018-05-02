@@ -39,7 +39,7 @@ $(document).ready(function () {
         'check-all.bs.table uncheck-all.bs.table', function () {
         $(".jsDeleteRequest").prop('disabled', !$(".jsRequestsTable").bootstrapTable('getSelections').length);
         $(".jsEditRequest" ).prop('disabled', !($(".jsRequestsTable").bootstrapTable('getSelections').length === 1));
-        $(".jsAssignStudentPage").prop('disabled', !($(".jsRequestsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsAssignRequestPage").prop('disabled', !($(".jsRequestsTable").bootstrapTable('getSelections').length === 1));
     });
 
     $(".jsRequestsTable").on("click", ".jsStudentsInPractice", function () {
@@ -71,7 +71,101 @@ $(document).ready(function () {
                 }
             }
         });
-    })
+    });
+    $(".jsAssignStudentRequestPage").click(function () {
+        var obj = {
+            requestsList: getIdSelections(),
+            studentsList: [$(".jsStudentList").find("option:selected").val()]
+        };
+
+        $.ajax({
+            url: 'assign-student-requestPage',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (requests) {
+                $(".jsRequestsTable").bootstrapTable('load', requests);
+            }
+        });
+    });
+
+    function getStudentsFitDescriptionForAssign(idRequest) {
+        alert(idRequest);
+        $.ajax({
+            url: 'studentsForDropdownAssign',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: {id: idRequest.toString()},
+            success: function (students) {
+                $(".jsStudentList").empty();
+                students ? function () {
+                    students.some(function (student) {
+                        $(".jsStudentList").append('<option value=' + student.id + '>' + student.surname + ' ' + student.name + '</option>');
+                    });
+                }() : false;
+            }
+        });
+    }
+
+
+    function getIdSelections() {
+        return $.map($(".jsRequestsTable").bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    $(".jsAssignRequestPage").click(function () {
+            var idRequest = getIdSelections();
+            getStudentsFitDescriptionForAssign(idRequest);
+    });
+
+    $(".jsEditRequest").click(function () {
+        var obj={requestId: getIdSelections().toString()};
+
+        $.ajax({
+            url: 'requestForEdit',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: obj,
+            success: function (requests) {
+                $(".nameCompany").val(requests.companyName);
+                $(".startDate").val(requests.startDate);
+                $(".finishDate").val(requests.finishDate);
+                $(".totalQuantity").val(requests.totalQuantity);
+                $(".availableFacultiesAddRequest").append('<option>' +requests.faculty+ '</option>');
+                $(".availableSpecialtiesAddRequest").append('<option>' +requests.specialty+ '</option>');
+                $(".minScore").val(requests.minAverageScore);
+                //$(".jsRequestsTable").bootstrapTable('load', requests);
+            }
+        });
+    });
+
+    $(".jsEditBtnRequest").click(function () {
+        var obj={
+            id: getIdSelections().toString(),
+            totalQuantity: $(".totalQuantity").val(),
+                    startDate : $(".startDate").val(),
+                    finishDate:$(".finishDate").val()
+        };
+
+        $.ajax({
+            url: 'editRequest',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: JSON.stringify(obj),
+            success: function (requests) {
+                $(".jsRequestsTable").bootstrapTable('load', requests);
+            }
+        });
+    });
 });
 function students(value) {
     return '<a data-toggle="modal"  data-id="'+value+'" data-target="#studentsInPractice" class="btn btn-primary jsStudentsInPractice">Practice</a>';

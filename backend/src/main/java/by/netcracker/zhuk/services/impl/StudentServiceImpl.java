@@ -21,6 +21,7 @@ public class StudentServiceImpl implements StudentService {
         return (List<StudentEntity>) studentRepository.findAll();
     }
 
+
     @Override
     public void addStudent(StudentEntity studentEntity) {
         studentRepository.save(studentEntity);
@@ -31,6 +32,10 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.delete(Integer.parseInt(studentId));
     }
 
+    @Override
+    public void delete(StudentEntity studentEntity) {
+        studentRepository.delete(studentEntity);
+    }
 
 
     @Override

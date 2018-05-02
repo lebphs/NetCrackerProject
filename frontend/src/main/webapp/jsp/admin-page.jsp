@@ -18,7 +18,7 @@
 <body>
 
 <nav class="navbar navbar-dark bg-primary">
-    <img class="mb-4" src="/resources/logo.png" alt="" width="110" height="50">
+    <img class="mb-4"  alt="" width="110" height="35">
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#exCollapsing" aria-controls="exCollapsing" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -69,7 +69,7 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="datefrom">Data from</label>
-                                <input type="date" id="datefrom" class="tcal_en form-control startDate" required>
+                                <input type="date" id="datefrom" class=" form-control startDate" required>
                             </div>
                         </div>
 

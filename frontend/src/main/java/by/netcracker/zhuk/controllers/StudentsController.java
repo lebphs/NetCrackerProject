@@ -3,17 +3,19 @@ package by.netcracker.zhuk.controllers;
 import by.netcracker.zhuk.converters.RequestEntityToRequestViewModelConverter;
 import by.netcracker.zhuk.converters.StudentEntityToStudentViewModelConverter;
 import by.netcracker.zhuk.entities.RequestEntity;
-import by.netcracker.zhuk.entities.SpecialtyEntity;
 import by.netcracker.zhuk.entities.StudentEntity;
+import by.netcracker.zhuk.entities.UserEntity;
 import by.netcracker.zhuk.models.RequestViewModel;
-import by.netcracker.zhuk.models.StudentRequestViewModel;
 import by.netcracker.zhuk.models.StudentViewModel;
+import by.netcracker.zhuk.security.impl.CustomUser;
 import by.netcracker.zhuk.services.RequestService;
 import by.netcracker.zhuk.services.SpecialtyService;
 import by.netcracker.zhuk.services.StudentService;
+import by.netcracker.zhuk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,14 +37,23 @@ public class StudentsController {
     private RequestService requestService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ConversionService conversionService;
 
     private  final TypeDescriptor studentEntityDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentEntity.class));
     private  final TypeDescriptor studentViewModelDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentViewModel.class));
 
+    private  final TypeDescriptor studentEntityDescriptor1 = TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(StudentEntity.class));
+    private  final TypeDescriptor studentViewModelDescriptor1 = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(StudentViewModel.class));
 
-    private  final TypeDescriptor requestEntityDescriptor = TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(RequestEntity.class));
+    private  final TypeDescriptor requestEntityDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestEntity.class));
     private  final TypeDescriptor requestViewModelDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestViewModel.class));
+
+
+    private  final TypeDescriptor requestEntityDescriptor1 = TypeDescriptor.collection(Set.class, TypeDescriptor.valueOf(RequestEntity.class));
+    private  final TypeDescriptor requestViewModelDescriptor1 = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestViewModel.class));
 
     private static final String VIEW_NAME_LOGIN = "admin-page";
     private static final String MODEL_USERS = "student";
@@ -58,16 +69,17 @@ public class StudentsController {
     }
 
     @RequestMapping(value = "/student-page", method = RequestMethod.GET)
-    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {
-
+    public ModelAndView getStudentAsModelWithView() {
+        CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity userEntity = userService.findUserByUserName(customUser.getUsername()).get(0);
+        StudentEntity studentEntity = userEntity.getStudent();
+        System.out.println(studentEntity.getName());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student-page");
-        StudentEntity student = studentService.findOne(studentId);
-        StudentEntityToStudentViewModelConverter converter = new StudentEntityToStudentViewModelConverter();
 
         RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
-        modelAndView.addObject(MODEL_USERS,converter.convert(student));//Todo create converters for view models
-        modelAndView.addObject("practices", conversionService.convert(student.getRequestEntities(),requestEntityDescriptor, requestViewModelDescriptor));
+        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));//Todo create converters for view models
+        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
         return modelAndView;
     }
 //
@@ -81,11 +93,7 @@ public class StudentsController {
 //        return (List<StudentViewModel>) conversionService.convert(studentsEntity, studentEntityDescriptor, studentViewModelDescriptor);
 //    }
 
-//    @RequestMapping(value = "/students", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<StudentEntity> getUsersAsJson() {
-//        return studentService.getAllStudents();//Todo create converters for view models
-//    }
+
     @RequestMapping(value = "/studentsForTable", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getAllStudents() {
@@ -129,51 +137,95 @@ public class StudentsController {
     @RequestMapping(value = "/delete-students", method = RequestMethod.POST)
     @ResponseBody
     public void deleteStudents(@RequestBody String[] studentId) {
-//        System.out.println(studentId.toString());
+        StudentEntity studentEntity;
+        Set<RequestEntity> requestEntities;
         for (String id: studentId) {
+            studentEntity = studentService.findOne(id);
+            requestEntities = studentEntity.getRequestEntities();
+            for(RequestEntity requestEntity: requestEntities){
+                realiseStudent(id, requestEntity);
+                requestService.addRequest(requestEntity);
+            }
             studentService.delete(id);
         }
     }
 
+    @RequestMapping(value = "/studentsForDropdownAssign", method = RequestMethod.GET)
+    @ResponseBody
+    public List<StudentViewModel> getRequestDropdownAssign(@RequestParam("id") String idRequest) {
+        RequestEntity requestEntity = requestService.getRequestById(idRequest);
+        List<StudentEntity> allStudents = studentService.findAllStudents();
+        List<StudentEntity> studentDropdown  = new ArrayList<StudentEntity>();
+
+        for (StudentEntity student: allStudents) {
+            if(requestEntity.getSpecialty().getId() == student.getSpecialityId().getId() &&
+                    requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size() > 0) {
+                if (student.getAverageScore() >= requestEntity.getMinAverageScore()) {
+                    studentDropdown.add(student);
+                    System.out.println(student.getName());
+                }
+            }
+        }
+        return (List<StudentViewModel>) conversionService.convert(studentDropdown, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
     @RequestMapping(value = "/assign-students", method = RequestMethod.POST)
     @ResponseBody
-    public List<StudentViewModel> assignStudents(@RequestBody StudentRequestViewModel req) {
-        RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
+    public List<StudentViewModel> assignStudents(@RequestBody StudentViewModel req) {
+        assign(req);
+        List<StudentEntity> allStudents = studentService.findAllStudents();
+        return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    @RequestMapping(value = "/assign-student-requestPage", method = RequestMethod.POST)
+    @ResponseBody
+    public List<RequestViewModel> assignStudent(@RequestBody StudentViewModel req) {
+        assign(req);
+        List<RequestEntity> allRequest = requestService.findAllRequests();
+        return (List<RequestViewModel>) conversionService.convert(allRequest, requestEntityDescriptor, requestViewModelDescriptor);
+    }
+
+    private void assign(StudentViewModel req){
+        RequestEntity requestEntity = requestService.getRequestById(req.getRequestsList().get(0));
         int quantity = requestEntity.getTotalQuantity();
 
         if (quantity - requestEntity.getStudentEntities().size() > 0){
-            for (String id : req.getIdStudents()) {
+            for (String id : req.getStudentsList()) {
                 StudentEntity studentEntity = studentService.findOne(id);
                 studentEntity.setStudentStatus("Waiting for practice");
                 studentEntity.getRequestEntities().add(requestEntity);
                 studentService.addStudent(studentEntity);
                 //requestEntity.getStudentEntities().add(studentEntity);
             }
-        requestService.addRequest(requestEntity);
+            requestService.addRequest(requestEntity);
         }
-
-        List<StudentEntity> allStudents = studentService.findAllStudents();
-        return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
     }
 
     @RequestMapping(value = "/realise-students", method = RequestMethod.POST)
     @ResponseBody
-    public List<StudentViewModel> realiseStudents(@RequestBody StudentRequestViewModel req) {
-        System.out.println(req.getIdRequest() + " " + req.getIdStudents());
-        RequestEntity requestEntity = requestService.getRequestById(req.getIdRequest());
-        int quantity = requestEntity.getTotalQuantity();
+    public List<StudentViewModel> realiseStudents(@RequestBody StudentViewModel req) {
 
-        for (String id: req.getIdStudents()) {
-            StudentEntity studentEntity = studentService.findOne(id);
-            studentEntity.setStudentStatus("Not allocated");
-            studentEntity.getRequestEntities().remove(requestEntity);
-            studentService.addStudent(studentEntity);
+        RequestEntity requestEntity = requestService.getRequestById(req.getRequestsList().get(0));
+
+        //int quantity = requestEntity.getTotalQuantity();
+
+        for (String id: req.getStudentsList()) {
+            realiseStudent(id, requestEntity);
             //requestEntity.getStudentEntities().add(studentEntity);
         }
         requestService.addRequest(requestEntity);
 
         List<StudentEntity> allStudents = studentService.findAllStudents();
         return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    private void realiseStudent(String id, RequestEntity requestEntity){
+        StudentEntity studentEntity = studentService.findOne(id);
+        studentEntity.setStudentStatus("Not allocated");
+        studentEntity.getRequestEntities().remove(requestEntity);
+        studentService.addStudent(studentEntity);
+
+
     }
 
 }

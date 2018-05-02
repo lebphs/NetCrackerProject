@@ -122,12 +122,32 @@ public class RequestController {
         return (List<StudentViewModel>) conversionService.convert(requestDropdown, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
+
     @RequestMapping(value = "/personalPracticeStudentList", method = RequestMethod.GET)
     @ResponseBody
     public List<StudentViewModel> getPersonalPracticeStudentList(@RequestParam String practiceId){
         RequestEntity requestEntity = requestService.getRequestById(practiceId);
         Set<StudentEntity> studentEntities = requestEntity.getStudentEntities();
         return (List<StudentViewModel>) conversionService.convert(studentEntities, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    @RequestMapping(value = "/requestForEdit", method = RequestMethod.GET)
+    @ResponseBody
+    public RequestViewModel getRequestForEdit(@RequestParam String requestId){
+        RequestEntity requestEntity = requestService.getRequestById(requestId);
+        return conversionService.convert(requestEntity, RequestViewModel.class);
+    }
+    @RequestMapping(value = "/editRequest", method = RequestMethod.POST)
+    @ResponseBody
+    public List<RequestViewModel> editRequest(@RequestBody RequestViewModel request){
+        RequestEntity requestEntity = requestService.getRequestById(request.getId()+"");
+        requestEntity.setTotalQuantity(request.getTotalQuantity());
+        requestEntity.setStartDate(Date.valueOf(request.getStartDate()));
+        requestEntity.setFinishDate(Date.valueOf(request.getFinishDate()));
+        requestService.addRequest(requestEntity);
+
+        List<RequestEntity> allRequest = requestService.findAllRequests();
+        return (List<RequestViewModel>) conversionService.convert(allRequest, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
     @RequestMapping(value = "/personalStudentPracticeList", method = RequestMethod.GET)

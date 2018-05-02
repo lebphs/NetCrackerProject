@@ -7,10 +7,20 @@ import java.util.Collection;
 
 public class UserViewModel extends CustomUser {
 
-    private String userId;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private int id;
+    private String surname;
+    private String name;
+    private String faculty;
+    private Integer facultyId;
+    private String specialty;
+    private Integer specialtyId;
+    private int group;
+    private String isBudget;
+    private double averageScore;
+    private String username;
+    private String password;
+    private String confirmPassword;
+
 
     public UserViewModel() {
     }
@@ -19,35 +29,102 @@ public class UserViewModel extends CustomUser {
         super(username, password, authorities);
     }
 
-    public String getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public Integer getFacultyId() {
+        return facultyId;
+    }
+
+    public void setFacultyId(Integer facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public Integer getSpecialtyId() {
+        return specialtyId;
+    }
+
+    public void setSpecialtyId(Integer specialtyId) {
+        this.specialtyId = specialtyId;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
+    }
+
+    public String getIsBudget() {
+        return isBudget;
+    }
+
+    public void setIsBudget(String isBudget) {
+        this.isBudget = isBudget;
+    }
+
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

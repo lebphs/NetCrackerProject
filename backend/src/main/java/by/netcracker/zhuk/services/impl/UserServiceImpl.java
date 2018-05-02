@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(Integer.parseInt(userId));
     }
 
-//    @Override
-//    public void createUsers(List<UserEntity> userEntity) {
-//        userRepository.save(userEntity);
-//    }
+    @Override
+    public void createUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
+    }
 //
 //    public List<UserEntity> findAllStudents() {
 //        return userRepository.findByRole(USER_ROLE_STUDENT);

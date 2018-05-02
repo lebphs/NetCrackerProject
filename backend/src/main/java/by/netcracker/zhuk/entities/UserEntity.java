@@ -25,45 +25,6 @@ public class UserEntity {
         this.id = id;
     }
 
-//    @Basic
-//    @Column(name = "role")
-//    public String getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(String role) {
-//        this.role = role;
-//    }
-
-//    @Basic
-//    @Column(name = "surname")
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public void setSurname(String surname) {
-//        this.surname = surname;
-//    }
-//
-//    @Basic
-//    @Column(name = "name")
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-
-//    @Basic
-//    @Column(name = "email")
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     @Basic
     @Column(name = "login")
@@ -114,7 +75,7 @@ public class UserEntity {
         this.student = student;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_role_id", referencedColumnName = "id")
     public UserRoleEntity getRole() {
         return role;

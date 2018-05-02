@@ -14,7 +14,9 @@ import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author anpi0316
@@ -24,8 +26,8 @@ import java.util.List;
 public class LoginUserServiceImpl implements LoginUserService {
 
 
-    private static final String VIEW_NAME_HOME_ADMIN = "admin-page";
-    private static final String VIEW_NAME_HOME_STUDENT = "student-page";
+    private static final String VIEW_NAME_HOME_ADMIN = "redirect:/admin-page";
+    private static final String VIEW_NAME_HOME_STUDENT = "redirect:/student-page";
 
     private static final String ROLE_STUDENT = "student";//todo create general enum
     private static final String ROLE_ADMIN = "admin";
@@ -39,8 +41,8 @@ public class LoginUserServiceImpl implements LoginUserService {
     public void authenticateUserAndSetSession(String username, String password, HttpServletRequest request, HttpServletResponse response) {
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        token.setDetails(new WebAuthenticationDetails(request));
-        Authentication authenticatedUser = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));;
+         token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authenticatedUser = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password, new ArrayList<GrantedAuthority>()));
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
     }
 

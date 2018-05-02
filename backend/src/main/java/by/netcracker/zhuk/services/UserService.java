@@ -11,7 +11,7 @@ public interface UserService {
     List<UserEntity> findUserByUserName(String name);
     UserEntity findUserById(String userId);
 
-//    void createUsers(List<UserEntity> userEntity);
+    void createUser(UserEntity userEntity);
 //
 //    List<UserEntity> findAllStudents();
 }

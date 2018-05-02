@@ -41,10 +41,9 @@ $(document).ready(function () {
 
     $(".jsAssignOneStudent").click(function () {
         var obj = {
-            idStudents: getIdSelections(),
-            idRequest: $(".jsRequestAssign").find("option:selected").val()
+            studentsList: getIdSelections(),
+            requestsList: [$(".jsRequestAssign").find("option:selected").val()]
         };
-
         $.ajax({
             url: 'assign-students',
             type: 'POST',
@@ -60,10 +59,9 @@ $(document).ready(function () {
 
     $(".jsRealiseOneStudent").click(function () {
         var obj = {
-            idStudents: getIdSelections(),
-            idRequest: $(".jsRequestRealise").find("option:selected").val()
+            studentsList: getIdSelections(),
+            requestsList: [$(".jsRequestRealise").find("option:selected").val()]
         };
-
         $.ajax({
             url: 'realise-students',
             type: 'POST',

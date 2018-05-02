@@ -13,7 +13,6 @@ import java.util.List;
  *         Time: 18:22
  */
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
-
     List<UserEntity> findByUsername(String firstName);
 //    List<UserEntity> findByUsernameAndPassword(String firstName, String password);
 //    List<UserEntity> findByRole(UserRoleEntity role);
