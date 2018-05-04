@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<%--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
 <link rel="stylesheet" href="/resources/css/general.css">
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
-
+<script src="/resources/js/custom/login.js" type="text/javascript"></script>
 <body>
 <div class="login-page">
     <div class="form">
@@ -57,12 +57,20 @@
         </form>
         <form class="login-form">
             <input type="text" class="jsUsername" required placeholder="username"/>
+            <label class="jsUsernameIncorrectNotification" ></label>
+
             <input type="password" class="jsPassword" placeholder="password" required/>
+            <label class="jsPasswordIncorrectNotification" ></label>
             <button type="submit" class="button button-block jsSubmitDataBtn">login</button>
+            <%--<div class="alert alert-danger jsCredentialsIncorrectNotification" role="alert" style="display: none">--%>
+                <%--Username or Password is incorrect!--%>
+            <%--</div>--%>
             <p class="message">Not registered? <a href="#">Create an account</a></p>
         </form>
     </div>
+
+
 </div>
-<script src="/resources/js/custom/login.js" type="text/javascript"></script>
+
 </body>
 <html>

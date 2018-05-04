@@ -1220,27 +1220,43 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="287" parent="237" name="user_role_idx">
+    <column id="287" parent="237" name="request_id">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="288" parent="237" name="user_role_idx">
       <ColNames>user_role_id</ColNames>
     </index>
-    <index id="288" parent="237" name="id_student_idx">
+    <index id="289" parent="237" name="id_student_idx">
       <ColNames>student_id</ColNames>
     </index>
-    <key id="289" parent="237" name="PRIMARY">
+    <index id="290" parent="237" name="request_id">
+      <ColNames>request_id</ColNames>
+    </index>
+    <key id="291" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="290" parent="237" name="user_role_id">
+    <foreign-key id="292" parent="237" name="user_role_id">
       <ColNames>user_role_id</ColNames>
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>user_role</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="291" parent="237" name="student_id">
+    <foreign-key id="293" parent="237" name="student_id">
       <ColNames>student_id</ColNames>
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>students</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="294" parent="237" name="request_id">
+      <ColNames>request_id</ColNames>
+      <RefSchemaName>practices</RefSchemaName>
+      <RefTableName>request</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>

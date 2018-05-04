@@ -10,7 +10,38 @@ $(document).ready(function () {
         SEND_DATA_BTN: '.jsSendData',
         STUDENTS_TABLE: '.jsStudentsTable',
         CONTAINER_ADDED_USER: '.jsAddedUser'
+        // NOTIFICATION_CREDENTIAL_INCORRECT: '.jsCredentialsIncorrectNotification'
     };
+    var Validation = {
+
+        validateOnEmpty: function (inputs, btns) {
+            var isAnyValidationErrors = false;
+            if (inputs) {
+                inputs.some(function (input) {
+                    if (!input.val().trim()) {
+                        isAnyValidationErrors = true;
+
+                        input.next().html('Should not be empty');
+                        input.next().show();
+                    } else {
+                        input.next().hide();
+                    }
+                });
+            }
+            if (btns) {
+                if (isAnyValidationErrors) {
+                    btns.some(function (button) {
+                        button.attr("disabled", true)
+                    })
+                } else {
+                    btns.some(function (button) {
+                        button.removeAttr('disabled')
+                    })
+                }
+            }
+        }
+    };
+    // window.Validation = Validation;
 
     var $usersContainer = $(ELEMENTS.CONTAINER_DATA_USING_AJAX),
         $submitButton = $(ELEMENTS.BTN_SUBMIT_LOGIN),
@@ -19,11 +50,23 @@ $(document).ready(function () {
         $addedUserContainer = $(ELEMENTS.CONTAINER_ADDED_USER),
         $studentsTable = $(ELEMENTS.STUDENTS_TABLE),
         $sendDataBtn = $(ELEMENTS.SEND_DATA_BTN);
+        // $credentialNotification = $(ELEMENTS.NOTIFICATION_CREDENTIAL_INCORRECT);
+
+    // Validation.validateOnEmpty([$usernameField, $passwordField], [$submitButton]);
+
+
+    $usernameField.on('blur', function () {
+        Validation.validateOnEmpty([$usernameField], [$submitButton]);
+    });
+
+    $passwordField.on('blur', function () {
+        Validation.validateOnEmpty([$passwordField], [$submitButton]);
+    });
+
 
     $submitButton.click(function (event) {
         event.stopPropagation();
         event.preventDefault();
-        var username= $usernameField.val();
 
         $.ajax({
             url: 'authorize',
@@ -35,17 +78,23 @@ $(document).ready(function () {
             }),
             success: function (xhr) {
                 console.log(xhr.status);
-                window.location.href = "/home";
+                // $credentialNotification.hide();
+                window.location.href = "/home"
             },
             error: function (xhr, textStatus) {
-                xhr.status == 401 ? alert('Credentials are not correct.'): alert('Something went wrong, try again later.');
+                xhr.status == 401 ? alert('Credentials are not correct.') : alert('Something went wrong, try again later.');
             }
         });
     });
 
+    function checkPassword(password, confirmPassword){
+        return !password.localeCompare(confirmPassword);
+    }
+
     $(".jsSignUp").click(function (event) {
         event.stopPropagation();
         event.preventDefault();
+
 
         $.ajax({
             url: 'signUp',
@@ -81,9 +130,7 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: {name: username},
-            error: function(){alert("sadfsa")},
             success: function (student) {
-                alert(student.id);
                return student.id;
             }
         });

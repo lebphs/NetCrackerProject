@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -59,26 +60,35 @@ public class StudentsController {
     private static final String MODEL_USERS = "student";
 
 
-    @RequestMapping(value = "/admin-page", method = RequestMethod.GET)
-    public ModelAndView getUsersAsModelWithView() {
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(VIEW_NAME_LOGIN);
-        //modelAndView.addObject(MODEL_USERS, studentService.getAllStudents());//Todo create converters for view models
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/admin-page", method = RequestMethod.GET)
+//    public ModelAndView getUsersAsModelWithView() {
+//
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName(VIEW_NAME_LOGIN);
+//        //modelAndView.addObject(MODEL_USERS, studentService.getAllStudents());//Todo create converters for view models
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "/student-page", method = RequestMethod.GET)
     public ModelAndView getStudentAsModelWithView() {
         CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserEntity userEntity = userService.findUserByUserName(customUser.getUsername()).get(0);
         StudentEntity studentEntity = userEntity.getStudent();
-        System.out.println(studentEntity.getName());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student-page");
 
         RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
         modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));//Todo create converters for view models
+        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
+        return modelAndView;
+    }
+    @RequestMapping(value = "/info-page", method = RequestMethod.GET)
+    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {
+        StudentEntity studentEntity = studentService.findOne(studentId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student-page");
+
+        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));
         modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
         return modelAndView;
     }
@@ -175,6 +185,18 @@ public class StudentsController {
         assign(req);
         List<StudentEntity> allStudents = studentService.findAllStudents();
         return (List<StudentViewModel>) conversionService.convert(allStudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    @RequestMapping(value = "/assignStudentPage", method = RequestMethod.POST)
+    @ResponseBody
+    public List<RequestViewModel> assignStudentPage(@RequestBody StudentViewModel req) {
+        assign(req);
+        Set<RequestEntity> requests = new HashSet<>();
+        for(String id: req.getRequestsList()){
+            requests.add(requestService.getRequestById(id));
+        }
+
+        return (List<RequestViewModel>) conversionService.convert(requests, requestEntityDescriptor1, requestViewModelDescriptor);
     }
 
     @RequestMapping(value = "/assign-student-requestPage", method = RequestMethod.POST)

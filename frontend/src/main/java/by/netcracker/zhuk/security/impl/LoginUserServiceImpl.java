@@ -18,19 +18,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
-/**
- * @author anpi0316
- *         Date: 10.04.2018
- */
+
 @Service
 public class LoginUserServiceImpl implements LoginUserService {
 
 
-    private static final String VIEW_NAME_HOME_ADMIN = "redirect:/admin-page";
+    private static final String VIEW_NAME_HOME_ADMIN = "admin-page";
     private static final String VIEW_NAME_HOME_STUDENT = "redirect:/student-page";
+    private static final String VIEW_NAME_HOME_HEAD_OF_PRACTICE = "head-page";
 
     private static final String ROLE_STUDENT = "student";//todo create general enum
     private static final String ROLE_ADMIN = "admin";
+    private static final String ROLE_HEAD = "head_of_practice";
 
 
     @Autowired
@@ -54,6 +53,9 @@ public class LoginUserServiceImpl implements LoginUserService {
             }
             if (authority.equalsIgnoreCase(ROLE_ADMIN)) {
                 return VIEW_NAME_HOME_ADMIN;
+            }
+            if (authority.equalsIgnoreCase(ROLE_HEAD)) {
+                return VIEW_NAME_HOME_HEAD_OF_PRACTICE;
             }
         }
         return "redirect:/login-page";

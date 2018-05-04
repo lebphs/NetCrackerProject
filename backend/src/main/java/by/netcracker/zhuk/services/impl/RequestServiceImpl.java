@@ -40,4 +40,9 @@ public class RequestServiceImpl implements RequestService {
     public RequestEntity getRequestById(String requestId) {
         return requestRepository.findById(Integer.parseInt(requestId));
     }
+
+    @Override
+    public RequestEntity getRequestByName(String name) {
+        return requestRepository.findByCompanyName(name);
+    }
 }

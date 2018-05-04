@@ -2,15 +2,19 @@ package by.netcracker.zhuk.controllers;
 
 import by.netcracker.zhuk.entities.RequestEntity;
 import by.netcracker.zhuk.entities.StudentEntity;
+import by.netcracker.zhuk.entities.UserEntity;
+import by.netcracker.zhuk.entities.UserRoleEntity;
 import by.netcracker.zhuk.models.RequestViewModel;
 import by.netcracker.zhuk.models.StudentViewModel;
-import by.netcracker.zhuk.services.RequestService;
-import by.netcracker.zhuk.services.SpecialtyService;
-import by.netcracker.zhuk.services.StudentService;
-import by.netcracker.zhuk.services.UserService;
+import by.netcracker.zhuk.repository.UserRoleRepository;
+import by.netcracker.zhuk.security.impl.CustomUser;
+import by.netcracker.zhuk.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,7 +38,13 @@ public class RequestController {
     private ConversionService conversionService;
 
     @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    @Autowired
     private StudentService studentService;
+
+
+
 
     private  final TypeDescriptor requestEntityDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestEntity.class));
     private  final TypeDescriptor requestViewModelDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(RequestViewModel.class));
@@ -69,6 +79,9 @@ public class RequestController {
     @ResponseBody
     public List<RequestViewModel> saveStudents(@RequestBody RequestViewModel request) {
 
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        String hashedPass = encoder.encodePassword(request.getPassword(), null);
+
         RequestEntity requestEntity = new RequestEntity();
         requestEntity.setCompanyName(request.getCompanyName());
         //System.out.println(request.getStartDate());
@@ -79,9 +92,21 @@ public class RequestController {
         requestEntity.setTotalQuantity(request.getTotalQuantity());
         requestEntity.setMinAverageScore(request.getMinAverageScore());
         requestEntity.setStudentEntities(new HashSet<>());
-        //requestEntity.setUser(userService.findUserById(1));
 
         requestService.addRequest(requestEntity);
+
+
+        UserRoleEntity role = userRoleRepository.findUserRoleEntityByName("head_of_practice");
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(request.getUser());
+        userEntity.setPassword(hashedPass);
+        userEntity.setRole(role);
+        userEntity.setRequest(requestService.getRequestByName(request.getCompanyName()));
+        userService.createUser(userEntity);
+
+        //requestEntity.setUser(userService.findUserById(1));
+
+
 
 
         List<RequestEntity> allRequest = new ArrayList<RequestEntity>();
@@ -94,6 +119,18 @@ public class RequestController {
     public List<RequestViewModel> getAllRequests() {
         List<RequestEntity> allrequest = requestService.findAllRequests();
         return (List<RequestViewModel>) conversionService.convert(allrequest, requestEntityDescriptor, requestViewModelDescriptor);
+    }
+
+    @RequestMapping(value = "/request", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RequestViewModel> getRequest() {
+        //List<RequestEntity> allrequest = requestService.findAllRequests();
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserEntity userEntity = userService.findUserByUserName(user.getUsername()).get(0);
+        List<RequestEntity> request = new ArrayList<>();
+        request.add(userEntity.getRequest());
+
+        return ((List<RequestViewModel>) conversionService.convert(request, requestEntityDescriptor, requestViewModelDescriptor));
     }
 
     @RequestMapping(value = "/requestsForDropdownRealise", method = RequestMethod.GET)

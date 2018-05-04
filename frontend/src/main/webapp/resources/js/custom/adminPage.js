@@ -5,7 +5,6 @@ $(document).ready(function () {
         $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
         $(".jsAssignStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
         $(".jsRealiseStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
-        $(".jsShowInfoStudent").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
     });
 
     $(".jsPreloadCreateStudentModal").click(function (event) {
@@ -102,8 +101,8 @@ $(document).ready(function () {
 
     $(".jsAssignStudent").click(function () {
         var obj = {
-            idRequest: $(".jsRequestAssignModal").find("option:selected").val(),
-            idStudents: $(".jsStudentMultiselect").val()
+            requestsList: [$(".jsRequestAssignModal").find("option:selected").val()],
+            studentsList: $(".jsStudentMultiselect").val()
         };
         $.ajax({
             url: 'assign-students',
@@ -318,6 +317,8 @@ $(document).ready(function () {
         });
 
         $(".jsDeleteStudent").prop('disabled', true);
+        $(".jsRealiseStudentBtn").prop('disabled', true);
+        $(".jsAssignStudentBtn").prop('disabled', true);
     });
 
     function getIdSelections() {
@@ -353,7 +354,6 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: JSON.stringify(obj),
             success: function () {
-                $(".createSpecialty").modal('toggle');
             }
         })
 
@@ -371,7 +371,6 @@ $(document).ready(function () {
             mimeType: 'application/json',
             data: JSON.stringify(obj),
             success: function () {
-                $(".createFaculty").modal('toggle');
             }
         })
 
@@ -384,7 +383,10 @@ $(document).ready(function () {
             finishDate: $(".finishDate").val(),
             specialtyId: $(".availableSpecialtiesAddRequest").find("option:selected").val(),
             minAverageScore: $(".minScore").val(),
-            totalQuantity: $(".totalQuantity").val()
+            totalQuantity: $(".totalQuantity").val(),
+            user:$(".jsNameHeadOfPractice").val(),
+            password:$(".jsPasswordHead").val()
+
         };
 
         $.ajax({
@@ -434,7 +436,7 @@ $(document).ready(function () {
     });
 });
     function infoStudent(value) {
-        return '<a onClick=\'location.href="student-page?studentId='+value+'"\' class="btn btn-primary jsPreloadInfoAboutStudent" >info</a>';
+        return '<a onClick=\'location.href="info-page?studentId='+value+'"\' class="btn btn-primary jsPreloadInfoAboutStudent" >info</a>';
     }
 function formatter(value) {
     return '<a  data-toggle="modal" data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-primary jsPreloadStudentPractice">Practice</a>';

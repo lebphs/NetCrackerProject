@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RequestRepository extends CrudRepository<RequestEntity, Integer> {
     RequestEntity findById(Integer id);
+    RequestEntity findByCompanyName(String name);
 }

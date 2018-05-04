@@ -69,14 +69,10 @@ public class LoginController {
         studentService.addStudent(studentEntity);
 
 
-        //System.out.println(studentEntity.getIsBudget() +" "+ studentEntity.getAverageScore());
-
         UserEntity userEntity = new UserEntity();
-        System.out.println(user.getSurname());
         userEntity.setUsername(user.getSurname());
-        System.out.println(userEntity.getUsername());
         userEntity.setPassword(hashedPass);
-        userEntity.setStudent(studentService.findOne("1"));
+        userEntity.setStudent(studentService.findBySurname(studentEntity.getSurname()));
 
         System.out.println(userEntity.getStudent().getName());
         userEntity.setRole(userRoleRepository.findUserRoleEntityByName("student"));

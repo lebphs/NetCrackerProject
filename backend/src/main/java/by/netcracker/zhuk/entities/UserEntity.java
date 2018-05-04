@@ -8,12 +8,10 @@ import java.util.Objects;
 public class UserEntity {
     private int id;
     private UserRoleEntity role;
-//    private String surname;
-//    private String name;
-//    private String email;
     private String username;
     private String password;
     private StudentEntity student;
+    private RequestEntity request;
 
     @Id
     @Column(name = "id")
@@ -64,6 +62,15 @@ public class UserEntity {
     public int hashCode() {
 
         return Objects.hash(id, role, /*firstname, lastname, email, */username, password);
+    }
+
+    @OneToOne
+    @JoinColumn(name = "request_id", referencedColumnName = "id")
+    public RequestEntity getRequest() {
+        return request;
+    }
+    public void setRequest(RequestEntity request) {
+        this.request = request;
     }
 
     @OneToOne

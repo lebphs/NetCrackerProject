@@ -1,0 +1,33 @@
+nav{
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+}
+nav li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+input[class="jsStudentPage"] {
+    display: none;
+}
+nav label {
+    display: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    nav label{
+        display: inline-block;
+    }
+    nav > ul {
+        display: none;
+    }
+    input[type="checkbox"]:checked ~ label + ul {
+        display: block;
+    }
+
+}

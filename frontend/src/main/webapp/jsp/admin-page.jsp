@@ -13,40 +13,60 @@
 <script src="resources/js/custom/adminPage.js"></script>
 <script src="resources/js/libs/bootstrap-typeahead.js"></script>
 <script src="resources/js/libs/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="/resources/css/adminPage.css">
 <link rel="stylesheet" href="resources/css/libs/bootstrap-multiselect.css" type="text/css"/>
 
 <body>
 
+
 <nav class="navbar navbar-dark bg-primary">
-    <img class="mb-4"  alt="" width="110" height="35">
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#exCollapsing" aria-controls="exCollapsing" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav><br>
+    <input type="checkbox" class="jsStudentPage" name="menu" id="btn-menu">
+    <label for="btn-menu"><span class="navbar-toggler-icon"></span></label>
+    <ul>
+        <li>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-lg btn-primary" value="Show all request"
+                       onClick='location.href="request-page"'/>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal"
+                        data-target="#addrequest">Add request
+                </button>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal"
+                        data-target="#createstudent">Create student
+                </button>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal"
+                        data-target="#assignstudents">Assign students
+                </button>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal"
+                        data-target="#createspeialty">Create specialty
+                </button>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal"
+                        data-target="#createfaculty">Create faculty
+                </button>
+            </div>
+        </li>
 
-
-<div class="container-fluid collapsing" id="exCollapsing">
-    <div class="row">
-        <div class="col-md-2">
-            <input type="button" class="btn btn-lg btn-primary" value="Show all request" onClick='location.href="request-page"'/>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal" data-target="#addrequest">Add request</button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal" data-target="#createstudent" >Create student</button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal" data-target="#assignstudents">Assign students</button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal" data-target="#createspeialty">Create specialty</button>
-        </div>
-        <div class="col-md-2">
-            <button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal" data-target="#createfaculty">Create faculty</button>
-        </div>
-    </div>
-</div>
+    </ul>
+</nav>
 
 <div class="modal fade" id="addrequest">
     <div class="modal-dialog">
@@ -115,6 +135,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="usernameHeadOfPractice">Username head of practice</label>
+                                <input type="text" id="usernameHeadOfPractice" placeholder="username" class=" form-control jsNameHeadOfPractice" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="passwordHeadOfPractice">Password</label>
+                                <input type="password" class="form-control jsPasswordHead" placeholder="password" id="passwordHeadOfPractice" required><br>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" data-dismiss="modal" class="btn btn-success jsCreateRequest">Create</button>
                 </div>
             </div>
@@ -167,7 +202,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control jsAverageScore" id="scoreAverage" placeholder="Average score">
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsAddStudent" id="createNewStudent">Create</button>
+                <button type="button" data-dismiss="modal" class="btn btn-success jsAddStudent">Create</button>
             </form>
         </div>
     </div>
@@ -273,9 +308,9 @@
             <th data-field="group" data-sortable="true">Group</th>
             <th data-field="isBudget">Is budget</th>
             <th data-field="averageScore" data-sortable="true">Average score</th>
-            <th data-field="studentStatus">Status</th>
+            <%--<th data-field="studentStatus">Status</th>--%>
             <th data-field="id" data-formatter="formatter" class="text-center">About practices</th>
-            <th data-field="id" data-formatter="infoStudent" class="text-center">About student</th>
+            <%--<th data-field="id" data-formatter="infoStudent" class="text-center">About student</th>--%>
         </tr>
         </thead>
     </table >
@@ -354,13 +389,13 @@
     <br>
     <div class="row" id="adminButton" >
         <div class="col-md-4" >
-            <button type="button" class="btn btn-primary jsDeleteStudent" id="delete" disabled>Delete </button>
+            <button type="submit" class="btn btn-success   btn-block jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
+            <button type="submit" class="btn btn-success  btn-block jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-primary jsRealiseStudentBtn" data-toggle="modal" data-target="#realiseOneStudent" id="realise" disabled>Realise</button>
+            <button type="submit" class="btn btn-success  btn-block jsRealiseStudentBtn" data-toggle="modal" data-target="#realiseOneStudent" id="realise" disabled>Realise</button>
         </div>
     </div>
 </div>

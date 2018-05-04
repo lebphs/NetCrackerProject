@@ -10,4 +10,5 @@ public interface RequestService {
     List<RequestEntity> findAllRequests();
     void delete(String studentId);
     RequestEntity getRequestById(String requestId);
+    RequestEntity getRequestByName(String name);
 }

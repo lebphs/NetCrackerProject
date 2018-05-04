@@ -18,8 +18,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    private static final UserRoleEntity USER_ROLE_STUDENT = UserRole.toString(); //do create enum with roles
-//
     @Override
     public List<UserEntity> findUserByUserName(String name) {
         return userRepository.findByUsername(name);
@@ -34,8 +32,5 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserEntity userEntity) {
         userRepository.save(userEntity);
     }
-//
-//    public List<UserEntity> findAllStudents() {
-//        return userRepository.findByRole(USER_ROLE_STUDENT);
-//    }
+
 }
