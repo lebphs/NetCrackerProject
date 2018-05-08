@@ -57,10 +57,10 @@
         </form>
         <form class="login-form">
             <input type="text" class="jsUsername" required placeholder="username"/>
-            <label class="jsUsernameIncorrectNotification" ></label>
+            <label class="jsUsernameIncorrectNotification labelHide" ></label>
 
             <input type="password" class="jsPassword" placeholder="password" required/>
-            <label class="jsPasswordIncorrectNotification" ></label>
+            <label class="jsPasswordIncorrectNotification labelHide" ></label>
             <button type="submit" class="button button-block jsSubmitDataBtn">login</button>
             <%--<div class="alert alert-danger jsCredentialsIncorrectNotification" role="alert" style="display: none">--%>
                 <%--Username or Password is incorrect!--%>

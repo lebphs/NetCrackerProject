@@ -27,11 +27,6 @@ import by.netcracker.zhuk.entities.FacultyEntity;
 
 import java.util.List;
 
-/**
- * @author anpi0316
- *         Date: 27.03.2018
- *         Time: 19:57
- */
 public interface FacultyService {
 
     List<FacultyEntity> getAllFaculties();

@@ -243,7 +243,7 @@ $(document).ready(function () {
     function getRequestList() {
         $.ajax({
             async: false,
-            url: 'requests',
+            url: 'requestsFitAssign',
             type: 'GET',
             dataType: 'json',
             contentType: "application/json",
@@ -326,9 +326,9 @@ $(document).ready(function () {
             return row.id
         });
     }
-
+//сервер валидация
     $.ajax({
-        url: 'studentsForTable',
+        url: 'studentsTable',
         type: 'GET',
         dataType: 'json',
         contentType: "application/json",

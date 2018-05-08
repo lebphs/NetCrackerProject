@@ -89,7 +89,7 @@
 .container .info span .fa {
     color: #EF3B3A;
 }
-label{
+label[class="labelHide"]{
     color:red;
     display: none;
 }

@@ -294,9 +294,17 @@
 </div>
 </div>
 <div class="container-fluid">
-    <table data-click-to-select="true"
-           data-pagination="true" data-page-list="[10, 25, 50, 100, ALL]"
-           data-search="true" data-toggle="table" class="jsStudentsTable">
+    <table
+            data-sort-order="asc"
+            data-sort-name="surname"
+            data-click-to-select="true"
+           data-pagination="true"
+           data-side-pagination="server"
+           data-url="/studentsTable"
+           data-page-list="[5,10, 25, 50, 100, ALL]"
+           data-search="true"
+           data-toggle="table"
+           class="jsStudentsTable">
 
         <thead>
         <tr>

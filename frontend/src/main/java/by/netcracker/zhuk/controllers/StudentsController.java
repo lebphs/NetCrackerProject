@@ -8,22 +8,17 @@ import by.netcracker.zhuk.entities.UserEntity;
 import by.netcracker.zhuk.models.RequestViewModel;
 import by.netcracker.zhuk.models.StudentViewModel;
 import by.netcracker.zhuk.security.impl.CustomUser;
-import by.netcracker.zhuk.services.RequestService;
-import by.netcracker.zhuk.services.SpecialtyService;
-import by.netcracker.zhuk.services.StudentService;
-import by.netcracker.zhuk.services.UserService;
+import by.netcracker.zhuk.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class StudentsController {
@@ -39,6 +34,9 @@ public class StudentsController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private StudentPagingAndSortingService studentPagingAndSortingService;
 
     @Autowired
     private ConversionService conversionService;
@@ -109,6 +107,17 @@ public class StudentsController {
     public List<StudentViewModel> getAllStudents() {
         List<StudentEntity> allstudents = studentService.findAllStudents();
         return (List<StudentViewModel>) conversionService.convert(allstudents, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    @RequestMapping(value ="/studentsTable", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelMap getStudentTable(@RequestParam String search, @RequestParam String sort, @RequestParam String order, @RequestParam Integer offset, @RequestParam Integer limit){
+        ModelMap model = new ModelMap();
+        List<StudentEntity> studentEntities = studentPagingAndSortingService.getPagingAndSortedStudent(search, sort, order, offset, limit);
+        List<StudentViewModel> list = (List<StudentViewModel>) conversionService.convert(studentEntities, studentEntityDescriptor,studentViewModelDescriptor1);
+        model.addAttribute("rows", list);
+        model.addAttribute("total", studentService.findAllStudents().size());
+        return model;
     }
 
     @RequestMapping(value = "/studentsForMultiselect", method = RequestMethod.GET)

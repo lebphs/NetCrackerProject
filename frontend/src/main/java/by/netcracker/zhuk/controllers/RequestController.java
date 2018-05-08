@@ -16,6 +16,7 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +43,9 @@ public class RequestController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private RequestPagingAndSortingService requestPagingAndSortingService;
 
 
 
@@ -119,6 +123,29 @@ public class RequestController {
     public List<RequestViewModel> getAllRequests() {
         List<RequestEntity> allrequest = requestService.findAllRequests();
         return (List<RequestViewModel>) conversionService.convert(allrequest, requestEntityDescriptor, requestViewModelDescriptor);
+    }
+    @RequestMapping(value ="/requestsTable", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelMap getrRequestTable(@RequestParam String search, @RequestParam String sort, @RequestParam String order, @RequestParam Integer offset, @RequestParam Integer limit){
+        ModelMap model = new ModelMap();
+        List<RequestEntity> requestsEntities = requestPagingAndSortingService.getPagingAndSortedRequest(search, sort, order, offset, limit);
+        List<StudentViewModel> list = (List<StudentViewModel>) conversionService.convert(requestsEntities, requestEntityDescriptor, requestViewModelDescriptor);
+        model.addAttribute("rows", list);
+        model.addAttribute("total", requestService.findAllRequests().size());
+        return model;
+    }
+
+    @RequestMapping(value = "/requestsFitAssign", method = RequestMethod.GET)
+    @ResponseBody
+    public List<RequestViewModel> getRequestsFitAssign() {
+        List<RequestEntity> allrequest = requestService.findAllRequests();
+        List<RequestEntity> requests = new ArrayList<>();
+        for(RequestEntity request: allrequest){
+            if(request.getTotalQuantity()-request.getStudentEntities().size() > 0){
+                requests.add(request);
+            }
+        }
+        return (List<RequestViewModel>) conversionService.convert(requests, requestEntityDescriptor, requestViewModelDescriptor);
     }
 
     @RequestMapping(value = "/request", method = RequestMethod.GET)

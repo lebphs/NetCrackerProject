@@ -12,7 +12,11 @@
 
 <div class="container-fluid">
     <table data-click-to-select="true"
-           data-pagination="true" data-page-list="[5,10, 25, 50, 100, ALL]"
+           data-sort-name="companyName"
+           data-pagination="true"
+           data-side-pagination="server"
+           data-url="/requestsTable"
+           data-page-list="[5,10, 25, 50, 100, ALL]"
            data-search="true" data-toggle="table" class="jsRequestsTable">
         <thead>
         <tr>
