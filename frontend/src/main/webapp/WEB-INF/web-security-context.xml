@@ -9,6 +9,13 @@
         <form-login login-page="/login-page"/>
         <logout logout-url="/logout" logout-success-url="/login-page" />
         <csrf disabled="true" />
+
+        <intercept-url pattern="/admin-page" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/student-page" access="hasRole('ROLE_STUDENT')"/>
+        <intercept-url pattern="/head-page" access="hasRole('ROLE_HEAD')"/>
+        <intercept-url pattern="/login-page" access="isAnonymous()"/>
+
+        <remember-me token-validity-seconds="2419200" />
     </http>
 
     <authentication-manager alias="authenticationManager">

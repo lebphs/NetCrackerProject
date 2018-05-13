@@ -34,7 +34,7 @@ public class StudentPagingAndSortingServiceImpl implements StudentPagingAndSorti
         Sort sort1 = new Sort(Sort.Direction.fromString(order), sort);
         Pageable pageable = new PageRequest(pageNumber, limit, sort1);
         if (!search.equals("")) {
-            return studentPagingAndSortingRepository.findStudentEntitiesBySurname(search);
+            return studentPagingAndSortingRepository.findStudentEntitiesBySurnameContaining(search);
         }
         return studentPagingAndSortingRepository.findAll(pageable).getContent();
     }

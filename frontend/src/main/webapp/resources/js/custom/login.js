@@ -6,62 +6,51 @@ $(document).ready(function () {
         INPUT_NAME: '.jsUsername',
         INPUT_PASSWORD: '.jsPassword',
         INPUT_USERNAME: '.jsUsername',
-        BTN_SUBMIT_LOGIN: '.jsSubmitDataBtn',
-        SEND_DATA_BTN: '.jsSendData',
-        STUDENTS_TABLE: '.jsStudentsTable',
-        CONTAINER_ADDED_USER: '.jsAddedUser'
+        INPUT_SURNAME_SING_UP: '.jsSurnameSignUp',
+        INPUT_NAME_SIGN_UP:'.jsNameSignUp',
+        SELECTED_FACULTY: '.availableFacultiesSignUp',
+        SELECTED_SPECIALTY:'.availableSpecialtiesSignUp',
+        INPUT_GROUP:'.jsGroupUp',
+        IS_BUDGET:'#isBudgetSignUp',
+        INPUT_AVERAGE_SCORE:'jsAverageScoreSignUp',
+        INPUT_PASSWORD_SING_UP:'jsPasswordSignUp',
+        INPUT_CONFIRM_PASSWORD_SIGN_UP:'.jsPasswordConfirmSignUp',
+        SIGN_UP_BUTTON:'.jsSignUp',
+        BTN_SUBMIT_LOGIN:'.jsSubmitDataBtn'
         // NOTIFICATION_CREDENTIAL_INCORRECT: '.jsCredentialsIncorrectNotification'
     };
-    var Validation = {
 
-        validateOnEmpty: function (inputs, btns) {
-            var isAnyValidationErrors = false;
-            if (inputs) {
-                inputs.some(function (input) {
-                    if (!input.val().trim()) {
-                        isAnyValidationErrors = true;
 
-                        input.next().html('Should not be empty');
-                        input.next().show();
-                    } else {
-                        input.next().hide();
-                    }
-                });
-            }
-            if (btns) {
-                if (isAnyValidationErrors) {
-                    btns.some(function (button) {
-                        button.attr("disabled", true)
-                    })
-                } else {
-                    btns.some(function (button) {
-                        button.removeAttr('disabled')
-                    })
-                }
-            }
-        }
-    };
-    // window.Validation = Validation;
-
-    var $usersContainer = $(ELEMENTS.CONTAINER_DATA_USING_AJAX),
-        $submitButton = $(ELEMENTS.BTN_SUBMIT_LOGIN),
+    var $submitButton = $(ELEMENTS.BTN_SUBMIT_LOGIN),
         $usernameField = $(ELEMENTS.INPUT_USERNAME),
         $passwordField = $(ELEMENTS.INPUT_PASSWORD),
-        $addedUserContainer = $(ELEMENTS.CONTAINER_ADDED_USER),
-        $studentsTable = $(ELEMENTS.STUDENTS_TABLE),
-        $sendDataBtn = $(ELEMENTS.SEND_DATA_BTN);
-        // $credentialNotification = $(ELEMENTS.NOTIFICATION_CREDENTIAL_INCORRECT);
+        $surnameFieldSignUp = $(ELEMENTS.INPUT_SURNAME_SING_UP),
+        $nameFieldSignUp = $(ELEMENTS.INPUT_NAME_SIGN_UP),
+        $selectedFaculty = $(ELEMENTS.SELECTED_FACULTY),
+        $selectedSpecialty = $(ELEMENTS.SELECTED_SPECIALTY),
+        $groupField = $(ELEMENTS.INPUT_GROUP),
+        $is_budget = $(ELEMENTS.IS_BUDGET),
+        $averageScoreField = $(ELEMENTS.INPUT_AVERAGE_SCORE),
+        $passwordFieldSignUp = $(ELEMENTS.INPUT_PASSWORD_SING_UP),
+        $passwordConfirmFieldSignUp = $(ELEMENTS.INPUT_CONFIRM_PASSWORD_SIGN_UP),
+        $signUpButton = $(ELEMENTS.SIGN_UP_BUTTON);
 
-    // Validation.validateOnEmpty([$usernameField, $passwordField], [$submitButton]);
+
 
 
     $usernameField.on('blur', function () {
-        Validation.validateOnEmpty([$usernameField], [$submitButton]);
+        validateOnEmpty([$usernameField], [$submitButton]);
     });
 
     $passwordField.on('blur', function () {
-        Validation.validateOnEmpty([$passwordField], [$submitButton]);
+        validateOnEmpty([$passwordField], [$submitButton]);
     });
+
+    // $signUpButton.click(function (event) {
+    //     validateOnEmpty([$surnameFieldSignUp,$nameFieldSignUp,$selectedFaculty,$selectedSpecialty,$groupField,$averageScoreField,
+    //         $passwordFieldSignUp, $passwordConfirmFieldSignUp],
+    //         [$submitButton]);
+    // });
 
 
     $submitButton.click(function (event) {

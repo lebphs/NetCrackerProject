@@ -24,7 +24,7 @@ public class LoginUserServiceImpl implements LoginUserService {
 
 
     private static final String VIEW_NAME_HOME_ADMIN = "admin-page";
-    private static final String VIEW_NAME_HOME_STUDENT = "redirect:/student-page";
+    private static final String VIEW_NAME_HOME_STUDENT = "student-page";
     private static final String VIEW_NAME_HOME_HEAD_OF_PRACTICE = "head-page";
 
     private static final String ROLE_STUDENT = "student";//todo create general enum

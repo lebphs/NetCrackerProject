@@ -89,9 +89,12 @@
 .container .info span .fa {
     color: #EF3B3A;
 }
-label[class="labelHide"]{
+.labelHide{
     color:red;
     display: none;
+}
+.error{
+    border: 1px solid red;
 }
 body {
     background: #76b852; /* fallback for old browsers */

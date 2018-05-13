@@ -327,19 +327,19 @@ $(document).ready(function () {
         });
     }
 //сервер валидация
-    $.ajax({
-        url: 'studentsTable',
-        type: 'GET',
-        dataType: 'json',
-        contentType: "application/json",
-        mimeType: 'application/json',
-        data: '',
-        success: function (students) {
-            $(".jsStudentsTable").bootstrapTable('load', students);
-
-        }
-
-    });
+//     $.ajax({
+//         url: 'studentsTable',
+//         type: 'GET',
+//         dataType: 'json',
+//         contentType: "application/json",
+//         mimeType: 'application/json',
+//         data: '',
+//         success: function (students) {
+//             $(".jsStudentsTable").bootstrapTable('load', students);
+//
+//         }
+//
+//     });
 
     $(".jsCreateSpecialty").click(function () {
         var obj = {

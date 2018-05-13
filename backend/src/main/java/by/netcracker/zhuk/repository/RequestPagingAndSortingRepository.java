@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface RequestPagingAndSortingRepository extends PagingAndSortingRepository<RequestEntity, Integer> {
     List<RequestEntity> findRequestEntitiesByCompanyName(String name);
+    List<RequestEntity> findRequestEntitiesByCompanyNameContaining(String name);
 }

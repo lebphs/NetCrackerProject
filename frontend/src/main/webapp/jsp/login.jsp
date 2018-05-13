@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/resources/css/general.css">
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
 <script src="/resources/js/custom/login.js" type="text/javascript"></script>
+<script src="/resources/js/custom/validation.js" type="text/javascript"></script>
 <body>
 <div class="login-page">
     <div class="form">
@@ -61,6 +62,9 @@
 
             <input type="password" class="jsPassword" placeholder="password" required/>
             <label class="jsPasswordIncorrectNotification labelHide" ></label>
+            <input id="remember_me" name="remember_me" type="checkbox"/>
+            <label for="remember_me" class="inline">Remember me</label>
+
             <button type="submit" class="button button-block jsSubmitDataBtn">login</button>
             <%--<div class="alert alert-danger jsCredentialsIncorrectNotification" role="alert" style="display: none">--%>
                 <%--Username or Password is incorrect!--%>

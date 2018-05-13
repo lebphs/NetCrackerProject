@@ -65,6 +65,13 @@
             </div>
         </li>
 
+        <li>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-lg btn-primary exit" onClick='location.href="logout"'>Exit
+                </button>
+            </div>
+        </li>
+
     </ul>
 </nav>
 
