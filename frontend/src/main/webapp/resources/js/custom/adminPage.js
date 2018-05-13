@@ -435,9 +435,7 @@ $(document).ready(function () {
         });
     });
 });
-    function infoStudent(value) {
-        return '<a onClick=\'location.href="info-page?studentId='+value+'"\' class="btn btn-primary jsPreloadInfoAboutStudent" >info</a>';
-    }
+
 function formatter(value) {
     return '<a  data-toggle="modal" data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-primary jsPreloadStudentPractice">Practice</a>';
 }

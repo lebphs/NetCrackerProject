@@ -8,8 +8,8 @@
     <packaging>war</packaging>
 
     <parent>
-        <artifactId>etalon2018-1</artifactId>
-        <groupId>com.netcracker.devschool.dev2</groupId>
+        <artifactId>netcraker-project</artifactId>
+        <groupId>by.netcracker.zhuk</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -21,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.netcracker.devschool.dev2</groupId>
+            <groupId>by.netcracker.zhuk</groupId>
             <artifactId>backend</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -31,6 +31,7 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
     </dependencies>
 
 </project>

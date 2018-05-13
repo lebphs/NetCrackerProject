@@ -67,29 +67,29 @@ public class StudentsController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping(value = "/student-page", method = RequestMethod.GET)
-    public ModelAndView getStudentAsModelWithView() {
+    @RequestMapping(value = "/studentTable", method = RequestMethod.GET)
+    @ResponseBody
+    public StudentViewModel getStudentAsModelWithView() {
         CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserEntity userEntity = userService.findUserByUserName(customUser.getUsername()).get(0);
         StudentEntity studentEntity = userEntity.getStudent();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("student-page");
+        //ModelAndView modelAndView = new ModelAndView();
+        //.setViewName("student-page");
 
-        RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
-        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));//Todo create converters for view models
-        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
-        return modelAndView;
+        //RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
+        return conversionService.convert(studentEntity, StudentViewModel.class );//Todo create converters for view models
+        //modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
     }
-    @RequestMapping(value = "/info-page", method = RequestMethod.GET)
-    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {
-        StudentEntity studentEntity = studentService.findOne(studentId);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("student-page");
-
-        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));
-        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/info-page", method = RequestMethod.GET)
+//    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {
+//        StudentEntity studentEntity = studentService.findOne(studentId);
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("student-page");
+//
+//        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));
+//        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
+//        return modelAndView;
+//    }
 //
 //    @RequestMapping(value = "/studentInfo", method = RequestMethod.GET)
 //    @ResponseBody
