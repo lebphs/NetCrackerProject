@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
+    var indexSelected = 0;
     $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
         $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
         $(".jsAssignStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
         $(".jsRealiseStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsEditStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
     });
 
     $(".jsPreloadCreateStudentModal").click(function (event) {
@@ -323,6 +325,7 @@ $(document).ready(function () {
         $(".jsDeleteStudent").prop('disabled', true);
         $(".jsRealiseStudentBtn").prop('disabled', true);
         $(".jsAssignStudentBtn").prop('disabled', true);
+        $(".jsEditStudentBtn").prop('disabled', true);
     });
 
     function getIdSelections() {
@@ -330,20 +333,68 @@ $(document).ready(function () {
             return row.id
         });
     }
-//сервер валидация
-//     $.ajax({
-//         url: 'studentsTable',
-//         type: 'GET',
-//         dataType: 'json',
-//         contentType: "application/json",
-//         mimeType: 'application/json',
-//         data: '',
-//         success: function (students) {
-//             $(".jsStudentsTable").bootstrapTable('load', students);
-//
-//         }
-//
-//     });
+    $(".jsStudentsTable").on('check.bs.table', function (e, row, $el) {
+        indexSelected = $el.closest('tr').data('index');
+    });
+
+    $(".jsEditStudent").click(function () {
+        event.stopPropagation();
+        var specialtyId = $(".availableSpecialtiesEditStudents").find("option:selected").val();
+        var obj = {
+            id: getIdSelections().toString(),
+            surname: $(".jsSurnameEdit").val(),
+            name: $(".jsNameEdit").val(),
+            specialtyId: specialtyId,
+            group: $(".jsGroupEdit").val(),
+            isBudget: $('input[name=isBudget]:checked').val(),
+            averageScore: $(".jsAverageScoreEdit").val()
+        };
+        validateOnEmpty([$(".jsSurnameEdit"), $(".jsNameEdit"), $(".jsGroupEdit"), $(".jsAverageScoreEdit")]);
+        alert(getValidationError());
+        alert("edit");
+        if (!getValidationError()) {
+            $.ajax({
+                url: 'editStudent',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (request) {
+                    alert(indexSelected);
+                    $(".jsStudentsTable").bootstrapTable('updateRow',{index:indexSelected,row:request});
+                    $("#editStudent").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (event) {
+                    alert("Wrong data!");
+                }
+            });
+        }
+    });
+
+    $(".jsEditStudentBtn").click(function () {
+        var obj={studentId: getIdSelections().toString()};
+
+        $.ajax({
+            url: 'studentForEdit',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: obj,
+            success: function (student) {
+                $(".jsSurnameEdit").val(student.surname);
+                $(".jsNameEdit").val(student.name);
+                $(".jsGroupEdit").val(student.group);
+                // $(".isBudgetEdit").$('input[name=isBudget]:checked').val();
+                $(".availableFacultiesEditStudents").append('<option>' +student.faculty+ '</option>');
+                $(".availableSpecialtiesEditStudents").append('<option value='+student.specialtyId+'>' +student.specialty+ '</option>');
+                $(".jsAverageScoreEdit").val(student.averageScore);
+                //$(".jsRequestsTable").bootstrapTable('load', requests);
+            }
+        });
+    });
 
     $(".jsCreateSpecialty").click(function () {
         var obj = {
@@ -389,12 +440,6 @@ $(document).ready(function () {
         }
 
     });
-
-    // $(".finishDate").on("blur", function () {
-    //     var startDate= $(".startDate").val(),
-    //         finishDate= $(".finishDate").val();
-    //     validateDate(startDate, finishDate, $(".jsCreateRequest"));
-    // });
 
     $(".jsCreateRequest").click(function () {
         var obj = {

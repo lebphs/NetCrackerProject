@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.*;
 
 @Controller
@@ -66,6 +67,35 @@ public class StudentsController {
 //        //modelAndView.addObject(MODEL_USERS, studentService.getAllStudents());//Todo create converters for view models
 //        return modelAndView;
 //    }
+
+    @RequestMapping(value = "/studentForEdit", method = RequestMethod.GET)
+    @ResponseBody
+    public StudentViewModel getStudentForEdit(@RequestParam String studentId){
+        StudentEntity studentEntity = studentService.findOne(studentId);
+        return conversionService.convert(studentEntity, StudentViewModel.class);
+    }
+    @RequestMapping(value = "/editStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public StudentViewModel editStudent(@RequestBody StudentViewModel student){
+        System.out.println(student.getId());
+        StudentEntity studentEntity = studentService.findOne(student.getId()+"");
+        System.out.println(student.getSurname());
+        studentEntity.setSurname(student.getSurname());
+        System.out.println(student.getName());
+        studentEntity.setName(student.getName());
+        System.out.println("asdfasdf");
+        studentEntity.setSpecialityId(specialtyService.findById(student.getSpecialtyId()));
+        System.out.println("asdfasdf");
+        studentEntity.setGroup(student.getGroup());
+        System.out.println("asdfasdf");
+        studentEntity.setIsBudget(student.getIsBudget());
+        System.out.println("asdfasdf");
+        studentEntity.setAverageScore(student.getAverageScore());
+        System.out.println("asdfasdf");
+        studentService.addStudent(studentEntity);
+
+        return conversionService.convert(studentEntity,StudentViewModel.class);
+    }
 
     @RequestMapping(value = "/studentTable", method = RequestMethod.GET)
     @ResponseBody

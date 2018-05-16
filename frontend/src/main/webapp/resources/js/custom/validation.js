@@ -49,12 +49,13 @@ $(document).ready(function () {
 
     function validateRequestEditModal(inputs,availableQuantity){
         validateOnEmpty(inputs);
-        isAnyValidationErrors = getValidationError() | validateDate($(".startDateEdit"), $(".finishDateEdit"))| validateQuantityInPractice($(".totalQuantityEdit"),availableQuantity);
+        isAnyValidationErrors = getValidationError() | validateDate($(".startDateEdit"), $(".finishDateEdit"));
         alert("validateEmty"+ isAnyValidationErrors);
 
 
         return isAnyValidationErrors;
     }
+
 
     function validateDate(dateFrom, dateTo){
         var dateStart = Date.parse(dateFrom.val()),
@@ -79,18 +80,18 @@ $(document).ready(function () {
         return isValidDate;
     }
 
-    function validateQuantityInPractice(totalQuantity, availableQuantity) {
-        var isError;
-        if(totalQuantity.val()-availableQuantity.val() > 0){
-            totalQuantity.parent().addClass("alert alert-danger");
-            totalQuantity.parent().children("label.labelHide").html('Total quantit').css({'display':"flex"});
-            isError = true;
-        }else{
-            totalQuantity.parent().removeClass("alert alert-danger");
-            totalQuantity.parent().children("label.labelHide").hide();
-        }
-        return isError;
-    }
+    // function validateQuantityInPractice(totalQuantity, availableQuantity) {
+    //     var isError;
+    //     if(totalQuantity.val()-availableQuantity.val() > 0){
+    //         totalQuantity.parent().addClass("alert alert-danger");
+    //         totalQuantity.parent().children("label.labelHide").html('Total quantit').css({'display':"flex"});
+    //         isError = true;
+    //     }else{
+    //         totalQuantity.parent().removeClass("alert alert-danger");
+    //         totalQuantity.parent().children("label.labelHide").hide();
+    //     }
+    //     return isError;
+    // }
     
     function validateConfirmPassword(password, confirmPassword) {
         var isMatch= !(password.val()).localeCompare(confirmPassword.val());

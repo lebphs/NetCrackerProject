@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    var indexSelected = 0;
     $.ajax({
         url: 'requests',
         type: 'GET',
@@ -34,6 +36,10 @@ $(document).ready(function () {
             return row.id
         });
     }
+
+    $(".jsRequestsTable").on('check.bs.table', function (e, row, $el) {
+        indexSelected = $el.closest('tr').data('index');
+    });
 
     $(".jsRequestsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
@@ -146,7 +152,6 @@ $(document).ready(function () {
     });
 
     $(".jsEditBtnRequest").click(function () {
-        alert("asdfasd");
         var obj={
             id: getIdSelections().toString(),
             totalQuantity: $(".totalQuantityEdit").val(),
@@ -154,9 +159,7 @@ $(document).ready(function () {
             finishDate:$(".finishDateEdit").val(),
             minScore:$(".minScoreEdit").val()
         };
-        alert("asdf");
-        if (!validateRequestEditModal([$(".minScoreEdit"), $(".totalQuantityEdit")], )) {
-            alert("ajax");
+        if (!validateRequestEditModal([$(".minScoreEdit"), $(".totalQuantityEdit")])) {
             $.ajax({
                 url: 'editRequest',
                 type: 'POST',
@@ -165,12 +168,13 @@ $(document).ready(function () {
                 mimeType: 'application/json',
                 data: JSON.stringify(obj),
                 success: function (request) {
-                    $(".jsRequestsTable").bootstrapTable('refresh');
+                    alert(indexSelected);
+                    $(".jsRequestsTable").bootstrapTable('updateRow',{index:indexSelected,row:request});
                     $("#editrequest").hide();
                     $(document.getElementsByClassName("modal-backdrop")).remove();
                 },
                 error: function (event) {
-
+                    alert("Wrong data!");
                 }
             });
         }

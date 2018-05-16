@@ -210,7 +210,7 @@ public class RequestController {
         requestEntity.setFinishDate(Date.valueOf(request.getFinishDate()));
         requestService.addRequest(requestEntity);
 
-        return (RequestViewModel) conversionService.convert(requestEntity,RequestViewModel.class);
+        return conversionService.convert(requestEntity,RequestViewModel.class);
     }
 
     @RequestMapping(value = "/personalStudentPracticeList", method = RequestMethod.GET)

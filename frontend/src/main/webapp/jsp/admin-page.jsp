@@ -261,7 +261,80 @@
 </div>
 </div>
 
-<!-- Modal Assign student-->
+<div class="modal fade" id="editStudent">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" align="center">Create student</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="FirstNameEdit">First name</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" id="FirstNameEdit" class="form-control jsSurnameEdit" placeholder="First name">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="LastNameEdit">Last name</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" id="LastNameEdit" class="form-control jsNameEdit" placeholder="Last name">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="availableFacultiesEdit">Available faculties</label>
+                        <select id="availableFacultiesEdit" class="form-control availableFacultiesEditStudents jsFacultiesList" disabled>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availableSpecialtiesEdit">Available specialties</label>
+                        <select id="availableSpecialtiesEdit" class="form-control availableSpecialtiesEditStudents" disabled>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupEdit">Group</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input id="groupEdit" type="text" class="form-control numerical jsGroupEdit" placeholder="Group number">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input type="radio" name="isBudget" id="isBudgetEdit" value="true" checked> Budget
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input type="radio" name="isBudget" value="false"> Paid
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="scoreAverageEdit">Average score</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" class="form-control floating jsAverageScoreEdit" id="scoreAverageEdit" placeholder="Average score">
+                        </div>
+                    </div>
+                    <button type="button"  class="btn btn-success jsEditStudent">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="assignstudents" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -456,14 +529,17 @@
 <div class="container-fluid">
     <br>
     <div class="row" id="adminButton" >
-        <div class="col-md-4" >
+        <div class="col-md-3" >
             <button type="submit" class="btn btn-success   btn-block jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <button type="submit" class="btn btn-success  btn-block jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <button type="submit" class="btn btn-success  btn-block jsRealiseStudentBtn" data-toggle="modal" data-target="#realiseOneStudent" id="realise" disabled>Realise</button>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-success  btn-block jsEditStudentBtn" data-toggle="modal" data-target="#editStudent" id="edit" disabled>Edit student</button>
         </div>
     </div>
 </div>
