@@ -3,8 +3,10 @@
 <head>
     <title>Login page</title>
 </head>
-<jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
-<script src="resources/js/custom/requestPage.js"></script>
+<jsp:include page="/jsp/blocks/student-page-source.jsp"/>
+<script src="/resources/js/custom/requestPage.js"></script>
+<script src="/resources/js/libs/jquery.inputmask.bundle.js" type="text/javascript"></script>
+<script src="/resources/js/custom/validation.js" type="text/javascript"></script>
 <%--<script src="resources/bootstrap-typeahead.js"></script>--%>
 
 
@@ -118,14 +120,22 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="datefrom">Data from</label>
-                                <input type="date" id="datefrom" class=" form-control startDate" required>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="date" id="datefrom" class=" form-control startDateEdit" required>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="dateTo">Data to</label>
-                                <input type="date" class="form-control finishDate" id="dateTo" required><br>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="date" class="form-control finishDateEdit" id="dateTo" required>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -135,7 +145,10 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="quantity">Total quantity</label>
-                                <input type="text" id="quantity" class="form-control totalQuantity" placeholder="quantity" required>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="text" id="quantity" class="form-control numerical totalQuantityEdit" placeholder="quantity" required>
+                                </div>
                             </div>
                         </div>
 
@@ -159,12 +172,13 @@
                     <div class="mb-0">
                         <div class="form-group">
                             <label for="minScore">Min. average score</label>
-                            <input id="minScore" type="text" class="form-control minScore" placeholder="min score"  disabled>
                             <div>
+                                <label class="labelHide" style="display: none"></label>
+                                <input id="minScore" type="text" class="form-control floating minScoreEdit" placeholder="min score">
                             </div>
                         </div>
                     </div>
-                    <button type="button" data-dismiss="modal" class="btn btn-success jsEditBtnRequest">Create</button>
+                    <button type="button" class="btn btn-success jsEditBtnRequest">Create</button>
                 </div>
             </div>
         </div>

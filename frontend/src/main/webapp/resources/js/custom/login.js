@@ -10,16 +10,15 @@ $(document).ready(function () {
         INPUT_NAME_SIGN_UP:'.jsNameSignUp',
         SELECTED_FACULTY: '.availableFacultiesSignUp',
         SELECTED_SPECIALTY:'.availableSpecialtiesSignUp',
-        INPUT_GROUP:'.jsGroupUp',
+        INPUT_GROUP:'.jsGroupSignUp',
         IS_BUDGET:'#isBudgetSignUp',
-        INPUT_AVERAGE_SCORE:'jsAverageScoreSignUp',
-        INPUT_PASSWORD_SING_UP:'jsPasswordSignUp',
+        INPUT_AVERAGE_SCORE:'.jsAverageScoreSignUp',
+        INPUT_PASSWORD_SING_UP:'.jsPasswordSignUp',
         INPUT_CONFIRM_PASSWORD_SIGN_UP:'.jsPasswordConfirmSignUp',
         SIGN_UP_BUTTON:'.jsSignUp',
         BTN_SUBMIT_LOGIN:'.jsSubmitDataBtn'
         // NOTIFICATION_CREDENTIAL_INCORRECT: '.jsCredentialsIncorrectNotification'
     };
-
 
     var $submitButton = $(ELEMENTS.BTN_SUBMIT_LOGIN),
         $usernameField = $(ELEMENTS.INPUT_USERNAME),
@@ -38,24 +37,37 @@ $(document).ready(function () {
 
 
 
-    $usernameField.on('blur', function () {
-        validateOnEmpty([$usernameField], [$submitButton]);
-    });
-
-    $passwordField.on('blur', function () {
-        validateOnEmpty([$passwordField], [$submitButton]);
-    });
-
-    // $signUpButton.click(function (event) {
-    //     validateOnEmpty([$surnameFieldSignUp,$nameFieldSignUp,$selectedFaculty,$selectedSpecialty,$groupField,$averageScoreField,
-    //         $passwordFieldSignUp, $passwordConfirmFieldSignUp],
-    //         [$submitButton]);
+    // $usernameField.on('blur', function () {
+    //     validateOnEmpty([$usernameField]);
     // });
-
+    //
+    // $passwordField.on('blur', function () {
+    //     validateOnEmpty([$passwordField]);
+    // });
+    // $surnameFieldSignUp.on('blur', function () {
+    //     validateOnEmpty([$surnameFieldSignUp]);
+    // });
+    // $nameFieldSignUp.on('blur', function () {
+    //     validateOnEmpty([$nameFieldSignUp]);
+    // });
+    // $groupField.on('blur', function () {
+    //     validateOnEmpty([$groupField]);
+    // });
+    // $averageScoreField.on('blur', function () {
+    //     validateOnEmpty([$averageScoreField]);
+    // });
+    // $passwordFieldSignUp.on('blur', function () {
+    //     validateOnEmpty([$passwordFieldSignUp]);
+    // });
+    // $passwordConfirmFieldSignUp.on('blur', function () {
+    //     validateOnEmpty([$passwordConfirmFieldSignUp]);
+    // });
 
     $submitButton.click(function (event) {
         event.stopPropagation();
         event.preventDefault();
+
+       //validateOnEmpty([$surnameFieldSignUp, $nameFieldSignUp], $submitButton);
 
         $.ajax({
             url: 'authorize',
@@ -71,44 +83,44 @@ $(document).ready(function () {
                 window.location.href = "/home"
             },
             error: function (xhr, textStatus) {
-                xhr.status == 401 ? alert('Credentials are not correct.') : alert('Something went wrong, try again later.');
+                xhr.status == 401 ? $(".jsDataIncorrectNotification").show() : alert('Something went wrong, try again later.');
             }
         });
     });
-
-    function checkPassword(password, confirmPassword){
-        return !password.localeCompare(confirmPassword);
-    }
 
     $(".jsSignUp").click(function (event) {
         event.stopPropagation();
         event.preventDefault();
 
+        validateOnEmpty([$surnameFieldSignUp,$nameFieldSignUp,$groupField,$averageScoreField,
+                 $passwordFieldSignUp, $passwordConfirmFieldSignUp]);
+        var isMatch = validateConfirmPassword($passwordFieldSignUp,$passwordConfirmFieldSignUp);
+        if (!getValidationError() && isMatch) {
+            $.ajax({
+                url: 'signUp',
+                type: 'POST',
+                contentType: "application/json",
+                data: JSON.stringify({
+                    surname: $(".jsSurnameSignUp").val(),
+                    name: $(".jsNameSignUp").val(),
+                    facultyId: $(".availableFacultiesSignUp").find("option:selected").val(),
+                    specialtyId: $(".availableSpecialtiesSignUp").find("option:selected").val(),
+                    group: $(".jsGroupSignUp").val(),
+                    isBudget: $('input[name=isBudget]:checked').val(),
+                    averageScore: $(".jsAverageScoreSignUp").val(),
+                    password: $(".jsPasswordSignUp").val(),
+                    confirmPassword: $(".jsPasswordConfirmSignUp").val()
 
-        $.ajax({
-            url: 'signUp',
-            type: 'POST',
-            contentType: "application/json",
-            data: JSON.stringify({
-                surname: $(".jsSurnameSignUp").val(),
-                name: $(".jsNameSignUp").val(),
-                facultyId: $(".availableFacultiesSignUp").find("option:selected").val(),
-                specialtyId: $(".availableSpecialtiesSignUp").find("option:selected").val(),
-                group: $(".jsGroupSignUp").val(),
-                isBudget: $('input[name=isBudget]:checked').val(),
-                averageScore: $(".jsAverageScoreSignUp").val(),
-                password: $(".jsPasswordSignUp").val(),
-                confirmPassword: $(".jsPasswordConfirmSignUp").val()
-
-            }),
-            success: function (xhr) {
-                console.log(xhr.status);
-                window.location.href = "/home"
-            },
-            error: function (xhr, textStatus) {
-                xhr.status == 401 ? alert('Credentials are not correct.'): alert('Something went wrong, try again later.');
-            }
-        });
+                }),
+                success: function (xhr) {
+                    console.log(xhr.status);
+                    window.location.href = "/home"
+                },
+                error: function (xhr, textStatus) {
+                    xhr.status == 401 ? alert('Credentials are not correct.') : alert('Something went wrong, try again later.');
+                }
+            });
+        }
     });
 
     function getStudentIdByName(username){
@@ -124,6 +136,7 @@ $(document).ready(function () {
             }
         });
     }
+
     $('.message a').click(function () {
         getFacultiesList();
         getSpecialtiesByFacultyIdForCreateUser();

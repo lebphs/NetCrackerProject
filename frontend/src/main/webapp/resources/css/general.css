@@ -41,6 +41,7 @@
     transition: all 0.3 ease;
     cursor: pointer;
 }
+
 .form button:hover,.form button:active,.form button:focus {
     background: #0d7ae5;
 }
@@ -92,9 +93,6 @@
 .labelHide{
     color:red;
     display: none;
-}
-.error{
-    border: 1px solid red;
 }
 body {
     background: #76b852; /* fallback for old browsers */

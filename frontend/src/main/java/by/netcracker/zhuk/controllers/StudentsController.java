@@ -73,12 +73,14 @@ public class StudentsController {
         CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserEntity userEntity = userService.findUserByUserName(customUser.getUsername()).get(0);
         StudentEntity studentEntity = userEntity.getStudent();
-        //ModelAndView modelAndView = new ModelAndView();
-        //.setViewName("student-page");
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("student-page");
+//        System.out.println("asdfasafsadf");
 
-        //RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
+       /// RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
         return conversionService.convert(studentEntity, StudentViewModel.class );//Todo create converters for view models
         //modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
+        //return modelAndView;
     }
 //    @RequestMapping(value = "/info-page", method = RequestMethod.GET)
 //    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {

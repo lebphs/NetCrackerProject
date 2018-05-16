@@ -92,7 +92,6 @@ $(document).ready(function () {
     });
 
     function getStudentsFitDescriptionForAssign(idRequest) {
-        alert(idRequest);
         $.ajax({
             url: 'studentsForDropdownAssign',
             type: 'GET',
@@ -135,36 +134,46 @@ $(document).ready(function () {
             data: obj,
             success: function (requests) {
                 $(".nameCompany").val(requests.companyName);
-                $(".startDate").val(requests.startDate);
-                $(".finishDate").val(requests.finishDate);
-                $(".totalQuantity").val(requests.totalQuantity);
+                $(".startDateEdit").val(requests.startDate);
+                $(".finishDateEdit").val(requests.finishDate);
+                $(".totalQuantityEdit").val(requests.totalQuantity);
                 $(".availableFacultiesAddRequest").append('<option>' +requests.faculty+ '</option>');
                 $(".availableSpecialtiesAddRequest").append('<option>' +requests.specialty+ '</option>');
-                $(".minScore").val(requests.minAverageScore);
+                $(".minScoreEdit").val(requests.minAverageScore);
                 //$(".jsRequestsTable").bootstrapTable('load', requests);
             }
         });
     });
 
     $(".jsEditBtnRequest").click(function () {
+        alert("asdfasd");
         var obj={
             id: getIdSelections().toString(),
-            totalQuantity: $(".totalQuantity").val(),
-                    startDate : $(".startDate").val(),
-                    finishDate:$(".finishDate").val()
+            totalQuantity: $(".totalQuantityEdit").val(),
+            startDate : $(".startDateEdit").val(),
+            finishDate:$(".finishDateEdit").val(),
+            minScore:$(".minScoreEdit").val()
         };
+        alert("asdf");
+        if (!validateRequestEditModal([$(".minScoreEdit"), $(".totalQuantityEdit")], )) {
+            alert("ajax");
+            $.ajax({
+                url: 'editRequest',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (request) {
+                    $(".jsRequestsTable").bootstrapTable('refresh');
+                    $("#editrequest").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (event) {
 
-        $.ajax({
-            url: 'editRequest',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(obj),
-            success: function (requests) {
-                $(".jsRequestsTable").bootstrapTable('load', requests);
-            }
-        });
+                }
+            });
+        }
     });
 });
 function students(value) {

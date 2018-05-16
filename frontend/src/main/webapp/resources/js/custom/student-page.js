@@ -5,9 +5,8 @@ $(document).ready(function () {
         dataType: 'json',
         contentType: "application/json",
         mimeType: 'application/json',
-        data: '',
-        success: function (student) {
-            $(".jsStudentTable").bootstrapTable('load', student);
+        success: function (requests) {
+            $(".jsStudentTable").bootstrapTable('load', requests);
         }
     });
     $(".jsStudentTable").on("click", ".jsPreloadStudentPractice", function () {

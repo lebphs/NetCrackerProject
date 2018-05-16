@@ -203,15 +203,14 @@ public class RequestController {
     }
     @RequestMapping(value = "/editRequest", method = RequestMethod.POST)
     @ResponseBody
-    public List<RequestViewModel> editRequest(@RequestBody RequestViewModel request){
+    public RequestViewModel editRequest(@RequestBody RequestViewModel request){
         RequestEntity requestEntity = requestService.getRequestById(request.getId()+"");
         requestEntity.setTotalQuantity(request.getTotalQuantity());
         requestEntity.setStartDate(Date.valueOf(request.getStartDate()));
         requestEntity.setFinishDate(Date.valueOf(request.getFinishDate()));
         requestService.addRequest(requestEntity);
 
-        List<RequestEntity> allRequest = requestService.findAllRequests();
-        return (List<RequestViewModel>) conversionService.convert(allRequest, requestEntityDescriptor, requestViewModelDescriptor);
+        return (RequestViewModel) conversionService.convert(requestEntity,RequestViewModel.class);
     }
 
     @RequestMapping(value = "/personalStudentPracticeList", method = RequestMethod.GET)
