@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    window.validateOnEmpty=validateOnEmpty;
+    window.validateOnEmpty = validateOnEmpty;
     window.getValidationError = getValidationError;
     window.validateConfirmPassword = validateConfirmPassword;
     window.validateRequestModal = validateRequestModal;
@@ -18,7 +18,7 @@ $(document).ready(function () {
                 if (!input.val().trim()) {
                     isAnyValidationErrors = true;
                     input.parent().addClass("alert alert-danger");
-                    input.parent().children("label.labelHide").html("Should not be empty").css({'display':"flex"});
+                    input.parent().children("label.labelHide").html("Should not be empty").css({'display': "flex"});
 
                 } else {
                     input.parent().children("label.labelHide").hide();
@@ -27,19 +27,10 @@ $(document).ready(function () {
                 }
             });
         }
-        // if (btns) {
-        //     if (isAnyValidationErrors) {
-        //         btns.some(function (button) {
-        //             button.attr("disabled", true)
-        //         })
-        //     } else {
-        //         btns.some(function (button) {
-        //             button.removeAttr('disabled')
-        //         })
-        //     }
-        // }
+
     }
-    function validateRequestModal(inputs){
+
+    function validateRequestModal(inputs) {
         validateOnEmpty(inputs);
         isAnyValidationErrors = getValidationError() | validateDate($(".startDate"), $(".finishDate"), $(".jsCreateRequest"));
 
@@ -47,24 +38,35 @@ $(document).ready(function () {
         return isAnyValidationErrors;
     }
 
-    function validateRequestEditModal(inputs,availableQuantity){
+    function validateRequestEditModal(inputs, availableQuantity) {
         validateOnEmpty(inputs);
         isAnyValidationErrors = getValidationError() | validateDate($(".startDateEdit"), $(".finishDateEdit"));
-        alert("validateEmty"+ isAnyValidationErrors);
+        alert("validateEmty" + isAnyValidationErrors);
 
 
         return isAnyValidationErrors;
     }
 
 
-    function validateDate(dateFrom, dateTo){
+    function validateDate(dateFrom, dateTo) {
+
+        if (!/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/.test(dateFrom.val())) {
+            dateTo.parent().addClass("alert alert-danger");
+            dateTo.parent().children("label.labelHide").html("Should not be empty").css({'display': "flex"});
+            if (!/[0-9]{4}\-[0-9]{2}\-[0-9]{2}/.test(dateTo.val())) {
+                dateFrom.parent().addClass("alert alert-danger");
+                dateFrom.parent().children("label.labelHide").html("Should not be empty").css({'display': "flex"});
+            }
+            isValidDate = true;
+            return isValidDate;
+        }
+
         var dateStart = Date.parse(dateFrom.val()),
             dateFinish = Date.parse(dateTo.val()),
             isValidDate;
 
-        alert(dateFrom+" "+ dateTo);
+
         if(dateStart > dateFinish){
-            alert("date");
             dateTo.parent().addClass("alert alert-danger");
             dateTo.parent().children("label.labelHide").html("Invalid start or end date").css({'display':"flex"});
             dateFrom.parent().addClass("alert alert-danger");
@@ -108,7 +110,7 @@ $(document).ready(function () {
             regex: "[0-9]{10}"
         });
         $('.floating').inputmask('Regex',{
-            regex:"[[0-9](?:[.,][0-9]{2})?|10"
+            regex:"([0-9][.][0-9]{1,2})|10"
         });
         $('.nameFaculty').inputmask('Regex',{
             regex:"[A-Z]{7}"

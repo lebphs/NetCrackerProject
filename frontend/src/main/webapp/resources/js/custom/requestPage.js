@@ -91,13 +91,14 @@ $(document).ready(function () {
             contentType: "application/json",
             mimeType: 'application/json',
             data: JSON.stringify(obj),
-            success: function (requests) {
-                $(".jsRequestsTable").bootstrapTable('load', requests);
+            success: function (request) {
+                $(".jsRequestsTable").bootstrapTable('updateRow', {index:indexSelected,row:request});
             }
         });
     });
 
     function getStudentsFitDescriptionForAssign(idRequest) {
+        var assignWindow = $("#assignOneStudent");
         $.ajax({
             url: 'studentsForDropdownAssign',
             type: 'GET',
@@ -107,11 +108,18 @@ $(document).ready(function () {
             data: {id: idRequest.toString()},
             success: function (students) {
                 $(".jsStudentList").empty();
-                students ? function () {
-                    students.some(function (student) {
-                        $(".jsStudentList").append('<option value=' + student.id + '>' + student.surname + ' ' + student.name + '</option>');
-                    });
-                }() : false;
+                if (students.length) {
+                    assignWindow.find(".notPractice").hide();
+                    assignWindow.find(".jsDropdown").show();
+                    students ? function () {
+                        students.some(function (student) {
+                            $(".jsStudentList").append('<option value=' + student.id + '>' + student.surname + ' ' + student.name + '</option>');
+                        });
+                    }() : false;
+                }else {
+                    assignWindow.find(".notPractice").show();
+                    assignWindow.find(".jsDropdown").hide();
+                }
             }
         });
     }

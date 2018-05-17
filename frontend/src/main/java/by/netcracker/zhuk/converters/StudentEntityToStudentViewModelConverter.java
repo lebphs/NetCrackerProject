@@ -6,19 +6,13 @@ import by.netcracker.zhuk.entities.SpecialtyEntity;
 import by.netcracker.zhuk.entities.StudentEntity;
 import by.netcracker.zhuk.models.StudentViewModel;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class StudentEntityToStudentViewModelConverter implements Converter<StudentEntity, StudentViewModel> {
 
-
     @Override
-    public StudentViewModel convert(StudentEntity studentEntity)  {
-        //List<GrantedAuthority> authorities = new ArrayList<>();
-        //authorities.add(new SimpleGrantedAuthority(userEntity.getRole()));
+    public StudentViewModel convert(StudentEntity studentEntity) {
+
         StudentViewModel studentViewModel = new StudentViewModel();
 
         studentViewModel.setId(studentEntity.getId());
@@ -39,20 +33,7 @@ public class StudentEntityToStudentViewModelConverter implements Converter<Stude
         studentViewModel.setAverageScore(studentEntity.getAverageScore());
         studentViewModel.setStudentStatus(studentEntity.getStudentStatus());
 
-//        if (specialty != null) {
-//            studentViewModel.setSpecialty(String.valueOf(student.getId()));
-//            SpecialityEntity speciality = student.getSpeciality();
-//            if (speciality != null) {
-//                studentViewModel.setSpecialityId(String.valueOf(speciality.getId()));
-//                studentViewModel.setSpecialityName(speciality.getName());
-//                FacultyEntity faculty = speciality.getFaculty();
-//                if (faculty != null) {
-//                    studentViewModel.setFacultyId(String.valueOf(faculty.getId()));
-//                    studentViewModel.setFacultyName(faculty.getName());
-//                }
-//            }
-//
-//        }
         return studentViewModel;
     }
+
 }

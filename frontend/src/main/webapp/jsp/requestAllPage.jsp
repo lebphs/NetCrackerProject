@@ -90,10 +90,14 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Search available students</label>
-                    <select class="form-control jsStudentList"></select>
+                    <p class="notPractice">No suitable practice</p>
+                    <div class="jsDropdown">
+                        <label>Search available students</label>
+                        <select class="form-control jsStudentList"></select>
+                    </div>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsAssignStudentRequestPage">Create</button>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsAssignStudentRequestPage">Create</button>
+
             </div>
         </div>
     </div>

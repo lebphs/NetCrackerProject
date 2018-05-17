@@ -493,12 +493,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                <div class="form-group">
+                <p class="notPractice">No suitable practice</p>
+                <div class="jsDropdown">
+                    <div class="form-group">
                     <label>Search available demands</label>
                     <select class="form-control jsRequestList jsRequestAssign"></select>
                 </div>
                     <button type="button" data-dismiss="modal" class="btn btn-success jsAssignOneStudent">Create</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -514,11 +519,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Search available demands</label>
-                    <select class="form-control jsRequestList jsRequestRealise"></select>
+                <p class="notPractice">Student is not assigned to practice</p>
+                <div class="jsDropdown">
+                    <div class="form-group">
+                        <label>Search available demands</label>
+                        <select class="form-control jsRequestList jsRequestRealise"></select>
+                    </div>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
             </div>
         </div>
     </div>

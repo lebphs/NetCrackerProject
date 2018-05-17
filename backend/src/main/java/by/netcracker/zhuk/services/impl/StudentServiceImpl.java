@@ -49,4 +49,9 @@ public class StudentServiceImpl implements StudentService {
     public StudentEntity findBySurname(String surname) {
         return studentRepository.findBySurname(surname);
     }
+
+    @Override
+    public List<StudentEntity> findStudentByAvScoreAndSpecialty(double score, int idSpecialty) {
+        return studentRepository.findStudentsByAvScoreAndSpecialty(score, idSpecialty);
+    }
 }

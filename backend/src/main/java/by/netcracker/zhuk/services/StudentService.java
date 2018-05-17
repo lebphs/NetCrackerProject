@@ -12,5 +12,6 @@ public interface StudentService {
 //    int getIdLastCreatedStudent();
     StudentEntity findOne(String studentId);
     StudentEntity findBySurname(String surname);
+    List<StudentEntity> findStudentByAvScoreAndSpecialty(double score, int idSpecialty);
 //    void editStudent(String surname, String name, String patronymic, Integer specialtyId, Byte isBudget, Double averageScore, String comments, int id);
 }
