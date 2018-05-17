@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Id;
 import java.util.List;
 
 @Transactional
@@ -44,5 +45,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestEntity getRequestByName(String name) {
         return requestRepository.findByCompanyName(name);
+    }
+
+    @Override
+    public List<RequestEntity> findRequestsByAvScoreAndSpecialty(double score, int idSpecialty) {
+        return requestRepository.findRequestsByAvScoreAndSpecialty(score, idSpecialty);
     }
 }

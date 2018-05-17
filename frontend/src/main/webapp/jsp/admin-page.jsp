@@ -13,67 +13,69 @@
 <script src="resources/js/custom/adminPage.js"></script>
 <script src="resources/js/libs/bootstrap-typeahead.js"></script>
 <script src="resources/js/libs/bootstrap-multiselect.js"></script>
+<script src="/resources/js/libs/jquery.inputmask.bundle.js" type="text/javascript"></script>
+<script src="/resources/js/custom/validation.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/resources/css/adminPage.css">
 <link rel="stylesheet" href="resources/css/libs/bootstrap-multiselect.css" type="text/css"/>
 
 <body>
 
 
-<nav class="navbar navbar-dark bg-primary">
-    <input type="checkbox" class="jsStudentPage" name="menu" id="btn-menu">
-    <label for="btn-menu"><span class="navbar-toggler-icon"></span></label>
-    <ul>
-        <li>
-            <div class="col-md-2">
-                <input type="button" class="btn btn-lg btn-primary" value="Show all request"
-                       onClick='location.href="request-page"'/>
-            </div>
-        </li>
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal"
-                        data-target="#addrequest">Add request
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal"
-                        data-target="#createstudent">Create student
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal"
-                        data-target="#assignstudents">Assign students
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal"
-                        data-target="#createspeialty">Create specialty
-                </button>
-            </div>
-        </li>
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal"
-                        data-target="#createfaculty">Create faculty
-                </button>
-            </div>
-        </li>
+<%--<nav class="navbar navbar-dark bg-primary">--%>
+    <%--<input type="checkbox" class="jsStudentPage" name="menu" id="btn-menu">--%>
+    <%--<label for="btn-menu"><span class="navbar-toggler-icon"></span></label>--%>
+    <%--<ul>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<input type="button" class="btn btn-lg btn-primary" value="Show all request"--%>
+                       <%--onClick='location.href="request-page"'/>--%>
+            <%--</div>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal"--%>
+                        <%--data-target="#addrequest">Add request--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal"--%>
+                        <%--data-target="#createstudent">Create student--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal"--%>
+                        <%--data-target="#assignstudents">Assign students--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal"--%>
+                        <%--data-target="#createspeialty">Create specialty--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal"--%>
+                        <%--data-target="#createfaculty">Create faculty--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
 
-        <li>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-lg btn-primary exit" onClick='location.href="logout"'>Exit
-                </button>
-            </div>
-        </li>
+        <%--<li>--%>
+            <%--<div class="col-md-2">--%>
+                <%--<button type="button" class="btn btn-lg btn-primary exit" onClick='location.href="logout"'>Exit--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</li>--%>
 
-    </ul>
-</nav>
+    <%--</ul>--%>
+<%--</nav>--%>
 
 <div class="modal fade" id="addrequest">
     <div class="modal-dialog">
@@ -89,21 +91,32 @@
                     <div class=" mb-3">
                         <div class="form-group">
                             <label for="companyName">Company name</label>
-                            <input type="text" id="companyName" class="form-control nameCompany" placeholder="Enter name of company"><br>
+                            <div>
+                                <label class="labelHide" style="display: none"></label>
+                                <input type="text" id="companyName" class="form-control nameCompany" placeholder="Enter name of company">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="datefrom">Data from</label>
-                                <input type="date" id="datefrom" class=" form-control startDate" required>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="date" id="datefrom" class=" form-control startDate" required>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="dateTo">Data to</label>
-                                <input type="date" class="form-control finishDate" id="dateTo" required><br>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="date" class="form-control finishDate" id="dateTo" required>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -113,7 +126,11 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="quantity">Total quantity</label>
-                                <input type="text" id="quantity" class="form-control totalQuantity" placeholder="quantity" required>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="text" id="quantity" class="form-control numerical totalQuantity" placeholder="quantity" required>
+                                </div>
+
                             </div>
                         </div>
 
@@ -137,8 +154,9 @@
                     <div class="mb-0">
                         <div class="form-group">
                             <label for="minScore">Min. average score</label>
-                            <input id="minScore" type="text" class="form-control minScore" placeholder="min score">
                             <div>
+                                <label class="labelHide" style="display: none"></label>
+                                <input id="minScore" type="text" class="form-control floating minScore" placeholder="min score">
                             </div>
                         </div>
                     </div>
@@ -146,25 +164,31 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="usernameHeadOfPractice">Username head of practice</label>
-                                <input type="text" id="usernameHeadOfPractice" placeholder="username" class=" form-control jsNameHeadOfPractice" required>
+                                <div><label class="labelHide" style="display: none"></label>
+                                    <input type="text" id="usernameHeadOfPractice" placeholder="username" class=" form-control jsNameHeadOfPractice" required>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="passwordHeadOfPractice">Password</label>
-                                <input type="password" class="form-control jsPasswordHead" placeholder="password" id="passwordHeadOfPractice" required><br>
+                                <div>
+                                    <label class="labelHide" style="display: none"></label>
+                                    <input type="password" class="form-control jsPasswordHead" placeholder="password" id="passwordHeadOfPractice" required>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <button type="button" data-dismiss="modal" class="btn btn-success jsCreateRequest">Create</button>
+                    <button type="button"  class="btn btn-success jsCreateRequest">Create</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="createstudent" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="createstudent">
     <div class="modal-dialog  modal-sm" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -176,21 +200,38 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control jsSurname" placeholder="Surname">
+                    <label for="FirstName">First name</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input type="text" id="FirstName" class="form-control jsSurname" placeholder="First name">
+                    </div>
+
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control jsName" placeholder="Name">
+                    <label for="LastName">Last name</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input type="text" id="LastName" class="form-control jsName" placeholder="Last name">
+                    </div>
+
                 </div>
                 <div class="form-group">
-                    <select class="form-control availableFacultiesAddStudents jsFacultiesList">
+                    <label for="availableFaculties">Available faculties</label>
+                    <select id="availableFaculties" class="form-control availableFacultiesAddStudents jsFacultiesList">
                     </select>
                 </div>
                 <div class="form-group">
-                    <select class="form-control availableSpecialtiesAddStudents">
+                    <label for="availableSpecialties">Available specialties</label>
+                    <select id="availableSpecialties" class="form-control availableSpecialtiesAddStudents">
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control jsGroup" placeholder="Group number">
+                    <label for="group">Group</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input id="group" type="text" class="form-control numerical jsGroup" placeholder="Group number">
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <div class="row">
@@ -207,16 +248,93 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control jsAverageScore" id="scoreAverage" placeholder="Average score">
+                    <label for="scoreAverage">Average score</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input type="text" class="form-control floating jsAverageScore" id="scoreAverage" placeholder="Average score">
+                    </div>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsAddStudent">Create</button>
+                <button type="button"  class="btn btn-success jsAddStudent">Create</button>
             </form>
         </div>
     </div>
 </div>
 </div>
 
-<!-- Modal Assign student-->
+<div class="modal fade" id="editStudent">
+    <div class="modal-dialog  modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" align="center">Create student</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="FirstNameEdit">First name</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" id="FirstNameEdit" class="form-control jsSurnameEdit" placeholder="First name">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="LastNameEdit">Last name</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" id="LastNameEdit" class="form-control jsNameEdit" placeholder="Last name">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="availableFacultiesEdit">Available faculties</label>
+                        <select id="availableFacultiesEdit" class="form-control availableFacultiesEditStudents jsFacultiesList" disabled>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availableSpecialtiesEdit">Available specialties</label>
+                        <select id="availableSpecialtiesEdit" class="form-control availableSpecialtiesEditStudents" disabled>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupEdit">Group</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input id="groupEdit" type="text" class="form-control numerical jsGroupEdit" placeholder="Group number">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input type="radio" name="isBudget" id="isBudgetEdit" value="true" checked> Budget
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="radio-inline">
+                                    <input type="radio" name="isBudget" value="false"> Paid
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="scoreAverageEdit">Average score</label>
+                        <div>
+                            <label class="labelHide" style="display: none"></label>
+                            <input type="text" class="form-control floating jsAverageScoreEdit" id="scoreAverageEdit" placeholder="Average score">
+                        </div>
+                    </div>
+                    <button type="button"  class="btn btn-success jsEditStudent">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="assignstudents" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -264,13 +382,17 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control nameSpecialty" placeholder="Name of specialty" required>
+                    <label for="nameSpecialty">Name specialty</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input type="text" id="nameSpecialty" class="form-control nameSpecialty" placeholder="Name of specialty" required>
+                    </div>
                 </div>
                 <div class="form-group">
                     <select class="form-control availableFacultiesForCreateSpecialty jsFacultiesList">
                     </select>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsCreateSpecialty">Create</button>
+                <button type="button" class="btn btn-success jsCreateSpecialty">Create</button>
             </form>
         </div>
     </div>
@@ -291,10 +413,14 @@
         <div class="modal-body">
             <form>
                 <div class="form-group">
-                    <label>Name of faculty</label><br>
-                    <input type="text" class="form-control nameFaculty" required><br>
+                    <label>Name of faculty</label>
+                    <div>
+                        <label class="labelHide" style="display: none"></label>
+                        <input type="text" class="form-control nameFaculty" required>
+                    </div>
+
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsCreateFaculty">Create</button>
+                <button type="button" class="btn btn-success jsCreateFaculty">Create</button>
             </form>
         </div>
     </div>
@@ -367,12 +493,17 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
-                <div class="form-group">
+                <p class="notPractice">No suitable practice</p>
+                <div class="jsDropdown">
+                    <div class="form-group">
                     <label>Search available demands</label>
                     <select class="form-control jsRequestList jsRequestAssign"></select>
                 </div>
                     <button type="button" data-dismiss="modal" class="btn btn-success jsAssignOneStudent">Create</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -388,11 +519,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Search available demands</label>
-                    <select class="form-control jsRequestList jsRequestRealise"></select>
+                <p class="notPractice">Student is not assigned to practice</p>
+                <div class="jsDropdown">
+                    <div class="form-group">
+                        <label>Search available demands</label>
+                        <select class="form-control jsRequestList jsRequestRealise"></select>
+                    </div>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsRealiseOneStudent">Realise</button>
             </div>
         </div>
     </div>
@@ -403,14 +537,17 @@
 <div class="container-fluid">
     <br>
     <div class="row" id="adminButton" >
-        <div class="col-md-4" >
+        <div class="col-md-3" >
             <button type="submit" class="btn btn-success   btn-block jsDeleteStudent" id="delete" disabled>Delete </button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <button type="submit" class="btn btn-success  btn-block jsAssignStudentBtn"  data-toggle="modal" data-target="#assignOneStudent" disabled>Assign</button>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <button type="submit" class="btn btn-success  btn-block jsRealiseStudentBtn" data-toggle="modal" data-target="#realiseOneStudent" id="realise" disabled>Realise</button>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-success  btn-block jsEditStudentBtn" data-toggle="modal" data-target="#editStudent" id="edit" disabled>Edit student</button>
         </div>
     </div>
 </div>

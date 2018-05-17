@@ -11,4 +11,5 @@ public interface RequestService {
     void delete(String studentId);
     RequestEntity getRequestById(String requestId);
     RequestEntity getRequestByName(String name);
+    List<RequestEntity> findRequestsByAvScoreAndSpecialty(double score, int idSpecialty);
 }

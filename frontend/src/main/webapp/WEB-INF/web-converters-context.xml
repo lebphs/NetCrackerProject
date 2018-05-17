@@ -9,11 +9,14 @@
       <property name="converters">
 
          <set>
-            <!--<bean class="com.netcracker.etalon.converters.FacultyEntityToFacultyViewModelConverter"/>-->
-            <!--<bean class="com.netcracker.etalon.converters.SpecialityEntityToSpecialityViewModelConverter"/>-->
+            <bean class="by.netcracker.zhuk.converters.FacultyEntityToFacultyViewModelConverter"/>
+            <bean class="by.netcracker.zhuk.converters.SpecialityEntityToSpecialityViewModelConverter"/>
+             <bean class="by.netcracker.zhuk.converters.SpecialityViewModelToSpecialityEntityConverter"/>
             <bean class="by.netcracker.zhuk.converters.StudentEntityToStudentViewModelConverter"/>
+            <bean class="by.netcracker.zhuk.converters.StudentViewModelToStudentEntityConverter"/>
             <bean class="by.netcracker.zhuk.converters.RequestEntityToRequestViewModelConverter"/>
-            <!--<bean class="com.netcracker.etalon.converters.FacultyViewModelToFacultyEntityConverter"/>-->
+            <bean class="by.netcracker.zhuk.converters.RequestViewModelToRequestEntityConverter"/>
+            <bean class="by.netcracker.zhuk.converters.FacultyViewModelToFacultyEntityConverter"/>
          </set>
 
       </property>

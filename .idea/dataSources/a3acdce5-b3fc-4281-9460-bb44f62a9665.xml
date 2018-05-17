@@ -1105,6 +1105,8 @@
       <RefSchemaName>practices</RefSchemaName>
       <RefTableName>faculties</RefTableName>
       <RefColNames>id</RefColNames>
+      <OnUpdate>cascade</OnUpdate>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="268" parent="235" name="id">
       <Position>1</Position>

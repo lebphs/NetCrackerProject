@@ -55,4 +55,10 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public void addSpecialty(SpecialtyEntity specialtyEntity) {
         specialtyRepository.save(specialtyEntity);
     }
+
+    @Override
+    public List<SpecialtyEntity> findAll(){ return (List<SpecialtyEntity>) specialtyRepository.findAll();}
+
+    @Override
+    public SpecialtyEntity findByName(String name){return specialtyRepository.findByName(name);}
 }

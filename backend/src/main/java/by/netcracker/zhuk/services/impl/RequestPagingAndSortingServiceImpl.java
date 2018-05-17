@@ -31,7 +31,7 @@ public class RequestPagingAndSortingServiceImpl implements RequestPagingAndSorti
         }
         Sort sort1 = new Sort(Sort.Direction.fromString(order), sort);
         Pageable pageable = new PageRequest(pageNumber, limit, sort1);
-        if (!search.equals("")) {
+        if (!search.isEmpty()) {
             return requestPagingAndSortingRepository.findRequestEntitiesByCompanyNameContaining(search);
         }
         return requestPagingAndSortingRepository.findAll(pageable).getContent();

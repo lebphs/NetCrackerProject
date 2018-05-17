@@ -1,7 +1,5 @@
 package by.netcracker.zhuk.controllers;
 
-import by.netcracker.zhuk.converters.RequestEntityToRequestViewModelConverter;
-import by.netcracker.zhuk.converters.StudentEntityToStudentViewModelConverter;
 import by.netcracker.zhuk.entities.RequestEntity;
 import by.netcracker.zhuk.entities.StudentEntity;
 import by.netcracker.zhuk.entities.UserEntity;
@@ -9,6 +7,7 @@ import by.netcracker.zhuk.models.RequestViewModel;
 import by.netcracker.zhuk.models.StudentViewModel;
 import by.netcracker.zhuk.security.impl.CustomUser;
 import by.netcracker.zhuk.services.*;
+import by.netcracker.zhuk.validator.StudentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -16,7 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import by.netcracker.zhuk.validator.Impl.StudentValidatorImpl;
+import  by.netcracker.zhuk.utils.Util;
 
 import java.util.*;
 
@@ -37,6 +37,7 @@ public class StudentsController {
 
     @Autowired
     private StudentPagingAndSortingService studentPagingAndSortingService;
+
 
     @Autowired
     private ConversionService conversionService;
@@ -67,39 +68,31 @@ public class StudentsController {
 //        return modelAndView;
 //    }
 
+    @RequestMapping(value = "/studentForEdit", method = RequestMethod.GET)
+    @ResponseBody
+    public StudentViewModel getStudentForEdit(@RequestParam String studentId){
+        StudentEntity studentEntity = studentService.findOne(studentId);
+        return conversionService.convert(studentEntity, StudentViewModel.class);
+    }
+    @RequestMapping(value = "/editStudent", method = RequestMethod.POST)
+    @ResponseBody
+    public StudentViewModel editStudent(@RequestBody StudentViewModel student){
+        StudentEntity studentEntity = conversionService.convert(student, StudentEntity.class);
+        studentService.addStudent(studentEntity);
+
+        return conversionService.convert(studentEntity,StudentViewModel.class);
+    }
+
     @RequestMapping(value = "/studentTable", method = RequestMethod.GET)
     @ResponseBody
     public StudentViewModel getStudentAsModelWithView() {
         CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserEntity userEntity = userService.findUserByUserName(customUser.getUsername()).get(0);
         StudentEntity studentEntity = userEntity.getStudent();
-        //ModelAndView modelAndView = new ModelAndView();
-        //.setViewName("student-page");
-
-        //RequestEntityToRequestViewModelConverter requestConvert = new RequestEntityToRequestViewModelConverter();
         return conversionService.convert(studentEntity, StudentViewModel.class );//Todo create converters for view models
-        //modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
+
     }
-//    @RequestMapping(value = "/info-page", method = RequestMethod.GET)
-//    public ModelAndView getStudentAsModelWithView(@RequestParam String studentId) {
-//        StudentEntity studentEntity = studentService.findOne(studentId);
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("student-page");
-//
-//        modelAndView.addObject("student",conversionService.convert(studentEntity, StudentViewModel.class ));
-//        modelAndView.addObject("practices", conversionService.convert(studentEntity.getRequestEntities(), requestEntityDescriptor1, requestViewModelDescriptor));
-//        return modelAndView;
-//    }
-//
-//    @RequestMapping(value = "/studentInfo", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<StudentViewModel> getStudentInfo(@RequestParam String studentId){
-//        StudentEntity studentEntity = studentService.findOne(studentId);
-//        List<StudentEntity> studentsEntity = new ArrayList<>();
-//        studentsEntity.add(studentEntity);
-//        //Set<RequestEntity> requestEntities = studentsEntity.getRequestEntities();
-//        return (List<StudentViewModel>) conversionService.convert(studentsEntity, studentEntityDescriptor, studentViewModelDescriptor);
-//    }
+
 
 
     @RequestMapping(value = "/studentsForTable", method = RequestMethod.GET)
@@ -124,32 +117,51 @@ public class StudentsController {
     @ResponseBody
     public List<StudentViewModel> getStudentsMultiselect(@RequestParam("id") String idRequest) {
         RequestEntity requestEntity = requestService.getRequestById(idRequest);
-        List<StudentEntity> allstudents = studentService.findAllStudents();
+
+        List<StudentEntity> studentMultiselect = getStudentsFitDescription(requestEntity);
+        return (List<StudentViewModel>) conversionService.convert(studentMultiselect, studentEntityDescriptor, studentViewModelDescriptor);
+    }
+
+    private List<StudentEntity> getStudentsFitDescription(RequestEntity requestEntity){
+        List<StudentEntity> allStudents = studentService.findStudentByAvScoreAndSpecialty(requestEntity.getMinAverageScore(),
+                requestEntity.getSpecialty().getId());
         List<StudentEntity> studentMultiselect = new ArrayList<StudentEntity>();
-        for (StudentEntity student: allstudents) {
-            if((student.getSpecialityId()).equals(requestEntity.getSpecialty())) {
-                if (student.getAverageScore() >= requestEntity.getMinAverageScore()) {
+        for (StudentEntity student: allStudents) {
+            if (requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size() > 0
+                    && !requestEntity.getStudentEntities().contains(student)) {
+                boolean isMatch = false;
+                for (RequestEntity req : student.getRequestEntities()) {
+                    if (requestEntity.getStartDate().before(req.getFinishDate()) &&
+                            requestEntity.getFinishDate().after(req.getStartDate())) {
+                        isMatch = true;
+                        break;
+                    }
+                }
+                if (student.getRequestEntities().isEmpty() || !isMatch) {
                     studentMultiselect.add(student);
                 }
             }
         }
-        return (List<StudentViewModel>) conversionService.convert(studentMultiselect, studentEntityDescriptor, studentViewModelDescriptor);
+        return studentMultiselect;
     }
     @RequestMapping(value = "/create-student", method = RequestMethod.POST)
     @ResponseBody
-    public List<StudentViewModel> saveStudents(@RequestBody StudentViewModel student) {
-        StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setSurname(student.getSurname());
-        studentEntity.setName(student.getName());
-        studentEntity.setSpecialityId(specialtyService.findById(student.getSpecialtyId()));
-        studentEntity.setGroup(student.getGroup());
-        studentEntity.setIsBudget(student.getIsBudget());
-        studentEntity.setAverageScore(student.getAverageScore());
-        studentService.addStudent(studentEntity);
+    public StudentViewModel saveStudents(@RequestBody StudentViewModel student) {
+        StudentEntity studentEntity;
+        StudentValidatorImpl studentValidator = new StudentValidatorImpl();
+        if(studentService.findBySurname(student.getSurname()) == null) {
+            System.out.println("tyt");
+            studentEntity = conversionService.convert(student, StudentEntity.class);
+            if(!studentValidator.studentValidation(studentEntity)){
+                System.out.println("valid");
+                return null;
+            }
+            studentService.addStudent(studentEntity);
+        }else{
+            return null;
+        }
 
-        List<StudentEntity> allstudents = new ArrayList<StudentEntity>();
-        allstudents.add(studentEntity);
-        return (List<StudentViewModel>) conversionService.convert(allstudents, studentEntityDescriptor, studentViewModelDescriptor);
+        return (StudentViewModel) conversionService.convert(studentEntity, StudentViewModel.class);
 
     }
 
@@ -173,18 +185,8 @@ public class StudentsController {
     @ResponseBody
     public List<StudentViewModel> getRequestDropdownAssign(@RequestParam("id") String idRequest) {
         RequestEntity requestEntity = requestService.getRequestById(idRequest);
-        List<StudentEntity> allStudents = studentService.findAllStudents();
-        List<StudentEntity> studentDropdown  = new ArrayList<StudentEntity>();
+        List<StudentEntity> studentDropdown  = getStudentsFitDescription(requestEntity);
 
-        for (StudentEntity student: allStudents) {
-            if(requestEntity.getSpecialty().getId() == student.getSpecialityId().getId() &&
-                    requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size() > 0) {
-                if (student.getAverageScore() >= requestEntity.getMinAverageScore()) {
-                    studentDropdown.add(student);
-                    System.out.println(student.getName());
-                }
-            }
-        }
         return (List<StudentViewModel>) conversionService.convert(studentDropdown, studentEntityDescriptor, studentViewModelDescriptor);
     }
 
@@ -210,27 +212,29 @@ public class StudentsController {
 
     @RequestMapping(value = "/assign-student-requestPage", method = RequestMethod.POST)
     @ResponseBody
-    public List<RequestViewModel> assignStudent(@RequestBody StudentViewModel req) {
-        assign(req);
-        List<RequestEntity> allRequest = requestService.findAllRequests();
-        return (List<RequestViewModel>) conversionService.convert(allRequest, requestEntityDescriptor, requestViewModelDescriptor);
+    public RequestViewModel assignStudent(@RequestBody StudentViewModel req) {
+        RequestEntity requestEntity = assign(req);
+        requestEntity.getStudentEntities().add(conversionService.convert(req, StudentEntity.class));
+        return (RequestViewModel) conversionService.convert(requestEntity, RequestViewModel.class);
     }
 
-    private void assign(StudentViewModel req){
+    private RequestEntity assign(StudentViewModel req){
         RequestEntity requestEntity = requestService.getRequestById(req.getRequestsList().get(0));
         int quantity = requestEntity.getTotalQuantity();
+
 
         if (quantity - requestEntity.getStudentEntities().size() > 0){
             for (String id : req.getStudentsList()) {
                 StudentEntity studentEntity = studentService.findOne(id);
-                studentEntity.setStudentStatus("Waiting for practice");
+                studentEntity.setStudentStatus(Util.compareDate(requestEntity.getStartDate().toString(),requestEntity.getFinishDate().toString()));
                 studentEntity.getRequestEntities().add(requestEntity);
                 studentService.addStudent(studentEntity);
-                //requestEntity.getStudentEntities().add(studentEntity);
             }
             requestService.addRequest(requestEntity);
         }
+        return requestEntity;
     }
+
 
     @RequestMapping(value = "/realise-students", method = RequestMethod.POST)
     @ResponseBody

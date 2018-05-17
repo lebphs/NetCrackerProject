@@ -1,10 +1,12 @@
 $(document).ready(function () {
 
+    var indexSelected = 0;
     $(".jsStudentsTable").on('check.bs.table uncheck.bs.table ' +
         'check-all.bs.table uncheck-all.bs.table', function () {
         $(".jsDeleteStudent").prop('disabled', !$(".jsStudentsTable").bootstrapTable('getSelections').length);
         $(".jsAssignStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
         $(".jsRealiseStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
+        $(".jsEditStudentBtn").prop('disabled', !($(".jsStudentsTable").bootstrapTable('getSelections').length === 1));
     });
 
     $(".jsPreloadCreateStudentModal").click(function (event) {
@@ -139,6 +141,7 @@ $(document).ready(function () {
     }
 
     function getRequestFitDescriptionForAssign(idStudent) {
+        var assignWindow = $("#assignOneStudent");
         $.ajax({
             url: 'requestsForDropdownAssign',
             type: 'GET',
@@ -148,16 +151,27 @@ $(document).ready(function () {
             data: {id: idStudent.toString()},
             success: function (requests) {
                 $(".jsRequestAssign").empty();
-                requests ? function () {
-                    requests.some(function (request) {
-                        $(".jsRequestAssign").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
-                    });
-                }() : false;
+
+                if (requests.length) {
+                    assignWindow.find(".notPractice").hide();
+                    assignWindow.find(".jsDropdown").show();
+                    requests ? function () {
+                        requests.some(function (request) {
+                            $(".jsRequestAssign").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
+                        });
+                    }() : false;
+                } else {
+                    assignWindow.find(".notPractice").show();
+                    assignWindow.find(".jsDropdown").hide();
+                }
+
+
             }
         });
     }
 
     function getRequestFitDescriptionForRealise(idStudent) {
+        var realiseWindow = $("#realiseOneStudent");
         $.ajax({
             url: 'requestsForDropdownRealise',
             type: 'GET',
@@ -167,11 +181,18 @@ $(document).ready(function () {
             data: {id: idStudent.toString()},
             success: function (requests) {
                 $(".jsRequestRealise").empty();
-                requests ? function () {
-                    requests.some(function (request) {
-                        $(".jsRequestRealise").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
-                    });
-                }() : false;
+                if (requests.length) {
+                    realiseWindow.find(".notPractice").hide();
+                    realiseWindow.find(".jsDropdown").show();
+                    requests ? function () {
+                        requests.some(function (request) {
+                            $(".jsRequestRealise").append('<option value=' + request.id + '>' + request.companyName + ' ' + request.availableQuantity + '</option>');
+                        });
+                    }() : false;
+                } else {
+                    realiseWindow.find(".notPractice").show();
+                    realiseWindow.find(".jsDropdown").hide();
+                }
             }
         });
     }
@@ -203,20 +224,27 @@ $(document).ready(function () {
             isBudget: $('input[name=isBudget]:checked').val(),
             averageScore: $(".jsAverageScore").val()
         };
+        validateOnEmpty([$(".jsSurname"), $(".jsName"), $(".jsGroup"), $(".jsAverageScore")]);
+        alert(getValidationError());
 
-
-        $.ajax({
-            url: 'create-student',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(obj),
-            success: function (addedStudent) {
-                $(".jsStudentsTable").bootstrapTable('append', addedStudent);
-            }
-
-        });
+        if (!getValidationError()) {
+            $.ajax({
+                url: 'create-student',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (addedStudent) {
+                    $(".jsStudentsTable").bootstrapTable('append', addedStudent);
+                    $("#createstudent").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (xhr) {
+                    xhr.status == 500 ? alert('Date are not correct.') : alert('Something went wrong, try again later.')
+                }
+            });
+        }
     });
 
 
@@ -319,6 +347,7 @@ $(document).ready(function () {
         $(".jsDeleteStudent").prop('disabled', true);
         $(".jsRealiseStudentBtn").prop('disabled', true);
         $(".jsAssignStudentBtn").prop('disabled', true);
+        $(".jsEditStudentBtn").prop('disabled', true);
     });
 
     function getIdSelections() {
@@ -326,36 +355,92 @@ $(document).ready(function () {
             return row.id
         });
     }
-//сервер валидация
-//     $.ajax({
-//         url: 'studentsTable',
-//         type: 'GET',
-//         dataType: 'json',
-//         contentType: "application/json",
-//         mimeType: 'application/json',
-//         data: '',
-//         success: function (students) {
-//             $(".jsStudentsTable").bootstrapTable('load', students);
-//
-//         }
-//
-//     });
+    $(".jsStudentsTable").on('check.bs.table', function (e, row, $el) {
+        indexSelected = $el.closest('tr').data('index');
+    });
+
+    $(".jsEditStudent").click(function () {
+        event.stopPropagation();
+        var specialtyId = $(".availableSpecialtiesEditStudents").find("option:selected").val();
+        var obj = {
+            id: getIdSelections().toString(),
+            surname: $(".jsSurnameEdit").val(),
+            name: $(".jsNameEdit").val(),
+            specialtyId: specialtyId,
+            group: $(".jsGroupEdit").val(),
+            isBudget: $('input[name=isBudget]:checked').val(),
+            averageScore: $(".jsAverageScoreEdit").val()
+        };
+        validateOnEmpty([$(".jsSurnameEdit"), $(".jsNameEdit"), $(".jsGroupEdit"), $(".jsAverageScoreEdit")]);
+        alert(getValidationError());
+        alert("edit");
+        if (!getValidationError()) {
+            $.ajax({
+                url: 'editStudent',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (request) {
+                    alert(indexSelected);
+                    $(".jsStudentsTable").bootstrapTable('updateRow',{index:indexSelected,row:request});
+                    $("#editStudent").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (event) {
+                    alert("Wrong data!");
+                }
+            });
+        }
+    });
+
+    $(".jsEditStudentBtn").click(function () {
+        var obj={studentId: getIdSelections().toString()};
+
+        $.ajax({
+            url: 'studentForEdit',
+            type: 'GET',
+            dataType: 'json',
+            contentType: "application/json",
+            mimeType: 'application/json',
+            data: obj,
+            success: function (student) {
+                $(".jsSurnameEdit").val(student.surname);
+                $(".jsNameEdit").val(student.name);
+                $(".jsGroupEdit").val(student.group);
+                // $(".isBudgetEdit").$('input[name=isBudget]:checked').val();
+                $(".availableFacultiesEditStudents").append('<option>' +student.faculty+ '</option>');
+                $(".availableSpecialtiesEditStudents").append('<option value='+student.specialtyId+'>' +student.specialty+ '</option>');
+                $(".jsAverageScoreEdit").val(student.averageScore);
+                //$(".jsRequestsTable").bootstrapTable('load', requests);
+            }
+        });
+    });
 
     $(".jsCreateSpecialty").click(function () {
         var obj = {
             name: $(".nameSpecialty").val(),
             facultyId: $(".availableFacultiesForCreateSpecialty").find("option:selected").val()
         };
-        $.ajax({
-            url: 'create-specialties',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(obj),
-            success: function () {
-            }
-        })
+        validateOnEmpty([$(".nameSpecialty")]);
+        if(!getValidationError()) {
+            $.ajax({
+                url: 'create-specialties',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function () {
+                    $("#createspeialty").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (xhr) {
+                    xhr.status == 500 ? alert('Date are not correct.') : alert('Something went wrong, try again later.')
+                }
+            })
+        }
 
     });
 
@@ -363,16 +448,24 @@ $(document).ready(function () {
         var obj = {
             name: $(".nameFaculty").val()
         };
-        $.ajax({
-            url: 'create-faculty',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(obj),
-            success: function () {
-            }
-        })
+        validateOnEmpty([$(".nameFaculty")]);
+        if(!getValidationError()) {
+            $.ajax({
+                url: 'create-faculty',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function () {
+                    $("#createfaculty").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error: function (xhr) {
+                    xhr.status == 500 ? alert('Date are not correct.') : alert('Something went wrong, try again later.')
+                }
+            })
+        }
 
     });
 
@@ -380,26 +473,30 @@ $(document).ready(function () {
         var obj = {
             companyName: $(".nameCompany").val(),
             startDate: $(".startDate").val(),
-            finishDate: $(".finishDate").val(),
+            finishDate: $(".startDate").val(),
             specialtyId: $(".availableSpecialtiesAddRequest").find("option:selected").val(),
             minAverageScore: $(".minScore").val(),
             totalQuantity: $(".totalQuantity").val(),
-            user:$(".jsNameHeadOfPractice").val(),
-            password:$(".jsPasswordHead").val()
+            user: $(".jsNameHeadOfPractice").val(),
+            password: $(".jsPasswordHead").val()
 
         };
-
-        $.ajax({
-            url: 'create-request',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json",
-            mimeType: 'application/json',
-            data: JSON.stringify(obj),
-            success: function (request) {
-                $(".jsRequestsTable").bootstrapTable('append', request);
-            }
-        })
+        if (!validateRequestModal([$(".nameCompany"), $(".minScore"), $(".totalQuantity"), $(".jsNameHeadOfPractice"), $(".jsPasswordHead")])) {
+            alert("ajz");
+            $.ajax({
+                url: 'create-request',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json",
+                mimeType: 'application/json',
+                data: JSON.stringify(obj),
+                success: function (request) {
+                    $(".jsRequestsTable").bootstrapTable('append', request);
+                    $("#addrequest").hide();
+                    $(document.getElementsByClassName("modal-backdrop")).remove();
+                }
+            })
+        }
 
     });
 
@@ -435,7 +532,6 @@ $(document).ready(function () {
         });
     });
 });
-
 function formatter(value) {
     return '<a  data-toggle="modal" data-id="'+value+'" data-target="#aboutStudentPractice" class="btn btn-primary jsPreloadStudentPractice">Practice</a>';
 }

@@ -67,7 +67,7 @@
     Typeahead.prototype = {
         constructor: Typeahead,
         //=============================================================================================================
-        //  Utils
+        //  utils
         //  Check if an event is supported by the browser eg. 'keypress'
         //  * This was included to handle the "exhaustive deprecation" of jQuery.browser in jQuery 1.8
         //=============================================================================================================
