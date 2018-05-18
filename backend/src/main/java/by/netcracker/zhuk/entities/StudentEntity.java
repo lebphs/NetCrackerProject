@@ -31,10 +31,11 @@ public class StudentEntity {
 
     @Basic
     @Column(name = "name")
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -47,17 +48,19 @@ public class StudentEntity {
     public void setGroup(Integer group) {
         this.group = group;
     }
+
     @Basic
     @Column(name = "surname")
     public String getSurname() {
         return surname;
     }
+
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
     @Basic
-    @Column(name="is_budget")
+    @Column(name = "is_budget")
     public String getIsBudget() {
         return isBudget;
     }
@@ -75,6 +78,7 @@ public class StudentEntity {
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
     }
+
     @Basic
     @Column(name = "student_status")
     public String getStudentStatus() {
@@ -112,8 +116,8 @@ public class StudentEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(name = "request_has_students",
-            joinColumns = { @JoinColumn(name = "students_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "requests_id", referencedColumnName = "id") })
+            joinColumns = {@JoinColumn(name = "students_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "requests_id", referencedColumnName = "id")})
     public Set<RequestEntity> getRequestEntities() {
         return requestEntities;
     }

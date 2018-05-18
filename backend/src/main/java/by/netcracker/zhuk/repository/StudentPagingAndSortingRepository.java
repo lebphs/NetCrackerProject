@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface StudentPagingAndSortingRepository extends PagingAndSortingRepository<StudentEntity, Integer> {
     List<StudentEntity> findStudentEntitiesBySurname(String name);
+
     List<StudentEntity> findStudentEntitiesBySurnameContaining(String name);
 }

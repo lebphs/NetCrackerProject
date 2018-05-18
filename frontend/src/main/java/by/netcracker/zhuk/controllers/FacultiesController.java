@@ -5,6 +5,7 @@ import by.netcracker.zhuk.models.FacultyViewModel;
 import by.netcracker.zhuk.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ public class FacultiesController {
     @Autowired
     private ConversionService conversionService;
 
+    private final TypeDescriptor facultyEntityDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FacultyEntity.class));
+    private final TypeDescriptor facultyViewModelDescriptor = TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(FacultyViewModel.class));
+
 
     private static final String VIEW_NAME_LOGIN = "adminPage";
     private static final String MODEL_USERS = "faculties";
@@ -31,7 +35,7 @@ public class FacultiesController {
     @RequestMapping(value = "/faculties", method = RequestMethod.GET)
     @ResponseBody
     public List<FacultyEntity> getFacultiesAsJson() {
-        return facultyService.getAllFaculties();//Todo create converters for view models
+        return (List<FacultyEntity>) conversionService.convert(facultyService.getAllFaculties(), facultyEntityDescriptor, facultyViewModelDescriptor);
     }
 
     @RequestMapping(value = "/create-faculty", method = RequestMethod.POST)

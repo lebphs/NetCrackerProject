@@ -28,7 +28,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-
     @Override
     public void delete(String studentId) {
         studentRepository.delete(Integer.parseInt(studentId));

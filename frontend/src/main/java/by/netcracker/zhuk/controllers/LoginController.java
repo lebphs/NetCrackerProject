@@ -2,9 +2,7 @@ package by.netcracker.zhuk.controllers;
 
 import by.netcracker.zhuk.entities.StudentEntity;
 import by.netcracker.zhuk.entities.UserEntity;
-import by.netcracker.zhuk.entities.UserRoleEntity;
 import by.netcracker.zhuk.models.UserViewModel;
-import by.netcracker.zhuk.repository.UserRepository;
 import by.netcracker.zhuk.repository.UserRoleRepository;
 import by.netcracker.zhuk.security.LoginUserService;
 import by.netcracker.zhuk.security.impl.CustomUser;
@@ -76,7 +74,7 @@ public class LoginController {
 
         System.out.println(userEntity.getStudent().getName());
         userEntity.setRole(userRoleRepository.findUserRoleEntityByName("student"));
-        if(usersEntities.size() < 1) {
+        if (usersEntities.size() < 1) {
             userService.createUser(userEntity);
 
             loginUserService.authenticateUserAndSetSession(userEntity.getUsername(), user.getPassword(), request, response);

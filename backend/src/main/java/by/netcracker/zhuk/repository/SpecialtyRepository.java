@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface SpecialtyRepository extends CrudRepository<SpecialtyEntity, Integer> {
     List<SpecialtyEntity> findSpecialtyByFacultyId(int facultyId);
+
     SpecialtyEntity findById(Integer id);
+
     SpecialtyEntity findByName(String name);
 }

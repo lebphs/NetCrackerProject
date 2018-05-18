@@ -4,8 +4,8 @@ import by.netcracker.zhuk.entities.FacultyEntity;
 import by.netcracker.zhuk.entities.RequestEntity;
 import by.netcracker.zhuk.entities.SpecialtyEntity;
 import by.netcracker.zhuk.models.RequestViewModel;
-import org.springframework.core.convert.converter.Converter;
 import by.netcracker.zhuk.utils.Util;
+import org.springframework.core.convert.converter.Converter;
 
 public class RequestEntityToRequestViewModelConverter implements Converter<RequestEntity, RequestViewModel> {
 
@@ -33,12 +33,10 @@ public class RequestEntityToRequestViewModelConverter implements Converter<Reque
         requestViewModel.setTotalQuantity(requestEntity.getTotalQuantity());
         requestViewModel.setAvailableQuantity(requestEntity.getTotalQuantity() - requestEntity.getStudentEntities().size());
         requestViewModel.setStudentStatus(Util.compareDate(requestViewModel.getStartDate(), requestViewModel.getFinishDate()));
-        requestViewModel.setPracticeStatus(Util.checkStatusPractice(requestViewModel.getFinishDate(),requestViewModel.getAvailableQuantity()));
+        requestViewModel.setPracticeStatus(Util.checkStatusPractice(requestViewModel.getFinishDate(), requestViewModel.getAvailableQuantity()));
 
         return requestViewModel;
     }
-
-
 
 
 }

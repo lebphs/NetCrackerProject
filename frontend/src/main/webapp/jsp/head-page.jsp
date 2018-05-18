@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Login page</title>
+    <meta charset="utf-8">
+    <title>Head page</title>
+
 </head>
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+<jsp:include page="/jsp/blocks/student-page-title.jsp"/>
 <script src="resources/js/custom/request-page.js"></script>
 <%--<script src="resources/bootstrap-typeahead.js"></script>--%>
 
@@ -12,19 +15,18 @@
 
 <div class="container-fluid">
     <table data-click-to-select="true"
-           data-pagination="true" data-page-list="[5,10, 25, 50, 100, ALL]"
-           data-search="true" data-toggle="table" class="jsRequestTable">
+            data-toggle="table" class="jsRequestTable">
         <thead>
         <tr>
             <th data-checkbox="true"></th>
-            <th data-field="companyName" data-sortable="true"> Name Company</th>
-            <th data-field="practicePeriod" data-sortable="true">Dates</th>
+            <th data-field="companyName" > Name Company</th>
+            <th data-field="practicePeriod" >Dates</th>
             <th data-field="practiceStatus">Status</th>
-            <th data-field="faculty" data-sortable="true">Faculty</th>
-            <th data-field="specialty" data-sortable="true">Specialty</th>
-            <th data-field="minAverageScore" data-sortable="true">min.Average Score</th>
-            <th data-field="totalQuantity" data-sortable="true">total quantity</th>
-            <th data-field="availableQuantity" data-sortable="true">available quantity</th>
+            <th data-field="faculty" >Faculty</th>
+            <th data-field="specialty" >Specialty</th>
+            <th data-field="minAverageScore" >min.Average Score</th>
+            <th data-field="totalQuantity" >total quantity</th>
+            <th data-field="availableQuantity">available quantity</th>
             <th data-field="id" data-formatter="students" class="text-center">About students</th>
         </tr>
         </thead>

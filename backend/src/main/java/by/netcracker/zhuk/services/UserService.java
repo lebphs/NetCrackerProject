@@ -9,9 +9,9 @@ import java.util.List;
 public interface UserService {
 
     List<UserEntity> findUserByUserName(String name);
+
     UserEntity findUserById(String userId);
 
     void createUser(UserEntity userEntity);
-//
-//    List<UserEntity> findAllStudents();
+
 }

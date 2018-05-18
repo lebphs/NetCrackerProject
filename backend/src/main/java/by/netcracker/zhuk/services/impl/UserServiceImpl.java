@@ -1,7 +1,6 @@
 package by.netcracker.zhuk.services.impl;
 
 import by.netcracker.zhuk.entities.UserEntity;
-import by.netcracker.zhuk.entities.UserRoleEntity;
 import by.netcracker.zhuk.repository.UserRepository;
 import by.netcracker.zhuk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//отправляется запрос админу на регистрацию и админ распределяет роли
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {

@@ -21,14 +21,14 @@ public class StudentPagingAndSortingServiceImpl implements StudentPagingAndSorti
 
     @Autowired
     SpecialtyService specialtyService;
-//rest
+
     @Override
     public List<StudentEntity> getPagingAndSortedStudent(String search, String sort, String order, Integer offset, Integer limit) {
         int pageNumber = offset / limit;
-        if(sort.equals("specialty")){
+        if (sort.equals("specialty")) {
             sort = "specialityId.name";
         }
-        if(sort.equals("faculty")){
+        if (sort.equals("faculty")) {
             sort = "specialityId.faculty.name";
         }
         Sort sort1 = new Sort(Sort.Direction.fromString(order), sort);

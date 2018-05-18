@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 
 @Service
@@ -27,7 +26,7 @@ public class LoginUserServiceImpl implements LoginUserService {
     private static final String VIEW_NAME_HOME_STUDENT = "student-page";
     private static final String VIEW_NAME_HOME_HEAD_OF_PRACTICE = "head-page";
 
-    private static final String ROLE_STUDENT = "student";//todo create general enum
+    private static final String ROLE_STUDENT = "student";
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_HEAD = "head_of_practice";
 
@@ -40,7 +39,7 @@ public class LoginUserServiceImpl implements LoginUserService {
     public void authenticateUserAndSetSession(String username, String password, HttpServletRequest request, HttpServletResponse response) {
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-         token.setDetails(new WebAuthenticationDetails(request));
+        token.setDetails(new WebAuthenticationDetails(request));
         Authentication authenticatedUser = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password, new ArrayList<GrantedAuthority>()));
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
     }

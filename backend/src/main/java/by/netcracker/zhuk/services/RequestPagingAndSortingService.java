@@ -2,7 +2,6 @@ package by.netcracker.zhuk.services;
 
 import by.netcracker.zhuk.entities.RequestEntity;
 
-
 import java.util.List;
 
 public interface RequestPagingAndSortingService {

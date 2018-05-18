@@ -36,38 +36,10 @@ $(document).ready(function () {
 
 
 
-
-    // $usernameField.on('blur', function () {
-    //     validateOnEmpty([$usernameField]);
-    // });
-    //
-    // $passwordField.on('blur', function () {
-    //     validateOnEmpty([$passwordField]);
-    // });
-    // $surnameFieldSignUp.on('blur', function () {
-    //     validateOnEmpty([$surnameFieldSignUp]);
-    // });
-    // $nameFieldSignUp.on('blur', function () {
-    //     validateOnEmpty([$nameFieldSignUp]);
-    // });
-    // $groupField.on('blur', function () {
-    //     validateOnEmpty([$groupField]);
-    // });
-    // $averageScoreField.on('blur', function () {
-    //     validateOnEmpty([$averageScoreField]);
-    // });
-    // $passwordFieldSignUp.on('blur', function () {
-    //     validateOnEmpty([$passwordFieldSignUp]);
-    // });
-    // $passwordConfirmFieldSignUp.on('blur', function () {
-    //     validateOnEmpty([$passwordConfirmFieldSignUp]);
-    // });
-
     $submitButton.click(function (event) {
         event.stopPropagation();
         event.preventDefault();
 
-       //validateOnEmpty([$surnameFieldSignUp, $nameFieldSignUp], $submitButton);
 
         $.ajax({
             url: 'authorize',

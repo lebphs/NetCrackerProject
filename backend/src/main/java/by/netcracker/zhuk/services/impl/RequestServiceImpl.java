@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Id;
 import java.util.List;
 
 @Transactional
@@ -27,11 +26,7 @@ public class RequestServiceImpl implements RequestService {
         return (List<RequestEntity>) requestRepository.findAll();
     }
 
-//    @Override
-//    public List<PracticeEntity> getAllPractice() {
-//        return null;
-//    }
-//
+
     @Override
     public void delete(String studentId) {
         requestRepository.delete(Integer.parseInt(studentId));

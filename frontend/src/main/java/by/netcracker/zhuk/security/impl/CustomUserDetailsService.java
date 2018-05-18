@@ -35,12 +35,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private CustomUser buildUserForAuthentication(UserEntity userEntity, List<GrantedAuthority> authorities) {
         UserViewModel userViewModel = new UserViewModel(userEntity.getUsername(), userEntity.getPassword(), authorities);
-//        userViewModel.setFirstName(userEntity.getStudent().getSurname());
-//        userViewModel.setLastName(userEntity.getStudent().getName());
         userViewModel.setId(userEntity.getId());
         userViewModel.setPassword(userEntity.getPassword());
         userViewModel.setUsername(userEntity.getUsername());
-        //userViewModel.setEmail(userEntity.getEmail());
         return userViewModel;
     }
 

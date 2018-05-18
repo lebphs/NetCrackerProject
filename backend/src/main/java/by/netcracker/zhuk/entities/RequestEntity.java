@@ -11,13 +11,10 @@ public class RequestEntity {
     private String companyName;
     private Date startDate;
     private Date finishDate;
-    //private String companyPracticeStatus;
-    //private Integer specialtyId;
+    ;
     private Double minAverageScore;
     private Integer totalQuantity;
-    private Integer userId;
     private SpecialtyEntity specialty;
-    //private UserEntity user;
     private Set<StudentEntity> studentEntities;
 
     @Id
@@ -60,26 +57,6 @@ public class RequestEntity {
         this.finishDate = finishDate;
     }
 
-//    @Basic
-//    @Column(name = "company_practice_status", nullable = true)
-//    public String getCompanyPracticeStatus() {
-//        return companyPracticeStatus;
-//    }
-//
-//    public void setCompanyPracticeStatus(String companyPracticeStatus) {
-//        this.companyPracticeStatus = companyPracticeStatus;
-//    }
-
-//    @Basic
-//    @Column(name = "specialty_id", nullable = true)
-//    public Integer getSpecialtyId() {
-//        return specialtyId;
-//    }
-//
-//    public void setSpecialtyId(Integer specialtyId) {
-//        this.specialtyId = specialtyId;
-//    }
-
     @Basic
     @Column(name = "min_average_score", nullable = true)
     public Double getMinAverageScore() {
@@ -99,16 +76,6 @@ public class RequestEntity {
     public void setTotalQuantity(Integer totalQuantity) {
         this.totalQuantity = totalQuantity;
     }
-
-//    @Basic
-//    @Column(name = "user_head_id", nullable = true)
-//    public Integer getUserId() {
-//        return userId;
-//    }
-//
-//    public void setHeadOfPracticeId(Integer headOfPracticeId) {
-//        this.headOfPracticeId = headOfPracticeId;
-//    }
 
 
     @Override
@@ -130,8 +97,6 @@ public class RequestEntity {
         if (getTotalQuantity() != null ? !getTotalQuantity().equals(that.getTotalQuantity()) : that.getTotalQuantity() != null)
             return false;
         if (specialty != null ? !specialty.equals(that.specialty) : that.specialty != null) return false;
-        //if (user != null ? !user.equals(that.user) : that.user != null) return false;
-//        return getStudentEntities() != null ? getStudentEntities().equals(that.getStudentEntities()) : that.getStudentEntities() == null;
         return true;
     }
 
@@ -144,8 +109,6 @@ public class RequestEntity {
         result = 31 * result + (getMinAverageScore() != null ? getMinAverageScore().hashCode() : 0);
         result = 31 * result + (getTotalQuantity() != null ? getTotalQuantity().hashCode() : 0);
         result = 31 * result + (specialty != null ? specialty.hashCode() : 0);
-        //result = 31 * result + (user != null ? user.hashCode() : 0);
-        //result = 31 * result + (getStudentEntities() != null ? getStudentEntities().hashCode() : 0);
         return result;
     }
 
@@ -159,16 +122,6 @@ public class RequestEntity {
     public void setSpecialty(SpecialtyEntity specialtyBySpecialtyId) {
         this.specialty = specialtyBySpecialtyId;
     }
-
-//    @ManyToOne
-//    @JoinColumn(name = "user_head_id", referencedColumnName = "id")
-//    public UserEntity getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(UserEntity user) {
-//        this.user = user;
-//    }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "requestEntities")
     public Set<StudentEntity> getStudentEntities() {

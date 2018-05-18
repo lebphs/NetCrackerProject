@@ -1,7 +1,6 @@
 package by.netcracker.zhuk.services.impl;
 
 import by.netcracker.zhuk.entities.FacultyEntity;
-import by.netcracker.zhuk.entities.StudentEntity;
 import by.netcracker.zhuk.repository.FacultyRepository;
 import by.netcracker.zhuk.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public FacultyEntity findById(Integer facultyId){
+    public FacultyEntity findById(Integer facultyId) {
         return (FacultyEntity) facultyRepository.findById(facultyId);
     }
 

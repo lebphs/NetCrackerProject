@@ -51,9 +51,7 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
         return id == that.id &&
                 Objects.equals(role, that.role) &&
-//                Objects.equals(firstname, that.firstname) &&
-//                Objects.equals(lastname, that.lastname) &&
-//                Objects.equals(email, that.email) &&
+
                 Objects.equals(username, that.username) &&
                 Objects.equals(password, that.password);
     }
@@ -61,7 +59,7 @@ public class UserEntity {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, role, /*firstname, lastname, email, */username, password);
+        return Objects.hash(id, role, username, password);
     }
 
     @OneToOne
@@ -69,6 +67,7 @@ public class UserEntity {
     public RequestEntity getRequest() {
         return request;
     }
+
     public void setRequest(RequestEntity request) {
         this.request = request;
     }
@@ -78,6 +77,7 @@ public class UserEntity {
     public StudentEntity getStudent() {
         return student;
     }
+
     public void setStudent(StudentEntity student) {
         this.student = student;
     }

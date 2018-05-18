@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FacultyRepository extends CrudRepository<FacultyEntity, Integer> {
     FacultyEntity findById(Integer id);
+
     FacultyEntity findByName(String name);
 }

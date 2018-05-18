@@ -3,7 +3,8 @@
 <head>
     <title>Login page</title>
 </head>
-<jsp:include page="/jsp/blocks/student-page-source.jsp"/>
+<jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+<jsp:include page="/jsp/blocks/student-page-title.jsp"/>
 <script src="/resources/js/custom/requestPage.js"></script>
 <script src="/resources/js/libs/jquery.inputmask.bundle.js" type="text/javascript"></script>
 <script src="/resources/js/custom/validation.js" type="text/javascript"></script>
@@ -24,7 +25,7 @@
         <tr>
             <th data-checkbox="true"></th>
             <th data-field="companyName" data-sortable="true"> Name Company</th>
-            <th data-field="practicePeriod" data-sortable="true">Dates</th>
+            <th data-field="practicePeriod">Dates</th>
             <th data-field="practiceStatus">Status</th>
             <th data-field="faculty" data-sortable="true">Faculty</th>
             <th data-field="specialty" data-sortable="true">Specialty</th>
@@ -95,8 +96,9 @@
                         <label>Search available students</label>
                         <select class="form-control jsStudentList"></select>
                     </div>
+                    <button type="button" data-dismiss="modal" class="btn btn-success jsAssignStudentRequestPage">Create</button>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-success jsAssignStudentRequestPage">Create</button>
+
             </div>
         </div>
     </div>

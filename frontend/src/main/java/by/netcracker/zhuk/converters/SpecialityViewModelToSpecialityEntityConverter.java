@@ -3,7 +3,6 @@ package by.netcracker.zhuk.converters;
 
 import by.netcracker.zhuk.entities.FacultyEntity;
 import by.netcracker.zhuk.entities.SpecialtyEntity;
-import by.netcracker.zhuk.models.FacultyViewModel;
 import by.netcracker.zhuk.models.SpecialtyViewModel;
 import by.netcracker.zhuk.services.FacultyService;
 import by.netcracker.zhuk.services.SpecialtyService;

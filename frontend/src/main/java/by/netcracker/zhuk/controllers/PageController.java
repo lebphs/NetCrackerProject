@@ -48,7 +48,6 @@ public class PageController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(VIEW_NAME_LOGIN);
-//        modelAndView.addObject(MODEL_USERS, userService.findAllStudents());//Todo create converters for view models
         return modelAndView;
     }
 

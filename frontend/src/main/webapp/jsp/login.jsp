@@ -2,7 +2,7 @@
 <html>
 <%--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
 <link rel="stylesheet" href="/resources/css/general.css">
-<jsp:include page="/jsp/blocks/login-sources.jsp"/>
+<jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
 <script src="/resources/js/custom/login.js" type="text/javascript"></script>
 <script src="/resources/js/libs/jquery.inputmask.bundle.js" type="text/javascript"></script>
 <script src="/resources/js/custom/validation.js" type="text/javascript"></script>

@@ -94,11 +94,8 @@ public class RequestController {
 
         if (requestService.getRequestByName(request.getCompanyName()) == null) {
             requestEntity = conversionService.convert(request, RequestEntity.class);
-            System.out.println("controller" + requestValidator.requestValidation(requestEntity));
             if (requestValidator.requestValidation(requestEntity)) {
                 requestService.addRequest(requestEntity);
-
-
                 UserRoleEntity role = userRoleRepository.findUserRoleEntityByName(HEAD_USERS);
                 UserEntity userEntity = new UserEntity();
                 userEntity.setUsername(request.getUser());
@@ -123,7 +120,7 @@ public class RequestController {
 
     @RequestMapping(value = "/requestsTable", method = RequestMethod.GET)
     @ResponseBody
-    public ModelMap getrRequestTable(@RequestParam String search, @RequestParam String sort, @RequestParam String order, @RequestParam Integer offset, @RequestParam Integer limit) {
+    public ModelMap getRequestTable(@RequestParam String search, @RequestParam String sort, @RequestParam String order, @RequestParam Integer offset, @RequestParam Integer limit) {
         ModelMap model = new ModelMap();
         List<RequestEntity> requestsEntities = requestPagingAndSortingService.getPagingAndSortedRequest(search, sort, order, offset, limit);
         List<StudentViewModel> list = (List<StudentViewModel>) conversionService.convert(requestsEntities, requestEntityDescriptor, requestViewModelDescriptor);
@@ -148,7 +145,6 @@ public class RequestController {
     @RequestMapping(value = "/request", method = RequestMethod.GET)
     @ResponseBody
     public List<RequestViewModel> getRequest() {
-        //List<RequestEntity> allrequest = requestService.findAllRequests();
         CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserEntity userEntity = userService.findUserByUserName(user.getUsername()).get(0);
         List<RequestEntity> request = new ArrayList<>();

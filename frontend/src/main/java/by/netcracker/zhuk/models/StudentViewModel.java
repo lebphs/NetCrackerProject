@@ -1,8 +1,5 @@
 package by.netcracker.zhuk.models;
 
-import by.netcracker.zhuk.entities.RequestEntity;
-import by.netcracker.zhuk.entities.StudentEntity;
-
 import java.util.List;
 
 public class StudentViewModel {
@@ -20,7 +17,10 @@ public class StudentViewModel {
     private double averageScore;
     private String studentStatus;
 
-    public StudentViewModel(){};
+    public StudentViewModel() {
+    }
+
+    ;
 
     public int getId() {
         return id;
@@ -53,6 +53,7 @@ public class StudentViewModel {
     public void setFaculty(String faculty) {
         this.faculty = faculty;
     }
+
     public Integer getFacultyId() {
         return facultyId;
     }

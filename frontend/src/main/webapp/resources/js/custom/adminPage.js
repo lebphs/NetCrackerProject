@@ -473,7 +473,7 @@ $(document).ready(function () {
         var obj = {
             companyName: $(".nameCompany").val(),
             startDate: $(".startDate").val(),
-            finishDate: $(".startDate").val(),
+            finishDate: $(".finishDate").val(),
             specialtyId: $(".availableSpecialtiesAddRequest").find("option:selected").val(),
             minAverageScore: $(".minScore").val(),
             totalQuantity: $(".totalQuantity").val(),
@@ -494,6 +494,9 @@ $(document).ready(function () {
                     $(".jsRequestsTable").bootstrapTable('append', request);
                     $("#addrequest").hide();
                     $(document.getElementsByClassName("modal-backdrop")).remove();
+                },
+                error:function (xhr) {
+                    xhr.status == 500 ? alert("Date are not correct.") : alert('This company already exists');
                 }
             })
         }

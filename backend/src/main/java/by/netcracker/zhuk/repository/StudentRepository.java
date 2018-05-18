@@ -1,14 +1,13 @@
 package by.netcracker.zhuk.repository;
 
 import by.netcracker.zhuk.entities.StudentEntity;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-//@
+
 public interface StudentRepository extends CrudRepository<StudentEntity, Integer> {
     StudentEntity findBySurname(String surname);
 

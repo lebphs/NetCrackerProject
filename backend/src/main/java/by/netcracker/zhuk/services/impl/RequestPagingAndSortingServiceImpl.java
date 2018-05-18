@@ -18,15 +18,14 @@ public class RequestPagingAndSortingServiceImpl implements RequestPagingAndSorti
 
     @Autowired
     RequestPagingAndSortingRepository requestPagingAndSortingRepository;
-    //rest
 
     @Override
     public List<RequestEntity> getPagingAndSortedRequest(String search, String sort, String order, Integer offset, Integer limit) {
         int pageNumber = offset / limit;
-        if(sort.equals("specialty")){
+        if (sort.equals("specialty")) {
             sort = "specialty.name";
         }
-        if(sort.equals("faculty")){
+        if (sort.equals("faculty")) {
             sort = "specialty.faculty.name";
         }
         Sort sort1 = new Sort(Sort.Direction.fromString(order), sort);

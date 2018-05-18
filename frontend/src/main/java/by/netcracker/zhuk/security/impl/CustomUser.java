@@ -7,10 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author anpi0316
- *         Date: 10.04.2018
- */
 public class CustomUser implements UserDetails, CredentialsContainer {
 
     private static final long serialVersionUID = 410L;

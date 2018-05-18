@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Administrator</title>
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
-    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">--%>
-    <%--<script src="http://code.jquery.com/jquery-latest.js"></script>--%>
+
 </head>
 <jsp:include page="/jsp/blocks/js-sources-links.jsp"/>
+<jsp:include page="/jsp/blocks/admin-page-title.jsp"/>
+
 
 <script src="resources/js/custom/adminPage.js"></script>
 <script src="resources/js/libs/bootstrap-typeahead.js"></script>
@@ -20,62 +20,6 @@
 
 <body>
 
-
-<%--<nav class="navbar navbar-dark bg-primary">--%>
-    <%--<input type="checkbox" class="jsStudentPage" name="menu" id="btn-menu">--%>
-    <%--<label for="btn-menu"><span class="navbar-toggler-icon"></span></label>--%>
-    <%--<ul>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<input type="button" class="btn btn-lg btn-primary" value="Show all request"--%>
-                       <%--onClick='location.href="request-page"'/>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary jsPreloadCreateRequestModal" data-toggle="modal"--%>
-                        <%--data-target="#addrequest">Add request--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary jsPreloadCreateStudentModal" data-toggle="modal"--%>
-                        <%--data-target="#createstudent">Create student--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary jsAssingStudentsRequests" data-toggle="modal"--%>
-                        <%--data-target="#assignstudents">Assign students--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary createSpecialty" data-toggle="modal"--%>
-                        <%--data-target="#createspeialty">Create specialty--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary createFaculty" data-toggle="modal"--%>
-                        <%--data-target="#createfaculty">Create faculty--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-
-        <%--<li>--%>
-            <%--<div class="col-md-2">--%>
-                <%--<button type="button" class="btn btn-lg btn-primary exit" onClick='location.href="logout"'>Exit--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</li>--%>
-
-    <%--</ul>--%>
-<%--</nav>--%>
 
 <div class="modal fade" id="addrequest">
     <div class="modal-dialog">

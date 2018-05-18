@@ -41,9 +41,9 @@ public class SpecialtiesController {
     @ResponseBody
     public SpecialtyViewModel saveSpecialty(@RequestBody SpecialtyViewModel specialty) {
         SpecialtyEntity specialtyEntity;
-        if(specialtyService.findByName(specialty.getName()) != null){
-                specialtyEntity = new SpecialtyEntity();
-        }else{
+        if (specialtyService.findByName(specialty.getName()) != null) {
+            specialtyEntity = new SpecialtyEntity();
+        } else {
             specialtyEntity = conversionService.convert(specialty, SpecialtyEntity.class);
             specialtyService.addSpecialty(specialtyEntity);
         }
